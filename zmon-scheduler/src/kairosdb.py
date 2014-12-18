@@ -47,5 +47,5 @@ def write_to_kairosdb(values):
             __logger.error(r.text)
             __logger.error(json.dumps(values))
 
-    except Exception, e:
+    except Exception as e:
         __logger.error('KairosDB write failed {}'.format(e))

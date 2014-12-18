@@ -19,19 +19,6 @@ class EntityAdapter(object):
 
     ENTITY_ID_RE = re.compile(r'[^a-zA-Z0-9\-_:@]')
 
-    ENVIRONMENT_WITHOUT_STRIPPABLE_AFFIXES_PATTERN = re.compile(r'^(.+?)(?:-do)?$')
-    ENVIRONMENT_NORMALIZATIONS = {
-        'release': 'release-staging',
-        'be-staging': 'release-staging',
-        'release.staging': 'release-staging',
-        'patch': 'patch-staging',
-        'fe-staging': 'patch-staging',
-        'patch.staging': 'patch-staging',
-        'perf': 'performance-staging',
-        'performance': 'performance-staging',
-        'performance.staging': 'performance-staging',
-    }
-
     def __init__(self):
         self.entities = []
         self.excluded_properties = frozenset(['id', 'type'])

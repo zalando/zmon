@@ -126,11 +126,10 @@ class TestScheduler(unittest.TestCase):
         self.assertIsNotNone(scheduler)
 
         # Test happy path: generate entities
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'city'}], 1), False))
+        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'city'}], 1), True))
         self.assertTrue(len(entities) > 0)
         for entity in entities:
-            self.assertEqual('zompy', entity['type'])
-            self.assertEqual('integration', entity['environment'])
+            self.assertEqual('city', entity['type'])
 
         # Test check definition containing wrong keys (not present in instance).
         entities = list(scheduler._generate_check_entities(CheckDefinition([{'lang': 'ruby', 'environment': 'space'}],
@@ -384,46 +383,6 @@ class TestScheduler(unittest.TestCase):
         scheduler.app.signature.return_value = task
         scheduler._run_cleanup()
         self.assertFalse(task.apply_async.called, 'Cleanup task shouldn not be scheduled without checks and alerts')
-
-    @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
-    @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
-    @patch.object(requests, 'get', mock_get_request)
-    def test_schedule_trial_runs(self):
-        app = Mock()
-        app.signature = MockSignature()
-        scheduler = ZmonScheduler(os.getpid(), app)
-        scheduler.DEFAULT_TRIAL_RUN_SCHEDULING_INTERVAL = 0
-        pipeline_mock = Mock()
-
-        with patch.object(scheduler.redis_connection, 'pipeline', lambda *args, **kwargs: pipeline_mock):
-            scheduler._schedule_trial_runs(get_trial_run_request())
-            self.assertEqual(app.signature.name, 'trial_run')
-            self.assertEqual(app.signature.args[0]['command'], "float(entity['longitude'])")
-            self.assertEqual(app.signature.args[0]['entity']['city'], 'tokyo')
-            self.assertEqual(app.signature.args[0]['check_id'], 'TR:550e8400-e29b-41d4-a716-446655440000')
-            self.assertEqual(app.signature.args[0]['check_name'], 'Trial Run Test')
-            self.assertTrue(app.signature.args[0]['interval'] > 0)
-            self.assertEqual(app.signature.args[1][0]['id'], 'TR:550e8400-e29b-41d4-a716-446655440000')
-            self.assertEqual(app.signature.args[1][0]['check_id'], 'TR:550e8400-e29b-41d4-a716-446655440000')
-            self.assertEqual(app.signature.args[1][0]['name'], 'Trial Run Test')
-            self.assertEqual(app.signature.args[1][0]['team'], 'TRIAL RUN')
-            self.assertEqual(app.signature.args[1][0]['condition'], '>0')
-            self.assertEqual(app.signature.args[1][0]['notifications'], ())
-            self.assertEqual(app.signature.args[1][0]['entities_map'], [{'type': 'city', 'city': 'tokyo'}])
-            self.assertEqual(app.signature.args[1][0]['responsible_team'], 'TRIAL RUN')
-            self.assertEqual(app.signature.args[1][0]['priority'], 3)
-            self.assertEqual(app.signature.args[1][0]['period'], '')
-            self.assertTrue(app.signature.options['soft_time_limit'] > 0)
-            self.assertTrue(app.signature.options['expires'] > 0)
-            self.assertEquals(app.signature.options['queue'], 'zmon:queue:internal')
-            self.assertEquals(app.signature.options['routing_key'], 'internal')
-            self.assertIn('check-TR:550e8400-e29b-41d4-a716-446655440000-jp-tokyo-', app.signature.task_id)
-            self.assertEqual(pipeline_mock.sadd.call_args_list[0][0][0],
-                             'zmon:trial_run:550e8400-e29b-41d4-a716-446655440000')
-            self.assertEquals((pipeline_mock.sadd.call_args_list[0][0])[1:].count('jp-tokyo'), 1)
-            pipeline_mock.expire.assert_called_once_with('zmon:trial_run:550e8400-e29b-41d4-a716-446655440000', ANY)
-            pipeline_mock.hdel.assert_called_once_with('zmon:trial_run:requests', '550e8400-e29b-41d4-a716-446655440000'
-                                                       )
 
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
