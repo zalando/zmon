@@ -23,24 +23,6 @@ def mock_get_request(url):
     return mock
 
 
-def mock_hosts(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures/hosts.json')) as f:
-        hosts = json.load(f)
-    return [Host(h) for h in hosts if all(h.get(k) == v for (k, v) in kwargs.iteritems())]
-
-
-def mock_instances(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures', 'instances.json')) as f:
-        instances = json.load(f)
-    return [Instance(i) for i in instances]
-
-
-def mock_projects(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures', 'projects.json')) as f:
-        projects = json.load(f)
-    return [Project(p) for p in projects]
-
-
 class TestAdapters(unittest.TestCase):
 
     def test_city(self):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from mock import patch, ANY, Mock
+from mock import patch, Mock
 from web import cherrypy, ZmonScheduler
 
 import json
@@ -285,7 +285,7 @@ class TestScheduler(unittest.TestCase):
     @patch.object(requests, 'get', mock_get_request)
     def test_cleanup(self):
         scheduler = ZmonScheduler(os.getpid(), Mock())
-        scheduler.check_definitions = {1: CheckDefinition([{'type': 'host', 'host': 'http01'}], 1)}
+        scheduler.check_definitions = {1: CheckDefinition([{'type': 'city', 'city': 'Berlin'}], 1)}
         scheduler.alert_definitions = {1: {'id': 23, 'check_id': 1, 'entities_map': []}}
 
         scheduler.check_alert_map = {1: set([1])}
@@ -296,7 +296,7 @@ class TestScheduler(unittest.TestCase):
         # Test generating cleanup args for one host entity, the logic is the same for instances.
         scheduler._run_cleanup()
         self.assertIn(1, scheduler.cleanup['check_entities'], 'Cleanup args should contain active check definition id')
-        self.assertIn('http01', scheduler.cleanup['check_entities'][1],
+        self.assertIn('de-berlin', scheduler.cleanup['check_entities'][1],
                       'Cleanup args should contain entity id for given check definition id')
 
         # Simulate removing entity (e.g. decommissioning a host).
@@ -383,26 +383,6 @@ class TestScheduler(unittest.TestCase):
         scheduler.app.signature.return_value = task
         scheduler._run_cleanup()
         self.assertFalse(task.apply_async.called, 'Cleanup task shouldn not be scheduled without checks and alerts')
-
-    @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
-    @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
-    @patch.object(requests, 'get', mock_get_request)
-    def test_db_cluster_instances(self):
-        scheduler = ZmonScheduler(os.getpid(), Mock())
-
-        self.assertIsNotNone(scheduler.db_clusters.entities, 'Should load initial DB instances')
-        self.assertTrue(all(i['type'] == 'database_cluster_instance' for i in scheduler.db_clusters.entities),
-                        'Should assign correct instance type')
-        self.assertEquals(len(set(i['id'] for i in scheduler.db_clusters.entities)),
-                          len(scheduler.db_clusters.entities), 'Should generate unique ids for db instances')
-        self.assertTrue(all(re.match(r'^[a-zA-Z0-9_\-@]+$', i['id']) for i in scheduler.db_clusters.entities),
-                        'DB instances should have proper ids')
-
-        scheduler.alert_definitions = {1: {'entities_map': [], 'check_id': 1}}
-        scheduler.check_alert_map = {1: set([1])}
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'database_cluster_instance'}], 1),
-                        False))
-        self.assertTrue(len(entities) > 0, 'Should generate entities with type database_cluster_instance')
 
 
 if __name__ == '__main__':

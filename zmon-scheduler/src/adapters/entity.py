@@ -46,23 +46,6 @@ class EntityAdapter(object):
         return EntityAdapter.ENTITY_ID_RE.sub('_', entity_id)
 
     @staticmethod
-    def get_normalized_environment(environment):
-        '''
-        >>> EntityAdapter.get_normalized_environment('perf-do')
-        'performance-staging'
-
-        >>> EntityAdapter.get_normalized_environment('integration')
-        'integration'
-
-        >>> EntityAdapter.get_normalized_environment('release')
-        'release-staging'
-        '''
-
-        environment = EntityAdapter.ENVIRONMENT_WITHOUT_STRIPPABLE_AFFIXES_PATTERN.match(environment).group(1)
-        environment = EntityAdapter.ENVIRONMENT_NORMALIZATIONS.get(environment, environment)
-        return environment
-
-    @staticmethod
     def get_normalized_team_name(team_name):
         '''
         >>> EntityAdapter.get_normalized_team_name('Zalando/Technology/Platform/Software')

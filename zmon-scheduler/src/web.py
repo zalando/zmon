@@ -6,7 +6,7 @@ import datetime
 from adapters import CityAdapter
 from functools import partial
 from itertools import chain
-from emu_celery import parse_redis_conn, Queue
+from emu_celery import Queue
 from redis_context_manager import RedisConnHandler
 from multiprocessing import Process
 from pubsub import Subscriber
@@ -22,7 +22,6 @@ import logging
 import logging.handlers
 import os
 import shutil
-import redis
 import socket
 import sys
 import time
