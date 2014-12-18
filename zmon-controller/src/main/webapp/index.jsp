@@ -90,13 +90,8 @@
                         Initializing status...
                     </span>
                     <span class="app-status">
-                        <a title="ZMON Documentation" target="docs" href="/docs/">
+                        <a title="ZMON Documentation" target="docs" href="http://zmon.readthedocs.org/">
                             <i class="fa fa-question-circle fa-lg"></i>
-                        </a>
-                    </span>
-                    <span class="app-status" ng-show="IndexCtrl.showSupportIcon()">
-                        <a title="ZMON Incident Support Page" target="docs" href="/docs/incident-howto.html">
-                            <i class="fa fa-medkit fa-lg"></i>
                         </a>
                     </span>
                     <security:authorize access="isAnonymous()">
