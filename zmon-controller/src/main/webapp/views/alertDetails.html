@@ -20,7 +20,6 @@
             <a href="#/history?alert_definition_id={{AlertDetailsCtrl.alertDefinition.id}}"><i class="fa fa-clock-o"></i> History</a>
             <a class="clickable" href="/#/trial-run?json={{AlertDetailsCtrl.alertJson}}"><i class="fa fa-play"></i> Trial Run</a>
             <a class="clickable" ng-if="AlertDetailsCtrl.userInfo['instantaneous-alert-evaluation']" ng-click="AlertDetailsCtrl.forceAlertEvaluation()"><i class="fa fa-play"></i> Evaluate</a>
-            <a class="clickable" target="_blank" href="https://techjira.zalando.net/secure/CreateIssueDetails!init.jspa?pid=13441&issuetype=10402&summary={{AlertDetailsCtrl.alertDefinition.name || (AlertDetailsCtrl.parentAlertDefinition.name || '') | encodeUriComponent }}&customfield_15740={{ AlertDetailsCtrl.currentDate | date:'dd/MMM/yy h:mm a' | encodeUriComponent }}&customfield_15741={{ AlertDetailsCtrl.currentDate | date:'dd/MMM/yy h:mm a' | encodeUriComponent }}&customfield_15742={{ AlertDetailsCtrl.userInfo.user | encodeUriComponent }}"><i class="fa fa-bug"></i> Report an Incident</a>
             <comment-dialog class="fake-link comment-dialog-trigger" indicator="true" uid="AlertDetailsCtrl.alertDefinition.id" label="Comments" update="true" data="AlertDetailsCtrl.alertComments" save="AlertDetailsCtrl.saveComment(comment, cb)" delete="AlertDetailsCtrl.deleteComment(id, cb)" load="AlertDetailsCtrl.getComments(id, limit, offset, cb)" show-count="true"></comment-dialog>
         </p>
     </div>

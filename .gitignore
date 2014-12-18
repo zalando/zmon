@@ -1,0 +1,16 @@
+/zmon-controller/nbproject/
+*.pyc
+*.pre-cvfix
+*.un~
+_build
+*.swp
+eventlog.log
+eventlog.layout
+*.bak
+.DS_Store
+*.iml
+.idea/
+atlassian-ide-plugin.xml
+.venv
+.vagrant
+*.tar

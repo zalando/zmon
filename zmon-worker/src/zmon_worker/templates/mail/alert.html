@@ -1,0 +1,31 @@
+<html>
+    <head>
+    </head>
+    <body>
+        {% if is_alert %}
+        {% if changed %}
+        <h2>New alert on {{ entity['id'] }}</h2>
+        {% else %}
+        <h2>Entity {{ entity['id'] }} in alert for {{ (duration|string)[:7] }}</h2>
+        {% endif %}
+        {% else %}
+        <h2>Alert ended on {{ entity['id'] }}</h2>
+        {% endif %}
+        <h2>Worker: {{ worker }}</h2>
+
+        <h3>Current value: {{ value.value }}</h3>
+
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                {% for key, value in alert_def.iteritems() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

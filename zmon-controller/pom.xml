@@ -7,6 +7,7 @@
     <name>ZMON Controller</name>
     <version>1.0.1-SNAPSHOT</version>
     <description>The ZMON Controller is responsible for managing check and alert definitions</description>
+    <url>https://github.com/zalando/zmon.git</url>
     <organization>
         <name>Zalando/Technology/Platform/Software</name>
     </organization>
@@ -377,7 +378,7 @@
         </profile>
     </profiles>
     <scm>
-        <connection>scm:git:http://scm.example.org/scm/platform/zmon2.git</connection>
-        <developerConnection>scm:git:http://scm.example.org/scm/platform/zmon2.git</developerConnection>
+        <connection>scm:git:https://github.com/zalando/zmon.git</connection>
+        <developerConnection>scm:git:https://github.com/zalando/zmon.git</developerConnection>
     </scm>
 </project>

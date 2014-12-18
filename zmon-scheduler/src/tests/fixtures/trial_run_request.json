@@ -1,0 +1,8 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Trial Run Test",
+  "check_command": "float(entity['longitude'])",
+  "alert_condition": ">0",
+  "entities": [{"type": "city", "city": "tokyo"}],
+  "created_by": "test"
+}

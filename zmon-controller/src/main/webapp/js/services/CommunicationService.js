@@ -93,7 +93,6 @@ angular.module('zmon2App').factory('CommunicationService', ['$http', '$q', '$log
 
         service.getKairosResults = function(options) {
             return doHttpCall("POST", "rest/kairosDBPost", options, null, null);
-            // return doHttpCall("POST", "https://zmon2-beta.zalando.net:33410/rest/kairosDBPost", options, null, null);
         };
 
         service.getAlertDefinitions = function(team) {

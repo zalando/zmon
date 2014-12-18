@@ -1,0 +1,34 @@
+{% if is_alert %}
+{% if changed %}
+New alert on {{ entity['id'] }}: {{ expanded_alert_name }}
+{% else %}
+Entity {{ entity['id'] }} in alert for {{ (duration|string)[:7] }}
+{% endif %}
+{% else %}
+Alert ended on {{ entity['id'] }}: {{ expanded_alert_name }}
+{% endif %}
+
+Current value: {{ value.value }}
+
+Worker: {{ worker }}
+
+{% if captures: %}
+Captures:
+{% for key, value in captures.items() %}
+{{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
+
+Alert Definition
+Name (ID):     {{ alert_def.name }} (ID: {{ alert_def.id }})
+Priority:      {{ alert_def.priority }}
+Check ID:      {{ alert_def.check_id }}
+Condition      {{ alert_def.condition }}
+Team:          {{ alert_def.team }}
+Resp. Team:    {{ alert_def.responsible_team }}
+Notifications: {{ alert_def.notifications }}
+
+Entity
+{% for key, value in entity.items()|sort %}
+{{ key }}: {{ value }}
+{% endfor %}

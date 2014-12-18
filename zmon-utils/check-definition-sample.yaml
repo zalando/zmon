@@ -1,0 +1,15 @@
+---
+name: My Check
+description: My Check Description
+technical_details: Technical Details # optional field
+potential_analysis: Potential analysis # optional field
+potential_impact: Potential impact # optional field
+potential_solution: Potential solution # optional field
+entities:
+    - type: zomcat
+      host: myhost
+    - type: host
+interval: 10
+command: snmp().df()
+status: ACTIVE
+...

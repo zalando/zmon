@@ -1,0 +1,56 @@
+{
+    "cleanup": 2,
+    "1": {
+        "last_run": 3
+    },
+    "2": {
+        "last_run": 4,
+        "downtimes": {
+            "1": {
+                "start": 3,
+                "end": 5,
+                "active": false
+            }
+        }
+    },
+    "3": {
+        "last_run": 5,
+        "downtimes": {
+            "2": {
+                "start": 6,
+                "end": 7,
+                "active": true
+            }
+        }
+    },
+    "4": {
+        "last_run": 6,
+        "downtimes": {
+            "3": {
+                "start": 2,
+                "end": 5,
+                "active": true
+            },
+            "4": {
+                "start": 4,
+                "end": 10,
+                "active": false
+            }
+        }
+    },
+    "5": {
+        "last_run": 7,
+        "downtimes": {
+            "5": {
+                "start": 3,
+                "end": 5,
+                "active": true
+            },
+            "6": {
+                "start": 6,
+                "end": 9,
+                "active": false
+            }
+        }
+    }
+}
