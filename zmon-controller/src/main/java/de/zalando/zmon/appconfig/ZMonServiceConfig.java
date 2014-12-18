@@ -5,11 +5,6 @@ package de.zalando.zmon.appconfig;
  */
 public interface ZMonServiceConfig {
 
-    public boolean isReadFromCassandraEnabled();
-
     public boolean writeToKairosDB();
 
-    public boolean writeToCassandra();
-
-    public boolean writeHistoryToCassandra();
 }

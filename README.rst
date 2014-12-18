@@ -26,4 +26,4 @@ Issues with the Vagrant box:
 
 * every LDAP user has admin role (because I could not get the OpenLDAP "memberOf" overlay to work)
 
-
+The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".

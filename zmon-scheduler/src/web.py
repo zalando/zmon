@@ -1201,6 +1201,11 @@ def main():
 
     cherrypy.config.update('/app/web.conf')
 
+    for key in cherrypy.config.keys():
+        env_key = key.upper().replace('.', '_')
+        if env_key in os.environ:
+            cherrypy.config[key] = os.environ[env_key]
+
     #configuring redis connection handler
     RedisConnHandler.configure(**dict(cherrypy.config))
 

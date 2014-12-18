@@ -62,7 +62,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;
 
 // TODO diffs should never return null collections. They should be empty instead
-@Service("alert-service-redis")
+@Service
 public class AlertServiceImpl implements AlertService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AlertServiceImpl.class);

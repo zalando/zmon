@@ -11,23 +11,9 @@ import org.springframework.stereotype.Service;
 public class ZMonServiceConfigImpl implements ZMonServiceConfig {
 
     @Override
-    public boolean isReadFromCassandraEnabled() {
-        return false;
-    }
-
-    @Override
     public boolean writeToKairosDB() {
         return false;
     }
 
-    @Override
-    public boolean writeToCassandra() {
-        return false;
-    }
-
-    @Override
-    public boolean writeHistoryToCassandra() {
-        return false;
-    }
     
 }

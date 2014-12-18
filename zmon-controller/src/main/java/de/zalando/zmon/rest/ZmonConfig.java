@@ -36,8 +36,6 @@ public class ZmonConfig {
         ObjectNode n = mapper.createObjectNode();
 
         n.put("writeToKairosDB", serviceConfig.writeToKairosDB());
-        n.put("writeHistoryToCassandra", serviceConfig.writeHistoryToCassandra());
-        n.put("writeToCassandra", serviceConfig.writeToCassandra());
 
         return n;
     }

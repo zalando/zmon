@@ -35,6 +35,11 @@ if __name__ == '__main__':
     # load cherrypy configuration
     cherrypy.config.update('/app/web.conf')
 
+    for key in cherrypy.config.keys():
+        env_key = key.upper().replace('.', '_')
+        if env_key in os.environ:
+            cherrypy.config[key] = os.environ[env_key]
+
     # TODO This is ugly. Cherrypy has to be configured and started in the same process and we have to pass the same
     # config to the worker, so we have to read it twice. Putting celery in a separate process and passing the config
     # doesn't work because then we cannot kill all python processes at once (killing the main process doesn't kill all

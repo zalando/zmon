@@ -64,7 +64,7 @@ import redis.clients.jedis.Response;
 // TODO move security validation logic to service. Move has*Permission from authority to other service and build a
 // compositePermissionManager
 
-@Service("zmon-redis-service")
+@Service
 public class ZMonServiceImpl implements ZMonService {
 
     private static final EventLogger EVENT_LOG = EventLogger.getLogger(ZMonServiceImpl.class);

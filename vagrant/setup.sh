@@ -78,6 +78,30 @@ until nc -w 5 -z localhost 6379; do
     sleep 3
 done
 
+ip=$(ip -o -4 a show eth0|awk '{print $4}' | cut -d/ -f 1)
+
+container=$(docker ps | grep cassandra)
+if [ -z "$container" ]; then
+    docker rm cassandra
+    docker run --name cassandra --net host -d abh1nav/cassandra:latest
+fi
+
+until nc -w 5 -z $ip 9160; do
+    echo 'Waiting for Cassandra port..'
+    sleep 3
+done
+
+container=$(docker ps | grep kairosdb)
+if [ -z "$container" ]; then
+    docker rm kairosdb
+    docker run --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" wangdrew/kairosdb
+fi
+
+until nc -w 5 -z localhost 8083; do
+    echo 'Waiting for KairosDB port..'
+    sleep 3
+done
+
 for comp in controller scheduler worker; do
     docker load < /vagrant/zmon-$comp/zmon-${comp}.tar
     docker rm zmon-$comp
