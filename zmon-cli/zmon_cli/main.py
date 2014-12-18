@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 import zmon_cli
 
-from zmon_cli.console import action, ok, error,highlight
+from zmon_cli.console import action, ok, error, highlight
 
 import click
 import logging
@@ -16,6 +16,7 @@ from redis import StrictRedis
 DEFAULT_CONFIG_FILE = '~/.zmon-cli.yaml'
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
 
 def print_version(ctx, param, value):
     if not value or ctx.resilient_parsing:
@@ -62,7 +63,7 @@ def check_redis_host(host, port=6379):
 
 
 def check_queues(redis):
-    queues = ['zmon:queue:default','zmon:queue:snmp','zmon:queue:internal','zmon:queue:secure']
+    queues = ['zmon:queue:default', 'zmon:queue:snmp', 'zmon:queue:internal', 'zmon:queue:secure']
 
     for q in queues:
         action('Checking queue length ... {} ...'.format(q))
@@ -81,7 +82,7 @@ def check_schedulers(r, schedulers):
         action('Check scheduler {} .....'.format(s[2:]))
         try:
             ts = r.get("zmon:metrics:{}:ts".format(s))
-            if ts == None:
+            if ts is None:
                 error("No scheduling loop registered ( running/stuck? )")
                 continue
 
@@ -91,11 +92,11 @@ def check_schedulers(r, schedulers):
             action("s ago ...")
             if delta > 300:
                 error("Last loop more than 300s ago (stuck? restart?)".format(delta))
-                continue;
+                continue
 
             if delta > 180:
                 error("Last loop more than 180s ago (stuck? check logs/watch)".format(delta))
-                continue;
+                continue
 
             action("...")
             ok()
@@ -146,6 +147,7 @@ def get(url):
 
     return None
 
+
 def put(url):
     data = get_config_data()
     try:
@@ -154,6 +156,7 @@ def put(url):
         logging.error(e)
 
     return None
+
 
 def delete(url):
     data = get_config_data()
@@ -164,10 +167,12 @@ def delete(url):
 
     return None
 
+
 @cli.group()
 @click.pass_context
 def members(ctx):
     pass
+
 
 @cli.group(invoke_without_command=True)
 @click.pass_context
@@ -185,6 +190,7 @@ def groups(ctx):
                 m = get("/groups/member/{}/".format(m)).json()
                 print("\t\t{} {} {}".format(m["name"], m["email"], m["phones"]))
 
+
 @groups.command("switch")
 @click.argument("group_name")
 @click.argument("user_name")
@@ -198,6 +204,7 @@ def switch_active(ctx, group_name, user_name):
     else:
         error("failed to switch")
 
+
 @members.command("add")
 @click.argument("group_name")
 @click.argument("user_name")
@@ -209,6 +216,7 @@ def group_add(ctx, group_name, user_name):
         ok()
     else:
         error("failed to insert")
+
 
 @members.command("remove")
 @click.argument("group_name")
@@ -222,6 +230,7 @@ def group_remove(ctx, group_name, user_name):
     else:
         error("failed to remove")
 
+
 @members.command("add-phone")
 @click.argument("member_email")
 @click.argument("phone_nr")
@@ -233,6 +242,7 @@ def add_phone(ctx, member_email, phone_nr):
         ok()
     else:
         error("failed to set phone")
+
 
 @members.command("remove-phone")
 @click.argument("member_email")
@@ -246,6 +256,7 @@ def remove_phone(ctx, member_email, phone_nr):
     else:
         error("failed to remove phone")
 
+
 @members.command("change-name")
 @click.argument("member_email")
 @click.argument("member_name")
@@ -254,6 +265,7 @@ def set_name(ctx, member_email, member_name):
     action("Chaning user name ....")
     r = put("/groups/{}/name/{}/".format(member_email, member_name))
     ok()
+
 
 @cli.command()
 @click.pass_obj
