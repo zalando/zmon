@@ -1,0 +1,9 @@
+---
+name: ZMON Stale Active Alerts
+description: Check for active alerts that were not executed recently
+entities:
+    - type: GLOBAL
+interval: 300
+command: "zmon().stale_active_alerts()"
+status: ACTIVE
+owning_team: Example Team

@@ -1,0 +1,3 @@
+include *.txt
+include *.rst
+recursive-include zmon_cli *.py

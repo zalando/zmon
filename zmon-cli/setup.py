@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    Setup file for zmon_cli.
+Setup file for ZMON CLI
 """
 
 import os
@@ -24,6 +24,22 @@ NAME = 'zmon-cli'
 MAIN_PACKAGE = 'zmon_cli'
 VERSION = read_version(MAIN_PACKAGE)
 DESCRIPTION = 'ZMON CLI'
+LICENSE = 'Apache License 2.0'
+URL = 'https://github.com/zalando/zmon'
+AUTHOR = 'Henning Jacobs'
+EMAIL = 'henning.jacobs@zalando.de'
+
+# Add here all kinds of additional classifiers as defined under
+# https://pypi.python.org/pypi?%3Aaction=list_classifiers
+CLASSIFIERS = [
+    'Development Status :: 4 - Beta',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Operating System :: POSIX :: Linux',
+    'License :: OSI Approved :: Apache Software License'
+]
+
 CONSOLE_SCRIPTS = ['zmon = zmon_cli.main:main']
 
 
@@ -42,7 +58,12 @@ def setup_package():
         name=NAME,
         version=VERSION,
         description=DESCRIPTION,
+        author=AUTHOR,
+        author_email=EMAIL,
+        url=URL,
+        license=LICENSE,
         keywords='zmon command line interface',
+        classifiers=CLASSIFIERS,
         test_suite='tests',
         packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
         install_requires=get_install_requirements('requirements.txt'),

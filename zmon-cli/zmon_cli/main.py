@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+import json
 import zmon_cli
 
 from zmon_cli.console import action, ok, error, highlight
@@ -48,6 +49,7 @@ def cli(ctx, config_file, verbose):
     if os.path.exists(fn):
         with open(fn) as fd:
             data = yaml.safe_load(fd)
+    ctx.obj = data
 
 
 def check_redis_host(host, port=6379):
@@ -110,14 +112,14 @@ def check_workers(r, workers):
         try:
             ts = r.get("zmon:metrics:{}:ts".format(w))
             delta = time.time() - float(ts)
-            delta = max(int(delta),0)
+            delta = max(int(delta), 0)
 
             action("... last exec")
             highlight("{}".format(delta))
             action("s ago ...")
             if delta < 30:
                 ok()
-                continue;
+                continue
 
             error("no task execute recently")
 
@@ -132,7 +134,7 @@ def get_config_data():
         with open(fn) as fd:
             data = yaml.safe_load(fd)
 
-            if not "user" in data or not "password" in data:
+            if "user" not in data or "password" not in data:
                 raise Exception("Config file not found/properly configured: ~/.zmon-cli.yaml with user: and password:")
 
         return data
@@ -171,16 +173,40 @@ def delete(url):
 @cli.group()
 @click.pass_context
 def members(ctx):
+    """manage group membership"""
     pass
+
+
+@cli.group('check-definitions')
+@click.pass_context
+def check_definitions(ctx):
+    """manage check definitions"""
+    pass
+
+
+@check_definitions.command()
+@click.argument('yaml_file', type=click.File('rb'))
+def update(yaml_file):
+    """update a single check definition"""
+    data = get_config_data()
+    post = yaml.safe_load(yaml_file)
+    post['last_modified_by'] = data['user']
+    if 'status' not in post:
+        post['status'] = 'ACTIVE'
+    action('Updating check definition..')
+    r = requests.post(data['url'] + '/check-definitions', json.dumps(post),
+                      auth=HTTPBasicAuth(data['user'], data['password']), headers={'Content-Type': 'application/json'})
+    print(r.text)
 
 
 @cli.group(invoke_without_command=True)
 @click.pass_context
 def groups(ctx):
+    """manage contact groups"""
     if not ctx.invoked_subcommand:
         r = get("/groups/")
         for t in r.json():
-            print("Name: {} Id: {}".format(t["name"],t["id"]))
+            print("Name: {} Id: {}".format(t["name"], t["id"]))
             print("\tMembers:")
             for m in t["members"]:
                 m = get("/groups/member/{}/".format(m)).json()
@@ -212,7 +238,7 @@ def switch_active(ctx, group_name, user_name):
 def group_add(ctx, group_name, user_name):
     action("Adding user ....")
     r = put("/groups/{}/member/{}/".format(group_name, user_name))
-    if r.text=='1':
+    if r.text == '1':
         ok()
     else:
         error("failed to insert")
@@ -225,7 +251,7 @@ def group_add(ctx, group_name, user_name):
 def group_remove(ctx, group_name, user_name):
     action("Removing user ....")
     r = delete("/groups/{}/member/{}/".format(group_name, user_name))
-    if r.text=='1':
+    if r.text == '1':
         ok()
     else:
         error("failed to remove")
@@ -238,7 +264,7 @@ def group_remove(ctx, group_name, user_name):
 def add_phone(ctx, member_email, phone_nr):
     action("Adding phone ....")
     r = put("/groups/{}/phone/{}/".format(member_email, phone_nr))
-    if r.text=='1':
+    if r.text == '1':
         ok()
     else:
         error("failed to set phone")
@@ -251,7 +277,7 @@ def add_phone(ctx, member_email, phone_nr):
 def remove_phone(ctx, member_email, phone_nr):
     action("Removing phone number ....")
     r = delete("/groups/{}/phone/{}/".format(member_email, phone_nr))
-    if r.text=='1':
+    if r.text == '1':
         ok()
     else:
         error("failed to remove phone")
@@ -270,6 +296,7 @@ def set_name(ctx, member_email, member_name):
 @cli.command()
 @click.pass_obj
 def status(ctx):
+    """check system status"""
     redis, workers = check_redis_host('monitor03', 6379)
 
     print("")

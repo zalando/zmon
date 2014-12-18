@@ -78,8 +78,8 @@
 
     <!-- rest api -->
     <security:http use-expressions="true" entry-point-ref="entryPoint" pattern="/rest/api/**" create-session="stateless">
-        <security:intercept-url pattern="/**" method="GET" access="hasAnyRole('ZMON_API_READER','ZMON_API_WRITER')"/>
-        <security:intercept-url pattern="/**" access="hasRole('ZMON_API_WRITER')"/>
+        <security:intercept-url pattern="/**" method="GET" access="hasAnyRole('ZMON_API_READER','ZMON_API_WRITER', 'ZMON_ADMIN')"/>
+        <security:intercept-url pattern="/**" access="hasAnyRole('ZMON_API_WRITER', 'ZMON_ADMIN')"/>
         <security:access-denied-handler ref="jsonAccessDeniedHandler"/>
         <security:http-basic entry-point-ref="entryPoint"/>
     </security:http>

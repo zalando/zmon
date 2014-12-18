@@ -73,6 +73,7 @@
                 <version>2.2.2</version>
             </dependency>
             <dependency>
+                <!-- get from https://github.com/kairosdb/kairosdb-client -->
                 <groupId>org.kairos</groupId>
                 <artifactId>client</artifactId>
                 <version>1.0</version>
