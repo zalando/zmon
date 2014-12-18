@@ -38,7 +38,6 @@ import de.zalando.zmon.service.AlertService;
 public class AlertController extends AbstractZMonController {
 
     @Autowired
-    @Qualifier("alert-service-switch")
     private AlertService service;
 
     @Autowired

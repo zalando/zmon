@@ -67,7 +67,6 @@ public class ZMonRestService extends AbstractZMonController {
     private static final Logger LOG = LoggerFactory.getLogger(ZMonRestService.class);
 
     @Autowired
-    @Qualifier("zmon-service-switch")
     private ZMonService service;
 
     @Autowired

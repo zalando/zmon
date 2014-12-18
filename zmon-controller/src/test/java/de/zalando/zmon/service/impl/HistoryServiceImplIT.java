@@ -36,11 +36,9 @@ public class HistoryServiceImplIT {
     private HistoryServiceImpl historyService;
 
     @Autowired
-    @Qualifier("alert-service-redis")
     private AlertServiceImpl alertService;
 
     @Autowired
-    @Qualifier("zmon-redis-service")
     private ZMonServiceImpl service;
 
     private DataGenerator<CheckDefinitionImport> checkImportGenerator;

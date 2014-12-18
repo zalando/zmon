@@ -29,11 +29,9 @@ public class ZMonWebServiceImpl implements ZMonWebService {
     public static final String BEAN_NAME = "zMonWebService";
 
     @Autowired
-    @Qualifier("zmon-service-switch")
     private ZMonService zMonService;
 
     @Autowired
-    @Qualifier("alert-service-switch")
     private AlertService alertService;
 
     @Autowired

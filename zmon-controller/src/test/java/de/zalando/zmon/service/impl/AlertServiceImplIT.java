@@ -48,11 +48,9 @@ import de.zalando.zmon.generator.DataGenerator;
 public class AlertServiceImplIT {
 
     @Autowired
-    @Qualifier("zmon-redis-service")
     private ZMonServiceImpl service;
 
     @Autowired
-    @Qualifier("alert-service-redis")
     private AlertServiceImpl alertService;
 
     private DataGenerator<CheckDefinitionImport> checkImportGenerator;

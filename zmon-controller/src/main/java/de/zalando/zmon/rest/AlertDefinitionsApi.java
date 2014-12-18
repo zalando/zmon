@@ -43,7 +43,7 @@ public class AlertDefinitionsApi extends AbstractZMonController {
     private final ZMonAuthorityService authorityService;
 
     @Autowired
-    public AlertDefinitionsApi(@Qualifier("alert-service-switch") final AlertService alertService, final ZMonAuthorityService authorityService) {
+    public AlertDefinitionsApi(final AlertService alertService, final ZMonAuthorityService authorityService) {
         this.service = Preconditions.checkNotNull(alertService, "alertService is null");
         this.authorityService = Preconditions.checkNotNull(authorityService, "authorityService is null");
     }
