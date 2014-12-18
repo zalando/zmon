@@ -63,38 +63,6 @@
             </plugin>
         </plugins>
     </build>
-    <!-- versions not defined in parent -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Common libraries -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.2.2</version>
-            </dependency>
-            <dependency>
-                <!-- get from https://github.com/kairosdb/kairosdb-client -->
-                <groupId>org.kairos</groupId>
-                <artifactId>client</artifactId>
-                <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>1.4.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>fluent-hc</artifactId>
-                <version>4.2.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.3.2</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <dependencies>
         <!-- Frontend -->
         <dependency>
@@ -180,6 +148,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
@@ -187,12 +156,14 @@
             <version>2.1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.kairos</groupId>
+            <groupId>org.kairosdb</groupId>
             <artifactId>client</artifactId>
+            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -202,6 +173,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
+            <version>1.4.5</version>
         </dependency>
         <dependency>
             <groupId>net.sf.opencsv</groupId>
@@ -211,6 +183,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
+            <version>4.2.5</version>
         </dependency>
         <!-- Testing -->
         <dependency>

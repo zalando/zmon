@@ -19,8 +19,6 @@ import org.apache.http.entity.ContentType;
 import org.kairosdb.client.HttpClient;
 import org.kairosdb.client.builder.AggregatorFactory;
 import org.kairosdb.client.builder.DataPoint;
-import org.kairosdb.client.builder.DoubleDataPoint;
-import org.kairosdb.client.builder.LongDataPoint;
 import org.kairosdb.client.builder.QueryBuilder;
 import org.kairosdb.client.builder.QueryMetric;
 import org.kairosdb.client.builder.TimeUnit;
@@ -28,14 +26,12 @@ import org.kairosdb.client.builder.grouper.TagGrouper;
 import org.kairosdb.client.response.Queries;
 import org.kairosdb.client.response.QueryResponse;
 import org.kairosdb.client.response.Results;
-import org.kairosdb.client.response.grouping.TagGroupResults;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -60,6 +56,8 @@ import de.zalando.zmon.domain.CheckHistoryResult;
 import de.zalando.zmon.domain.CheckResults;
 import de.zalando.zmon.domain.ExecutionStatus;
 import de.zalando.zmon.service.ZMonService;
+import org.kairosdb.client.builder.DataFormatException;
+import org.kairosdb.client.response.grouping.TagGroupResult;
 
 @Controller
 public class ZMonRestService extends AbstractZMonController {
@@ -162,7 +160,7 @@ public class ZMonRestService extends AbstractZMonController {
         IOException {
 
         if ( !kairosDBConfig.isEnabled() ) {
-            return new ResponseEntity<CheckHistoryResult>(new CheckHistoryResult(),HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<>(new CheckHistoryResult(),HttpStatus.METHOD_NOT_ALLOWED);
         }
 
         final QueryBuilder builder = QueryBuilder.getInstance();
@@ -197,7 +195,7 @@ public class ZMonRestService extends AbstractZMonController {
             metric.addAggregator(AggregatorFactory.createAverageAggregator(aggregate, TimeUnit.MINUTES));
         }
 
-        final HttpClient client = new HttpClient(kairosDBConfig.getHost(), kairosDBConfig.getPort());
+        final HttpClient client = new HttpClient("http://" + kairosDBConfig.getHost() + ":" + kairosDBConfig.getPort());
         try {
             final Long queryStart = System.currentTimeMillis();
             final QueryResponse response = client.query(builder);
@@ -222,7 +220,7 @@ public class ZMonRestService extends AbstractZMonController {
                         continue;
                     }
 
-                    final TagGroupResults tagGroup = (TagGroupResults) rs.getGroupResults().get(0);
+                    final TagGroupResult tagGroup = (TagGroupResult) rs.getGroupResults().get(0);
                     groupResult.key = tagGroup.getGroup().get("key");
 
                     r.groupResults.add(groupResult);
@@ -230,14 +228,16 @@ public class ZMonRestService extends AbstractZMonController {
                     for (final DataPoint dp : rs.getDataPoints()) {
                         final List<JsonNode> l = new ArrayList<>();
 
-                        if (dp.isInteger()) {
-                            final LongDataPoint p = (LongDataPoint) dp;
-                            l.add(new LongNode(p.getTimestamp()));
-                            l.add(new LongNode(p.getValue()));
-                        } else {
-                            final DoubleDataPoint p = (DoubleDataPoint) dp;
-                            l.add(new LongNode(p.getTimestamp()));
-                            l.add(new DoubleNode(p.getValue()));
+                        try {
+                            if (dp.isIntegerValue()) {
+                                l.add(new LongNode(dp.getTimestamp()));
+                                l.add(new LongNode(dp.longValue()));
+                            } else {
+                                l.add(new LongNode(dp.getTimestamp()));
+                                l.add(new DoubleNode(dp.doubleValue()));
+                            }
+                        } catch (DataFormatException dfe) {
+                            
                         }
 
                         groupResult.values.add(l);
