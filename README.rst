@@ -20,7 +20,7 @@ Start Vagrant demo cluster
 ==========================
 
 You need to run ``build.sh`` first.
-Install a recent Vagrant version and simply do:
+Install a recent Vagrant_ version and simply do:
 
 .. code-block:: bash
 
@@ -42,3 +42,19 @@ Install the command line interface
 .. code-block:: bash
 
     $ sudo pip3 install --upgrade zmon-cli
+
+ToDos
+=====
+
+This project is in catastrophic shape and has many to-dos:
+
+* fix unit tests and setup CI (e.g. Travis)
+* implement pluggable entity adapters and check functions
+* find solution to replace EventLog Service
+* remove CherryPy dependency from zmon-scheduler and zmon-worker (use YAML config file instead)
+* fix all hardcoded configurations
+* remove unnecessary files (e.g. unused JS libs)
+* fix code formatting (flake8 for Python, jshint for JS, ..)
+* add documentation (architecture, operations manual, etc)
+
+.. _Vagrant: https://www.vagrantup.com/
