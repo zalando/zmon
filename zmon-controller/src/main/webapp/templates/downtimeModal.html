@@ -1,0 +1,93 @@
+<div class="modal-body" id="set-downtimes-modal" >
+    <h4>Schedule {{downtimeEntities.length}} downtime{{downtimeEntities.length>1 ? 's' : ''}}</h4>
+    <form name="setDowntimeForm" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <tabset>
+                    <tab heading="Duration" ng-click="setDurationTabActive(true)">
+                        <div>
+                            <p style="margin-top: 20px">Downtime ends at <em>{{calcDowntimeEndtime() | date:'HH:mm'}}</em></p>
+                            <i class="fa fa-clock-o"> </i>
+                            <div ng-model="models.downtimeDuration" class="downtime-section">
+                                <timepicker hour-step="1" minute-step="15" show-meridian="false"></timepicker>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="downtime-section mandatory">
+                                <textarea class="form-control downtime-reason" ng-model="models.downtimeComment" placeholder="Downtime reason" rows="5" cols="60" required></textarea>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Schedule" ng-click="setDurationTabActive(false)">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table>
+                                    <tr>
+                                        <td class="invisible"> <!-- placed in table to giv it same dimensions as the timepicker so the align vertically -->
+                                            <a class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="input-group">
+                                                Start:&nbsp;
+                                                <span class="input-group-btn" style="vertical-align: middle">
+                                                    <button class="btn btn-default" ng-click="openDatepicker($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                                <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" is-open="models.startDatepickerOpened" ng-model="models.downStartDate" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <div ng-model="models.downStartTime" style="display:inline-block; width: 190px">
+                                    <timepicker hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table>
+                                    <tr>
+                                        <td class="invisible"> <!-- placed in table to giv it same dimensions as the timepicker so the align vertically -->
+                                            <a class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="input-group">
+                                                End:&nbsp;
+                                                <span class="input-group-btn" style="vertical-align: middle">
+                                                <button class="btn btn-default" ng-click="openDatepicker($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                                <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" is-open="models.endDatepickerOpened" ng-model="models.downEndDate" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <div ng-model="models.downEndTime" style="display:inline-block; width: 190px">
+                                    <timepicker hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="downtime-section mandatory">
+                                <textarea class="form-control downtime-reason" ng-model="models.downtimeComment" placeholder="Downtime reason" rows="5" cols="60" required></textarea>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div> <!-- end of left side with forms -->
+            <div class="col-md-4 downtime-modal-entity-list">
+                <button class="btn btn-primary downtime-modal-entity" ng-repeat="entity in downtimeEntities">{{entity}} <i ng-click="removeEntity(entity)" class="fa fa-minus-square"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary set-downtimes-ok-button" ng-disabled="setDowntimeForm.$invalid" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

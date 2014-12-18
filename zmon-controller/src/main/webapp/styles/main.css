@@ -1,0 +1,934 @@
+body
+{
+    position: relative;
+}
+
+.navbar-brand
+{
+    color: #FFFFFF !important;
+    padding: 10px 15px 0 15px;
+}
+
+.navbar .navbar-text
+{
+    margin-bottom: 0;
+}
+
+.navbar a:hover
+{
+    color: #f08533 !important;
+}
+
+.navbar-inverse .navbar-nav > li > a
+{
+    height: 100%;
+}
+
+.navbar-header
+{
+    width: 100%;
+}
+
+@media (max-width: 990px)
+{
+    .navbar-text
+    {
+        float: left !important;
+    }
+}
+
+@media (max-width: 767px)
+{
+    .navbar-collapse
+    {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 667px)
+{
+    .navbar-text
+    {
+        float: right !important;
+    }
+
+    .auth
+    {
+        margin-right: 15px
+    }
+}
+
+@media (max-width: 625px)
+{
+    .navbar-text
+    {
+        width: 100%;
+    }
+
+    .auth
+    {
+        margin-right: 20px;
+        float: right;
+    }
+}
+
+@media (max-width: 418px)
+{
+    .auth
+    {
+        float: left;
+    }
+}
+
+.app-status a
+{
+    color: #7f7f7f;
+}
+
+
+
+#main
+{
+    margin: 15px 15px 0 15px;
+}
+
+
+nav .ok
+{
+    color: #78B924;
+}
+
+nav .warning
+{
+    color: #EF5157;
+}
+
+.zmon-controls
+{
+    margin: 15px 0;
+}
+
+.active-page
+{
+    background: #000;
+    color: #fff;
+}
+
+.priority-3, .priority-3 .fa
+{
+    color: #ebb129 !important;
+}
+
+.priority-2, .priority-2 .fa
+{
+    color: #e77a1d !important;
+}
+
+.priority-1, .priority-1 .fa
+{
+    color: #dd3010 !important;
+}
+
+div.popover
+{
+    max-width: 420px;
+}
+
+.entities b
+{
+    color: #008CF1;
+    padding: 0 4px;
+    font-weight: bold;
+}
+
+.entities i
+{
+    color: #78B924;
+    padding: 0 8px;
+    font-style: normal;
+    font-weight: bold;
+    display: block;
+}
+
+.highlight
+{
+    background-color: #00FF7F;
+}
+
+.status-active
+{
+    color: #78B924;
+    padding-left: 5px;
+}
+
+.status-inactive
+{
+    color: #ebb129;
+    padding-left: 5px;
+}
+
+.status-rejected
+{
+    color: #ef5157;
+    padding-left: 5px;
+}
+
+.status-deleted
+{
+    color: #ff0000;
+    padding-left: 5px;
+}
+
+.panel .left
+{
+    float: left;
+}
+
+.no-padding
+{
+    padding: 0 !important;
+}
+
+.no-margin
+{
+    margin: 0 !important;
+}
+
+.panel-body .dl-horizontal
+{
+    margin: 0;
+}
+
+.panel-collapsed .panel-body
+{
+    display: none;
+}
+
+.panel-toggle
+{
+    cursor: pointer;
+}
+
+.panel-toggle:hover
+{
+    text-decoration: underline;
+}
+
+.gauge-wrapper
+{
+    height: 190px;
+}
+
+.table
+{
+    word-wrap: break-word;
+}
+
+/*  For check/alert defs tables;
+    we only need to set the widths of the headers; rest of table will follow due to table-layout: fixed
+    To be used with ".ellipsis" class in a table cell =>
+        1) add .zmon-data-table to the table's class to .zmon-data-table
+        2) add corresponding class (.actions-col, .name-col etc.) to all <th> (except for the column that will have the .ellipsis); this sets their width to %
+        3) set the .ellipsis class to the <td> cells that will host the ellipsis'ed text
+*/
+.clickable
+{
+    cursor: pointer;
+}
+
+#message-manager-wrapper
+{
+    color: rgb(255, 255, 255);
+    display: none;
+    font-size: 130%;
+    margin: auto;
+    padding-top: 10px;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+#message-manager-wrapper.success
+{
+    background-color: rgb(39, 174, 96);
+}
+
+#message-manager-wrapper.warning
+{
+    background-color: rgb(230, 126, 34);
+}
+
+#message-manager-wrapper.error
+{
+    background-color: rgb(240, 40, 40);
+}
+
+#message-manager-wrapper .title
+{
+    display: inline-block;
+    font-weight: bolder;
+    margin-right: 20px;
+}
+
+.semi-transparent
+{
+    opacity: 0.5;
+}
+
+pre.z-code
+{
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #ce5909;
+    background-color: #ffebd5;
+    white-space: nowrap;
+    border-radius: 1px;
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.invisible
+{
+    visibility: hidden;
+}
+
+.app-status
+{
+    display: inline-block;
+    float: left;
+    padding-right: 20px;
+}
+
+.app-last-update
+{
+    padding-left: 20px;
+}
+
+.app-last-update.warning
+{
+    color: 'red';
+    font-weight: bold;
+}
+
+.markdown-preview
+{
+    font-size: 80%;
+    color: gray;
+    cursor: pointer;
+}
+
+.dropdown-menu
+{
+    cursor: pointer
+}
+
+.dropdown-menu li:hover
+{
+    color: #f08532;
+}
+
+.dropdown-menu > li > a:hover
+{
+    color: white !important;
+}
+
+.dropdown-toggle
+{
+    cursor: pointer
+}
+
+/* NETWORK OVERVIEW */
+/* -------------------------------------------------------------------------- */
+
+/* Override bootstrap with new column value */
+
+
+
+
+/* BOX DIRECTIVE */
+/* -------------------------------------------------------------------------- */
+
+.box
+{
+    position: absolute;
+    top: 0;
+    max-width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+/* Work around because ui-bootstrap's templates use glyphicon font and we use fontawesome
+ * It copies the styles of ".fa", ".fa-angle-up" and ".fa-angle-down" in place of ".glyphicon", ".glyphicon-chevron-up"
+ * and ".glyphicon-chevron-down"
+ */
+
+#star
+{
+    color: #FFCC33;
+}
+
+.glyphicon
+{
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 130%;
+}
+
+.glyphicon-chevron-up:before
+{
+    content: "\f106";
+}
+
+.glyphicon-chevron-down:before
+{
+    content: "\f107";
+}
+
+.glyphicon-chevron-left:before
+{
+    content: "\f190";
+}
+
+.glyphicon-chevron-right:before
+{
+    content: "\f18e";
+}
+
+.glyphicon-calendar:before
+{
+    content: "\f073";
+}
+
+/* Make the modal appear a bit lower, so it doesn't overlap with the generic error message at the top */
+.modal.in .modal-dialog
+{
+    margin-top: 20px;
+    width: 800px;
+}
+
+.dl-horizontal .form-control
+{
+    width: auto;
+}
+
+a[rel=help]
+{
+    border-bottom: 1px dashed #999;
+    color: #262626;
+}
+
+.downtime-section
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mandatory:before
+{
+    content: "*";
+    color: red;
+    font-size: 150%;
+}
+
+.downtime-reason
+{
+    width: 95%;
+    vertical-align: top;
+    display: inline;
+}
+
+.active-downtime
+{
+    font-style: italic;
+    background-color: #adadad;
+}
+
+.downtime-modal-entity
+{
+    width: 90%;
+    position: relative;
+}
+
+.downtime-modal-entity > i
+{
+    position: absolute;
+    margin-right: 10px;
+    right: 0;
+}
+
+.downtime-modal-entity-list
+{
+    max-height: 460px;
+    overflow: auto;
+    text-align: right;
+}
+
+a.non-href-anchor
+{
+    cursor: pointer;
+}
+
+.nav-tabs > li
+{
+    cursor: pointer;
+}
+
+.modal-content
+{
+    padding-left: 10px;
+}
+
+/* Comments modal */
+
+.fake-link
+{
+    color: #f08532;
+    cursor: pointer;
+}
+
+.fake-link:hover
+{
+    color: #c75f0f;
+    text-decoration: underline;
+}
+
+.comments.modal .modal-dialog
+{
+    color: #000;
+    width: 880px;
+    text-align: center;
+    margin-top: 35px;
+}
+
+.comments.modal .modal-header .btn
+{
+    position: absolute;
+    left: 380px;
+    top: 45px;
+    z-index: 2000;
+}
+
+.comments.modal .modal-body
+{
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.comments.modal .panel
+{
+    margin-bottom: 5px;
+    text-align: left;
+    position: relative;
+}
+
+.comments.modal .panel button.close
+{
+    position: absolute;
+    top: -4px;
+    right: 2px;
+}
+
+.comments.modal .panel .comment-label
+{
+    font-size: 10px;
+    text-align: right;
+    color: #fff;
+    padding: 2px;
+    background-color: #ccc;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+}
+
+.comments.modal .panel .comment-label.author
+{
+    background-color: #ee771a;
+}
+
+.comments.modal .panel .comment-label-entity
+{
+    font-size: 10px;
+    text-align: left;
+    color: #fff;
+    padding: 2px;
+    background-color: #ef5157;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+}
+
+.comments.modal .panel .comment-text
+{
+    margin-bottom: 5px;
+}
+
+.comments.modal .panel:nth-child(even)
+{
+    background-color: #f5f5f5;
+}
+
+.comments.modal .modal-footer
+{
+    padding: 20px 10px 5px 5px;
+}
+
+.comments.modal .entity-container
+{
+    text-align: left;
+}
+
+.comments.modal .entity-label
+{
+    font-size: 12px;
+    text-align: left;
+    color: #fff;
+    padding: 4px;
+    background-color: #ef5157;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.comments.modal textarea
+{
+    resize: none;
+}
+
+.history-tag
+{
+    color: white;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+/* MARKDOWN */
+/* -------------------------------------------------------------------------- */
+
+.markdown h1
+{
+    font-size: 22px;
+}
+
+.markdown h2
+{
+    font-size: 20px;
+}
+
+.markdown h3
+{
+    font-size: 18px;
+}
+
+.markdown h4
+{
+    font-size: 17px;
+}
+
+.markdown h5
+{
+    font-size: 16px;
+}
+
+.markdown h6
+{
+    font-size: 15px;
+}
+
+.markdown h1, h2, h3, h4, h5, h6:first-child
+{
+    margin-top: 0;
+}
+
+.no-wrap
+{
+    white-space: nowrap;
+}
+
+.no-padding-list
+{
+    list-style: none;
+    padding-left: 0;
+}
+
+#select-entity-filter,
+.json-config
+{
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.entity-filter-definition,
+.json-config-definition
+{
+    padding: 15px;
+}
+
+.entity-filter-definition
+{
+    border: 1px solid #acacac;
+    margin-bottom: 3px;
+}
+
+.entity-filter-definition-remove-button
+{
+    margin-right: 10px;
+}
+
+.entities-filter-preview
+{
+    background-color: #fff7ca;
+    border: 1px dashed lightgray;
+    padding: 5px;
+    min-height: 60px;
+}
+
+.widgets-preview
+{
+    border: 1px solid #acacac;
+    margin-bottom: 10px;
+}
+
+.widget-config-remove-btn
+{
+    margin: 5px;
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+}
+
+.widget-config-plus-btn
+{
+    margin-bottom: 10px;
+}
+
+.widget-config-chart-area
+{
+    padding: 25px;
+}
+
+.widget-remove
+{
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    padding: 20px;
+}
+
+.widget-config-chart
+{
+    font-size: 13px;
+}
+
+.widget-config-chart input
+{
+    font-size: 13px;
+    line-height 13px;
+}
+
+.widget-config-chart label
+{
+    line-height: 25px;
+}
+
+.widget-config-chart .radiobutton
+{
+    margin-top: 8px;
+}
+
+.widget-config-chart select
+{
+    margin-top: 5px;
+}
+
+.nopadding
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#filter-types-dropdown
+{
+    display: inline-block;
+    margin-right: 4px;
+    width: 200px !important;
+}
+
+/* CODE EDITOR WITH SYNTAX HIGHLIGHTING */
+/* -------------------------------------------------------------------------- */
+
+.code-editor
+{
+    border: 1px solid #CCCCCC;
+    clear: both;
+    min-height: 100px;
+    height: 100px;
+    width: auto;
+    margin-bottom: 10px;
+}
+
+.has-error .code-editor
+{
+    border-color: #d40018;
+}
+
+/* Code editor for widget configuration must be taller */
+#inp-widgets.code-editor
+{
+    height: 200px;
+}
+
+/* Hide error warning for template editing when editor is empty */
+.onTemplate .ace_error
+{
+    display: none;
+}
+
+
+
+/* END OF CODE EDITOR WITH SYNTAX HIGHLIGHTING */
+/* -------------------------------------------------------------------------- */
+
+/* Fake class for imitating <code> that bypasses value of white-space */
+.codeish
+{
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #ce5909;
+    background-color: #ffebd5;
+    white-space: inherit;
+    border-radius: 1px;
+}
+
+.loading-indicator
+{
+    margin: 50px auto;
+    height: 30px;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    background-color: #f08532;
+    color: white;
+    font-size: 200%;
+    vertical-align: top;
+    padding-bottom: 45px;
+}
+
+.loading-indicator.hide-indicator
+{
+    visibility: hidden;
+}
+
+/* Override tooltip's maximum width! */
+.tooltip-inner {
+    max-width: 360px;
+}
+
+.dashboard-widget-networkmap .tooltip-inner
+{
+    width: 320px;
+}
+
+/* OApp status detailed tooltip */
+.app-status-tooltip {
+    text-align: left;
+}
+
+.app-status-tooltip h6 {
+
+    font-weight: bold;
+    display: block;
+    margin: 0 0 4px 0;
+}
+
+.app-status-tooltip span {
+    color: #505050;
+    display: inline-block;
+}
+
+.app-status-tooltip .workers {
+    margin-bottom: 6px;
+}
+
+.app-status-tooltip .workers .name {
+    font-weight: bold;
+    width: 150px;
+}
+
+.app-status-tooltip .workers .calls {
+    width: 55px;
+}
+
+.app-status-tooltip .queues .name {
+    font-weight: bold;
+    width: 150px;
+}
+
+.app-status-tooltip .alerts .alert-name {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 148px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.app-status-tooltip .alerts .alert-time {
+    width: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.app-status-tooltip .alerts .alert-team {
+    width: 110px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.arrow-right
+{
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 12px solid #464646;
+}
+.arrow-right-border
+{
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 13px solid #464646;
+}
+
+/* Input fields placeholder text color */
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ccc !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ccc !important;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ccc !important;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #ccc !important;
+}

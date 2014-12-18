@@ -1,0 +1,53 @@
+chart
+{
+    display: block !important;
+    height: 100px;
+    width: 95%;
+}
+
+.check-charts chart
+{
+    height: 200px;
+    margin: 20px;
+    margin-top: 0;
+}
+
+.check-charts .entity-charts
+{
+    margin-bottom: 20px;
+}
+
+label.check-chart-options
+{
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+label.check-chart-section
+{
+    font-size: 19px;
+}
+
+span.select-boxes
+{
+    margin-left: 5px;
+}
+
+.chart-label-container
+{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.chart-label-container table tr
+{
+    display: inline-table;
+}
+
+.chart-data-warning
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ebb129;
+}

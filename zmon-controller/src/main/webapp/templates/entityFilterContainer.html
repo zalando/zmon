@@ -1,0 +1,27 @@
+<div>
+    <div id="select-entity-filter">
+
+        <select id="filter-types-dropdown" class="form-control" ng-disabled="inEditMode || invalidJson" ng-model="selectedType" ng-options="type for type in availableEntityFilterTypes"></select>
+        <button id="add-entity-filter" class="btn btn-primary" ng-disabled="inEditMode || invalidJson || (selectedType === 'GLOBAL' && globalIsUsed)" ng-click="addEntityFilter()"><span ng-hide="exclude">Add Filter</span><span ng-show="exclude">Add Exclude Filter</span></button>
+        <!--select id="filter-types-dropdown" class="form-control" ng-disabled="inEditMode || invalidJson" ng-model="selectedEntityFilterTypeRef" ng-options="filterType.type for filterType in entityFilterTypes"></select>
+        <button id="add-entity-filter" class="btn btn-primary" ng-disabled="inEditMode || invalidJson" ng-click="constructNewFilterDefEditForm()">{{addButtonText}}</button-->
+        <span ng-show="invalidJson">Error: Invalid JSON; please switch to text editor and fix</span>
+        <span ng-show="emptyJson">Error: Empty JSON</span>
+    </div>
+    <entity-filter-form ng-show="inEditMode" entity-filter="entityFilter" all-entity-filters="formEntityFilters" config="config" in-edit-mode="inEditMode" definition-index="definitionInEditModeIndex"></entity-filter-form>
+    <div ng-repeat="filterDef in formEntityFilters" ng-show="definitionInEditModeIndex != $index">
+        <div>
+            <div class="col-md-7 text-left entities-filter-preview" ng-bind-html="[filterDef] | entities">
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary btn-xs entity-filter-definition-button" ng-disabled="inEditMode || invalidJson" ng-click="removeEntityFilter($index)">Remove</button>
+                <button class="btn btn-primary btn-xs entity-filter-definition-button" ng-disabled="inEditMode || invalidJson" ng-click="editEntityFilter($index)" ng-show="filterDef.type != 'GLOBAL'">Edit</button>
+            </div>
+        </div>
+        <div class="row" ng-show="!$last">
+            <div class="col-md-7 entities">
+                <i>OR</i>
+            </div>
+        </div>
+    </div>
+</div>

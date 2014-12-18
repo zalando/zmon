@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Only for local testing. This file will not make it into any distribution -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="default" class="org.apache.log4j.ConsoleAppender">
+        <param name="encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %x %p %t %l: %m%n"/>
+        </layout>
+    </appender>
+    <logger name="de.zalando.zmon" additivity="false">
+        <level value="trace"/>
+        <appender-ref ref="default"/>
+    </logger>
+    <logger name="de.zalando.sprocwrapper" additivity="false">
+        <level value="trace"/>
+        <appender-ref ref="default"/>
+    </logger>
+    <logger name="de.zalando.typemapper" additivity="false">
+        <level value="trace"/>
+        <appender-ref ref="default"/>
+    </logger>
+    <logger name="org.apache.cxf" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="default"/>
+    </logger>
+    <logger name="org.springframework" additivity="false">
+        <level value="warn"/>
+        <appender-ref ref="default"/>
+    </logger>
+</log4j:configuration>

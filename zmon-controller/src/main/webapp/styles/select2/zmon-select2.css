@@ -1,0 +1,40 @@
+.select2-container
+{
+    display: block !important;
+}
+
+.select2-results .select2-highlighted
+{
+    background: #F5A360;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice
+{
+    line-height: 19px;
+}
+
+.select2-search-choice-close
+{
+    top: 6px;
+}
+
+.select2-container-disabled
+{
+    border: 0;
+    box-shadow: none;
+}
+
+.select2-container-disabled .select2-choices
+{
+    background-color: transparent !important;
+}
+
+.select2-container-disabled li.select2-search-choice:first-child
+{
+    margin-left: 0;
+}
+
+label.select2-details
+{
+    line-height: 30px;
+}

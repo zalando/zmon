@@ -1,0 +1,19 @@
+<div class="dashboard-widget dashboard-widget-{{config.type}} {{config.css}}" ng-switch="config.type">
+    <div class="widget-bg"></div>
+    <div class="widget-contents" ng-class="{warning:isOutdated}">
+        <h5>{{ config.title }}</h5>
+        <span class="fa fa-exclamation-triangle chart-data-warning" title="Chart presents incomplete data. Points that resulted in exception are ignored" ng-show="hasNonPlottableValues"></span>
+        <chart chart-data="chartData" options="config.options" ng-switch-when="chart"/>
+        <gauge value="lastValue" max="maxValue" title="{{config.title}}" options="config.options" ng-switch-when="gauge"/>
+        <trend class="trend" title="{{config.title}}" mean="mean" current="current" ng-switch-when="trend"/>
+        <networkmap title="{{config.title}}" options="config.options" data="activeAlertIds" ng-switch-when="networkmap"/>
+        <div class="iframe-container" ng-switch-when="iframe">
+            <iframe id="iframe-widget" class="widget-contents iframe-widget" ng-src="{{config.src}}" width="100%" height="100%" ng-style="config.css"></iframe>
+        </div>
+
+        <div class="value-widget" ng-switch-default ng-style="style">
+            <p class="text-center">{{ maxValue | prettify }}</p>
+        </div>
+        <span class="widget-time" ng-class="{warning:isOutdated}" ng-if="lastUpdate">{{ lastUpdate | time }}</span>
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="zmon-controls">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="no-margin">Trial Run</h1>
+            <p><a href="/docs/check-definitions.html#trial-run">Trial Run</a> allows the end user to test check commands and alert conditions before using them on the system.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default form-panel" ng-class="{'panel-collapsed': !TrialRunCtrl.formVisible}">
+            <div class="panel-heading panel-toggle" ng-click="TrialRunCtrl.formVisible = !TrialRunCtrl.formVisible">
+                <div  class="col-md-1 left"><i class="fa fa-fw fa-toggle-{{ TrialRunCtrl.formVisible ? 'up' : 'down' }}"></i> Details</div>
+                <div class="col-md-10 progress-striped progress {{ TrialRunCtrl.running ? 'active' : ''}} left no-padding no-margin">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{TrialRunCtrl.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{TrialRunCtrl.progress}}%; height: 30px;">
+                    </div>
+                </div>
+                <div class="col-md-1 left">
+                    <button id="stop-button" ng-show="TrialRunCtrl.running" class="btn btn-primary" ng-click="TrialRunCtrl.stop(); $event.stopPropagation();"><i class="fa fa-fw fa-stop" ></i>Stop</button>
+                    <button id="run-button" ng-hide="TrialRunCtrl.running" class="btn btn-warning" ng-disabled="!TrialRunCtrl.authorized" ng-click="TrialRunCtrl.run($event)"><i class="fa fa-fw fa-play" ></i>Run</button>
+                </div>
+                <div class="clearfix"/>
+            </div>
+            <div class="panel-body">
+                <form id="alert-form" class="form-horizontal" role="form" name="trForm" novalidate>
+
+                    <div class="form-group" ng-class="{'has-error': trForm.submitted && trForm.name.$error.required}">
+                        <label for="inp-name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp-name" name="name" placeholder="Alert name (will be shown on dashboard)" ng-model="alert.name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': trForm.submitted && trForm.check_command.$error.required}">
+                        <label for="inp-command" class="col-sm-2 control-label"><a href="/docs/check-definitions.html" rel="help" target="docs">Check Command</a></label>
+                        <div class="col-sm-10">
+                            <div id="inp-command" name="check_command" class="code-editor" ng-model="alert.check_command" code-language="python" code-editor required></div>
+                            <span class="help-block">Valid Python expression used to query the instances specified in entities filter.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inp-condition" class="col-sm-2 control-label"><a href="/docs/alert-definitions.html#condition" rel="help" target="docs">Alert Condition</a></label>
+                        <div class="col-sm-10">
+                            <div id="inp-condition" name="alert_condition" class="code-editor" ng-model="alert.alert_condition" code-language="python" code-editor></div>
+                            <span class="help-block">Valid Python expression to return true when alert should be "on". Use <code>value</code> to access the check result value.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': trForm.submitted && trForm.parameters.$error['valid-json'] || trForm.parameters.$error.required }">
+                        <label for="inp-parameters" class="col-sm-2 control-label">
+                            <div>
+                                <a href="/docs/alert-definitions.html#parameters" rel="help" target="docs">Parameters</a>
+                            </div>
+                        </label>
+                        <div class="col-sm-10">
+                            <!-- PARAMETERS EDITOR -->
+                            <div class="col-sm-12">
+                                <div class="row parameter-row" ng-repeat="param in TrialRunCtrl.parameters" ng-form="pForm">
+
+                                    <div class="col-sm-2 name-col">
+                                        <input type="text" class="form-control parameter" name="name" placeholder="Name" ng-model="param.name" ng-class="{'has-error': pForm.name.$error.required || !TrialRunCtrl.paramNameIsValid(param.name)}" model-change-blur required/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input ng-if="param.type === undefined || param.type === 'str' || param.type === 'int' || param.type === 'float'" type="text" class="form-control parameter" name="value" placeholder="Value" ng-model="param.value" ng-class="{'has-error':pForm.value.$error.required}" required/>
+                                        <select ng-if="param.type === 'bool'" class="form-control parameter" name="value" ng-model="param.value" ng-options="item.value as item.label for item in TrialRunCtrl.parameterTypeBooleanOptions"></select>
+                                        <div ng-if="param.type === 'date'">
+                                            <input type="text" class="form-control" datepicker-popup="{{TrialRunCtrl.format}}" ng-model="param.value" name="value" datepicker-options="TrialRunCtrl.dateOptions" close-text="Close" ng-class="{'has-error':pForm.value.$error.required}" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control parameter param-desc" name="description" placeholder="Description" ng-model="param.comment" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select class="form-control parameter" name="type" ng-model="param.type" ng-class="{'has-error': pForm.type.$error.required }" ng-options="item.value as item.label for item in TrialRunCtrl.parameterTypeOptions" required></select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary" ng-click="TrialRunCtrl.removeParameter(param.name)"><i class="fa fa-fw fa-minus-circle" ></i></span>
+                                    </div>
+                                </div>
+                                <div class="row parameter-row">
+                                    <span class="btn btn-primary" ng-click="TrialRunCtrl.addParameter()"><i class="fa fa-fw fa-plus-circle"></i> Add Parameter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inp-entities" class="col-sm-2 control-label">
+                            <a href="/docs/alert-definitions.html#entities" rel="help" target="docs">Included Entities</a>
+                            <div id="entity-filter-buttons">
+                                <button type="button" class="btn btn-primary fa fa-keyboard-o" ng-model="TrialRunCtrl.entityFilterInputMethod" btn-radio="'text'" title="Plain text input"></button>
+                                <button type="button" class="btn btn-primary fa fa-check-square-o" ng-model="TrialRunCtrl.entityFilterInputMethod" btn-radio="'form'" title="Form input"></button>
+                            </div>
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error': trForm.submitted && trForm.entities.$error['non-empty-json']}">
+                            <div id="inp-entities" name="entities" ng-show="TrialRunCtrl.entityFilterInputMethod == 'text'" class="code-editor" ng-model="TrialRunCtrl.entityFilter.textEntityFilters" json non-empty-json code-editor required></div>
+                            <div ng-show="TrialRunCtrl.entityFilterInputMethod == 'form'">
+                                <entity-filter-container entity-filter-types="TrialRunCtrl.entityFilter.types" form-entity-filters="TrialRunCtrl.entityFilter.formEntityFilters" invalid-json="trForm.entities.$error['valid-json']" empty-json="trForm.entities.$error['non-empty-json']"></entity-filter-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inp-entities-exclude" class="col-sm-2 control-label">
+                            <a href="/docs/alert-definitions.html#entities" rel="help" target="docs">Excluded Entities</a>
+                            <div id="entity-exclude-filter-buttons">
+                                <button type="button" class="btn btn-primary fa fa-keyboard-o" ng-model="TrialRunCtrl.entityExcludeFilterInputMethod" btn-radio="'text'" title="Plain text input"></button>
+                                <button type="button" class="btn btn-primary fa fa-check-square-o" ng-model="TrialRunCtrl.entityExcludeFilterInputMethod" btn-radio="'form'" title="Form input"></button>
+                            </div>
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error': trForm.submitted && trForm.entitiesExclude.$error['non-empty-json']}">
+                            <div id="inp-entities-exclude" name="entitiesExclude" ng-show="TrialRunCtrl.entityExcludeFilterInputMethod == 'text'" class="code-editor" ng-model="TrialRunCtrl.entityExcludeFilter.textEntityFilters" json code-editor required></div>
+                            <div ng-show="TrialRunCtrl.entityExcludeFilterInputMethod == 'form'">
+                                <entity-filter-container entity-filter-types="TrialRunCtrl.entityExcludeFilter.types" form-entity-filters="TrialRunCtrl.entityExcludeFilter.formEntityFilters" invalid-json="trForm.entitiesExclude.$error['valid-json']" empty-json="trForm.entitiesExclude.$error['non-empty-json']" exclude="true"></entity-filter-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inp-period" class="col-sm-2 control-label"><a href="/docs/alert-definitions.html#time-periods" rel="help" target="docs">Time Period</a></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="inp-period" ng-model="alert.period" placeholder="Notification time period (e.g. 'wd {Mon-Fri} hr {9-16}')">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': trForm.submitted && (trForm.interval.$error.required || trForm.interval.$error.number)}">
+                        <label for="inp-interval" class="col-sm-2 control-label"><a href="/docs/alert-definitions.html#interval" rel="help" target="docs">Interval</a></label>
+                        <div class="col-sm-10">
+                            <input id="inp-interval" name="interval" type="number" min="5" class="form-control" ng-model="alert.interval" placeholder="Please type interval in seconds" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 text-right no-padding">
+                        <button id="download-button" class="btn btn-warning" ng-click="TrialRunCtrl.download($event)"><i class="fa fa-fw fa-download" ></i>Download</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default result-panel" ng-class="{'panel-collapsed': !TrialRunCtrl.alertsVisible}">
+            <div class="panel-heading panel-toggle" ng-click="TrialRunCtrl.alertsVisible = !TrialRunCtrl.alertsVisible">
+                <div class="col-md-1" ><i class="fa fa-fw fa-toggle-{{ TrialRunCtrl.alertsVisible ? 'up' : 'down' }}"></i> Alerts</div>
+                <div class="clearfix"/>
+            </div>
+            <div class="panel-body">
+
+                <div class="zmon-controls row">
+                    <div class="col-md-8">
+                        <button class="btn" ng-class="{'active-page': TrialRunCtrl.criticalAlerts}" ng-disabled="TrialRunCtrl.criticalAlertsCounter === 0" ng-click="TrialRunCtrl.criticalAlerts = !TrialRunCtrl.criticalAlerts">Alerts ({{TrialRunCtrl.criticalAlertsCounter}})</button>
+                        <button class="btn" ng-class="{'active-page': TrialRunCtrl.normalAlerts}" ng-disabled="TrialRunCtrl.normalAlertsCounter === 0" ng-click="TrialRunCtrl.normalAlerts = !TrialRunCtrl.normalAlerts">OK ({{TrialRunCtrl.normalAlertsCounter}})</button>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <form id="searchbar" class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary"><i class="fa fa-fw fa-search"></i></button>
+                                    </span>
+                                    <input class="form-control" placeholder="Filter entities"  type="text" ng-model="search" autofocus />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="zmon-data-table table table-striped table-bordered table-hover table-condensed" id="result-table">
+                        <thead>
+                            <tr>
+                                <th class="name-col">Name</th>
+                                <th class="timestamp-col">Timestamp</th>
+                                <th class="last-run-col">Last run</th>
+                                <th>Value</th>
+                                <th class="captures-col">Captures</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-show="TrialRunCtrl.criticalAlerts" class="danger" ng-repeat="alert in TrialRunCtrl.alerts | filter:{is_alert:true} | filter:search | orderBy:'entity.id'">
+                                <td>{{alert.entity.id}}</td>
+                                <td>{{alert.value.ts|datetime}} ({{TrialRunCtrl.timeAgo(alert.value.ts)}} ago)</td>
+                                <td class="text-right">{{alert.value.td * 1000|timespan}}</td>
+                                <td class="ellipsis" expand>{{alert.value.value}}</td>
+                                <td>{{alert.captures}}</td>
+                            </tr>
+
+                            <tr ng-show="TrialRunCtrl.normalAlerts" class="success" ng-repeat="alert in TrialRunCtrl.alerts | filter:{is_alert: false}| filter:search | orderBy:'entity.id'">
+                                <td>{{alert.entity.id}}</td>
+                                <td>{{alert.value.ts|datetime}}</td>
+                                <td class="text-right">{{alert.value.td * 1000|timespan}}</td>
+                                <td class="ellipsis" expand>{{alert.value.value}}</td>
+                                <td>{{alert.captures}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

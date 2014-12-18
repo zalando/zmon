@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="dataSourceZmonSProc" destroy-method="close" class="com.jolbox.bonecp.BoneCPDataSource" lazy-init="true">
+        <property name="driverClass" value="${frontend.sproc.datasource.driverClassName}"/>
+        <property name="jdbcUrl" value="${frontend.sproc.datasource.url}"/>
+        <property name="username" value="${frontend.sproc.datasource.username}"/>
+        <property name="password" value="${frontend.sproc.datasource.password}"/>
+        <property name="idleConnectionTestPeriodInMinutes" value="${frontend.sproc.datasource.idleConnectionTestPeriodInMinutes}"/>
+        <property name="idleMaxAgeInMinutes" value="${frontend.sproc.datasource.idleMaxAgeInMinutes}"/>
+        <property name="maxConnectionsPerPartition" value="${frontend.sproc.datasource.maxConnectionsPerPartition}"/>
+        <property name="minConnectionsPerPartition" value="${frontend.sproc.datasource.minConnectionsPerPartition}"/>
+        <property name="poolAvailabilityThreshold" value="${frontend.sproc.datasource.poolAvailabilityThreshold}"/>
+        <property name="partitionCount" value="${frontend.sproc.datasource.partitionCount}"/>
+        <property name="acquireIncrement" value="${frontend.sproc.datasource.acquireIncrement}"/>
+        <property name="releaseHelperThreads" value="${frontend.sproc.datasource.releaseHelperThreads}"/>
+        <property name="statisticsEnabled" value="${frontend.sproc.datasource.statisticsEnabled}"/>
+        <property name="acquireRetryAttempts" value="${frontend.sproc.datasource.acquireRetryAttempts}"/>
+        <property name="acquireRetryDelayInMs" value="${frontend.sproc.datasource.acquireRetryDelayInMs}"/>
+        <property name="disableJMX" value="${frontend.sproc.datasource.disableJMX}"/>
+        <property name="connectionTimeoutInMs" value="${frontend.sproc.datasource.connectionTimeoutInMs}"/>
+        <property name="disableConnectionTracking" value="${frontend.sproc.datasource.disableConnectionTracking}"/>
+        <property name="maxConnectionAgeInSeconds" value="${frontend.sproc.datasource.maxConnectionAgeInSeconds}"/>
+        <property name="initSQL" value="SET search_path to zzm_api${zzm_api_version}, public;"/>
+    </bean>
+
+    <bean id="dataSourceZmonSProcProvider" class="de.zalando.sprocwrapper.dsprovider.SingleDataSourceProvider">
+        <property name="dataSource">
+            <ref local="dataSourceZmonSProc" />
+        </property>
+    </bean>
+</beans>

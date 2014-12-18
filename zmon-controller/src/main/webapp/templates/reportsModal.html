@@ -1,0 +1,61 @@
+<div class="modal-body reports-form" id="reports-modal">
+    <div class="row">
+        <h3>Options</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="checkbox" name="useDateRange" class="checkbox" value="true" ng-model="$parent.useDateRange" />
+            <label>Date range</label>
+        </div>
+        <div class="col-md-6">
+            <div class="dropdown">
+                <label>Filter by team:</label>
+                <a class="dropdown-toggle">{{ teamFilter ? teamFilter : 'All Teams' }}</a>
+                <ul class="dropdown-menu">
+                    <li ng-hide="teamFilter === null">
+                        <a ng-click="setTeamFilter()">All Teams</a>
+                    </li>
+                    <li ng-repeat="team in teams">
+                        <a ng-click="setTeamFilter(team)">{{ team }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-show="$parent.useDateRange">
+        <div class="row">
+            <div class="col-md-1">
+                <label class="date">From</label>
+            </div>
+            <div class="col-md-5">
+                <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="$parent.dates.fromDate" is-open="$parent.openedCalendars.from" datepicker-options="$parent.dateOptions.calendar" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="$parent.showCalendar($event, 'from')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+            <div class="timepicker" ng-model="dates.fromTime">
+                <timepicker hour-step="$parent.dateOptions.time.hstep" minute-step="$parent.dateOptions.time.mstep" show-meridian="$parent.dateOptions.time.ismeridian"></timepicker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label class="date">To</label>
+            </div>
+            <div class="col-md-5">
+                <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="$parent.dates.toDate" is-open="$parent.openedCalendars.to" datepicker-options="$parent.dateOptions.calendar" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="$parent.showCalendar($event, 'to')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+            <div class="timepicker" ng-model="dates.toTime">
+                <timepicker hour-step="$parent.dateOptions.time.hstep" minute-step="$parent.dateOptions.time.mstep" show-meridian="$parent.dateOptions.time.ismeridian"></timepicker>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

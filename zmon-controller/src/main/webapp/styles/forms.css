@@ -1,0 +1,334 @@
+/* LOGIN PAGE */
+/* -------------------------------------------------------------------------- */
+
+.form-signin
+{
+    max-width: 400px;
+    margin: 30px auto 20px;
+    padding: 25px;
+    padding-top: 0px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+}
+
+.form-signin .form-control
+{
+    padding: 10px;
+}
+
+.form-control
+{
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.date-form a.apply
+{
+    margin-top: 27px;
+}
+
+.date-form .timepicker
+{
+    margin-top: -11px;
+}
+
+.date-form input.date
+{
+    float: left;
+    width: 150px;
+}
+
+/* DATA TABLES */
+/* -------------------------------------------------------------------------- */
+
+.zmon-data-table
+{
+    table-layout: fixed;
+}
+
+.zmon-data-table td.ellipsis, .ellipsis
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.zmon-data-table th.actions-col
+{
+    width: 6%;
+}
+
+.zmon-data-table th.event-name-col
+{
+    width: 8%;
+}
+
+.zmon-data-table th.name-col
+{
+    width: 10%;
+}
+
+.zmon-data-table th.downtime-col
+{
+    width: 5%;
+}
+
+.zmon-data-table th.timestamp-col
+{
+    width: 10%;
+}
+
+.zmon-data-table th.modified-by-col
+{
+    width: 8%;
+}
+
+.zmon-data-table th.last-run-col
+{
+    width: 8%;
+}
+
+.zmon-data-table th.captures-col
+{
+    width: 10%;
+}
+
+.zmon-data-table th.entities-col
+{
+    width: 16%;
+}
+
+.zmon-data-table th.interval-col
+{
+    width: 5%;
+}
+
+.zmon-data-table th.status-col
+{
+    width: 5%;
+}
+
+.zmon-data-table th.check-id-col
+{
+    width: 7%;
+}
+
+.zmon-data-table th.team-col
+{
+    width: 12%;
+}
+
+.zmon-data-table th.responsible-team-col
+{
+    width: 14%;
+}
+
+.zmon-data-table th.priority-col
+{
+    width: 6%;
+}
+
+.zmon-data-table th.link-icon-col
+{
+    width: 5%;
+}
+
+.zmon-data-table th.data-col
+{
+    width: 20%;
+}
+
+.zmon-data-table th.modification-type-col
+{
+    width: 8%;
+}
+
+/* REPORTS FORM */
+/* -------------------------------------------------------------------------- */
+
+.reports-form .checkbox
+{
+    float: left;
+}
+
+.reports-form label
+{
+    margin-left: 10px;
+}
+
+.reports-form label.date
+{
+    float: left;
+    margin-top: 45px;
+    margin-right: 10px;
+}
+
+.reports-form input.date
+{
+    margin-top: 38px;
+    width: 200px;
+    float: left;
+}
+
+.reports-form span.input-group-btn
+{
+    padding-top: 38px;
+}
+
+.reports-form button.apply
+{
+    margin-top: 38px;
+}
+
+.reports-form button.export
+{
+    margin: 10px 5px 10px 0;
+}
+
+.reports-form input.radio
+{
+    margin-right: 20px;
+    float: left;
+}
+
+/* ALERTS AND CHECK DEFINITIONS */
+/* -------------------------------------------------------------------------- */
+
+#edit-definition-form label
+{
+    font-size: small;
+    margin-top: 5px;
+}
+
+.team-filter-dropdown
+{
+    padding: 10px;
+}
+
+.zmon-controls .team-filter
+{
+    padding-top: 5px;
+}
+
+.parameter
+{
+    float: left;
+    margin-right: 20px;
+}
+
+.parameter-row
+{
+    position: relative;
+}
+
+.parameter-row .name-col
+{
+    padding-left: 0;
+}
+
+select.parameter
+{
+    height: 35px;
+}
+
+.btn-group.boolean
+{
+    float: left;
+}
+
+.parameter.has-error
+{
+    border-color: #d40018;
+}
+
+/* START STOP */
+/* -------------------------------------------------------------------------- */
+
+.start-stop
+{
+    float: left;
+    padding: 0 5px 0 8px;
+}
+
+.start-stop strong
+{
+    color: #EF5157;
+}
+
+.start-stop button
+{
+    border: none;
+    background: transparent;
+    color: #8f8f8f;
+    margin: 0;
+    padding: 0;
+}
+
+.start-stop button:hover
+{
+    color: #fff;
+}
+
+/* AUTH ACTION */
+/* -------------------------------------------------------------------------- */
+
+.auth button.auth-user
+{
+    margin-top: -5.5px;
+}
+
+.auth-action
+{
+    padding: 0 0 0 8px;
+}
+
+/* ALERT INHERITANCE */
+/* -------------------------------------------------------------------------- */
+
+.inheritance-form .inheritance-overwrite
+{
+    position: absolute;
+    top: 5px;
+    left: -3px;
+}
+
+.inheritance-overwrite .fa-warning
+{
+    color: #F08532;
+}
+
+.inheritance-template
+{
+    padding-top: 10px;
+}
+
+.parameter-row .inheritance-overwrite
+{
+    left: -18px;
+}
+
+.inp-priority
+{
+    margin-top: 5px;
+}
+
+.inp-description
+{
+    margin-bottom: 25px;
+}
+
+textarea#inp-description
+{
+    margin-bottom: 0;
+}
+
+input.checkbox
+{
+    float: left;
+    margin: 10px;
+    margin-left: 0;
+    margin-top: 5px;
+    width: auto;
+}

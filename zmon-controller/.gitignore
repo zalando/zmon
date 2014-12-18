@@ -1,0 +1,15 @@
+/.idea
+*.iml
+/out
+/.idea_modules
+/.settings
+/.project
+/.classpath
+/target
+*.pre-cvfix
+*.springBeans
+eventlog.layout*
+eventlog.log*
+config-service.json
+src/main/webapp/test/ci/*.xml
+src/main/webapp/node_modules/

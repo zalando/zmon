@@ -1,0 +1,243 @@
+<div class="row">
+    <div class="col-md-12" ng-switch="mode">
+        <h1 ng-switch-when="edit">Edit Alert Definition</h1>
+        <h1 ng-switch-when="add">Add Alert Definition</h1>
+        <h1 ng-switch-when="clone">Clone Alert Definition</h1>
+        <h1 ng-switch-when="inherit">New Alert Inheriting from: <a href="/#/alert-details/{{parentAlertDefinition.id}}">{{ parentAlertDefinition.name }}</a></h1>
+    </div>
+</div>
+
+<form class="form-horizontal inheritance-form" role="form" name="adForm" novalidate>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Check Name, ID</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">{{checkDefinition.name}}, ID: {{ checkDefinition.id}}</p>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="alertDefinition.parent_id">
+        <label class="col-sm-2 control-label">Inherits from</label>
+        <div class="col-sm-10">
+            <p class="form-control-static"><a href="/#/alert-details/{{parentAlertDefinition.id}}">{{parentAlertDefinition.name || '(no name)'}}</a>, ID: <a href="/#/alert-details/{{parentAlertDefinition.id}}">{{ parentAlertDefinition.id}}</a></p>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.name.$error.required}">
+        <label for="inp-name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('name'), 'clickable':!isInheriting('name')}" ng-attr-title="{{isInheriting('name') ? 'Name is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('name')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <input type="text" class="form-control" id="inp-name" name="name" placeholder="Alert name (will be shown on dashboard)" ng-model="alertDefinition.name" ng-focus="adForm.submitted && adForm.name.$error.required" ng-change="markAsOverwritten('name')" ng-required="!alertDefinition.template">
+        </div>
+    </div>
+
+    <div class="form-group inp-description" ng-class="{'has-error': adForm.submitted && adForm.description.$error.required}">
+        <label for="inp-description" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('description'), 'clickable':!isInheriting('description')}" ng-attr-title="{{isInheriting('description') ? 'Description is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('description')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <textarea class="form-control" id="inp-description" name="description" placeholder="Short descriptive text about the alert" ng-model="alertDefinition.description" ng-focus="adForm.submitted && adForm.description.$error.required" ng-change="markAsOverwritten('description')" ng-required="!alertDefinition.template"></textarea>
+            <div class="markdown-preview">
+                <span title="Show live preview" ng-show="!showDescriptionPreview" ng-click="showPreview()">
+                    Show live preview
+                    <i class="fa fa-fw fa-eye" >
+                    </i>
+                </span>
+                <span title="Hide live preview" ng-show="showDescriptionPreview" ng-click="showDescriptionPreview = !showDescriptionPreview">
+                    Hide live preview <i class="fa fa-fw fa-eye-slash" ></i>
+                </span>
+            </div>
+            <div ng-show="showDescriptionPreview" class="form-control" ng-bind-html="alertDefinition.description | markdown"></div>
+        </div>
+    </div>
+
+    <div class="form-group inp-tags">
+        <label for="inp-tags" class="col-sm-2 control-label">Tags</label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('tags'), 'clickable':!isInheriting('tags')}" ng-attr-title="{{isInheriting('tags') ? 'Description is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('tags')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <input type="hidden" class="form-control" zmon-select multi="true" tags="true" visible="true" placeholder="Tags..." width="100%" default="alertDefinition.tags" data="allTags" unselect="removeTag(unselected)" select="addTag(selected)"/>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.priority.$error.required}">
+        <label for="inp-priority" class="col-sm-2 control-label">Priority</label>
+        <div class="col-sm-10 inp-priority">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('priority'), 'clickable':!isInheriting('priority')}" ng-attr-title="{{isInheriting('priority') ? 'Priority is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('priority')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <select class="form-control" id="inp-priority" name="priority" ng-model="alertDefinition.priority" ng-focus="adForm.submitted && adForm.priority.$error.required" ng-required="!alertDefinition.template" ng-options="item.value as item.label for item in priorityOptions" ng-click="markAsOverwritten('priority')"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Check Command</label>
+        <div class="col-sm-10">
+            <p class="form-control-static"><pre class="z-code">{{checkDefinition.command}}</pre></p>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.condition.$error.required}" ng-focus="adForm.submitted">
+        <label for="inp-condition" class="col-sm-2 control-label"><a href="/docs/alert-definitions.html#condition" rel="help" target="docs">Alert Condition</a></label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('condition'), 'clickable':!isInheriting('condition')}"  ng-attr-title="{{isInheriting('condition') ? 'Condition is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('condition')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <div id="inp-condition" name="condition" class="code-editor" ng-model="alertDefinition.condition" code-language="python" ng-change="markAsOverwritten('condition')" code-editor ng-required="!alertDefinition.template"></div>
+            <span class="help-block">Valid Python expression to return true when alert should be "on". Use <code>value</code> to access the check result value.</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.parameters.$error['valid-json'] || adForm.parameters.$error.required }">
+        <label for="inp-parameters" class="col-sm-2 control-label">
+            <div>
+                <a href="/docs/alert-definitions.html#parameters" rel="help" target="docs">Parameters</a>
+            </div>
+        </label>
+        <div class="col-sm-10">
+            <!-- PARAMETERS EDITOR -->
+            <div class="col-sm-12">
+                <div class="row parameter-row" ng-repeat="param in alertParameters" ng-form="pForm">
+
+                    <div class="inheritance-overwrite">
+                        <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-hide="!paramIsInParent(param.name)" ng-class="{'semi-transparent':paramIsInheriting(param.name), 'clickable':!paramIsInheriting(param.name)}" ng-attr-title="{{paramIsInheriting(param.name) ? 'Parameters are being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritParameter(param.name)"><i class="fa fa-sitemap"></i></a>
+                    </div>
+
+                    <div class="col-sm-2 name-col">
+                        <input type="text" class="form-control parameter" name="name" placeholder="Name" ng-model="param.name" ng-class="{'has-error': pForm.name.$error.required || !paramNameIsValid(param.name)}" ng-disabled="paramIsInParent(param.name)" ng-change="markAsOverwrittenParam(param.name)" model-change-blur required/>
+                    </div>
+                    <div class="col-sm-2">
+                        <input ng-if="param.type === undefined || param.type === 'str' || param.type === 'int' || param.type === 'float'" type="text" class="form-control parameter" name="value" placeholder="Value" ng-model="param.value" ng-class="{'has-error':pForm.value.$error.required}" ng-change="markAsOverwrittenParam(param.name)" required/>
+                        <select ng-if="param.type === 'bool'" class="form-control parameter" name="value" ng-model="param.value" ng-options="item.value as item.label for item in parameterTypeBooleanOptions" ng-change="markAsOverwrittenParam(param.name)"></select>
+                        <div ng-if="param.type === 'date'">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="param.value" name="value" datepicker-options="dateOptions" close-text="Close" ng-class="{'has-error':pForm.value.$error.required}" ng-change="markAsOverwrittenParam(param.name)" required />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control parameter param-desc" name="description" placeholder="Description" ng-model="param.comment" ng-change="markAsOverwrittenParam(param.name)" />
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-control parameter" name="type" ng-model="param.type" ng-class="{'has-error': pForm.type.$error.required }" ng-options="item.value as item.label for item in parameterTypeOptions" ng-change="markAsOverwrittenParam(param.name)" required></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="btn btn-primary" ng-if="!paramIsInParent(param.name)" ng-click="removeParameter(param.name)"><i class="fa fa-fw fa-minus-circle" ></i></span>
+                    </div>
+                </div>
+                <div class="row parameter-row">
+                    <span class="btn btn-primary" ng-click="addParameter()"><i class="fa fa-fw fa-plus-circle"></i> Add Parameter</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Check Entities</label>
+        <div class="col-sm-10">
+            <p class="form-control-static" ng-bind-html="checkDefinition.entities|entities"></p>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.entities.$error['valid-json'] || adForm.entities.$error.required }">
+        <label for="inp-entities" class="col-sm-2 control-label">
+            <div>
+                <a href="/docs/alert-definitions.html#entities" rel="help" target="docs">Included Entities</a>
+                <div id="entity-filter-buttons">
+                    <button type="button" class="btn btn-primary fa fa-keyboard-o" ng-model="entityFilterInputMethod" btn-radio="'text'" title="Plain text input"></button>
+                    <button type="button" class="btn btn-primary fa fa-check-square-o" ng-model="entityFilterInputMethod" btn-radio="'form'" title="Form input"></button>
+                </div>
+            </div>
+        </label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('entities'), 'clickable':!isInheriting('entities')}" ng-attr-title="{{isInheriting('entities') ? 'Entities inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('entities')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <div id="inp-entities" name="entities" ng-show="entityFilterInputMethod == 'text'" class="code-editor" ng-model="entityFilter.textEntityFilters" ng-change="markAsOverwritten('entities')" json code-editor ng-required="!alertDefinition.template" ng-class="{'onTemplate':entityFilter.textEntityFilters === '' && alertDefinition.template}"></div>
+            <div ng-show="entityFilterInputMethod == 'form'">
+                <entity-filter-container entity-filter-types="entityFilter.types" check-entities="checkDefinition.entities" invalid-json="adForm.entities.$error['valid-json']" form-entity-filters="entityFilter.formEntityFilters" ng-click="markAsOverwritten('entities')"></entity-filter-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.entities_exclude.$error['valid-json'] || adForm.entities_exclude.$error.required }">
+        <label for="inp-entities-exclude" class="col-sm-2 control-label">
+            <div>
+                <a href="/docs/alert-definitions.html#entities" rel="help" target="docs">Excluded Entities</a>
+                <div id="entity-filter-buttons">
+                    <button type="button" class="btn btn-primary fa fa-keyboard-o" ng-model="entityExcludeFilterInputMethod" btn-radio="'text'" title="Plain text input"></button>
+                    <button type="button" class="btn btn-primary fa fa-check-square-o" ng-model="entityExcludeFilterInputMethod" btn-radio="'form'" title="Form input"></button>
+                </div>
+            </div>
+        </label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('entities_exclude'), 'clickable':!isInheriting('entities_exclude')}" ng-attr-title="{{isInheriting('entities_exclude') ? 'Excluded entities inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('entities_exclude')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <div id="inp-entities-exclude" name="entities_exclude" ng-show="entityExcludeFilterInputMethod == 'text'" class="code-editor" ng-model="entityExcludeFilter.textEntityFilters" ng-change="markAsOverwritten('entities_exclude')" json code-editor ng-required="!alertDefinition.template" ng-class="{'onTemplate':entityExcludeFilter.textEntityFilters === '' && alertDefinition.template}"></div>
+            <div ng-show="entityExcludeFilterInputMethod == 'form'">
+                <entity-filter-container entity-filter-types="entityExcludeFilter.types" check-entities="checkDefinition.entities" invalid-json="adForm.entities_exclude.$error['valid-json']" form-entity-filters="entityExcludeFilter.formEntityFilters" ng-click="markAsOverwritten('entities_exclude')" exclude="true"></entity-filter-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.notifications.$error['valid-json'] || adForm.notifications.$error.required}">
+        <label for="inp-notifications" class="col-sm-2 control-label">Notifications</label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('notifications'), 'clickable':!isInheriting('notifications')}" ng-attr-title="{{isInheriting('notifications') ? 'Notifications is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('notifications')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <div id="inp-notifications" name="notifications" class="code-editor" ng-model="notificationsJson" ng-change="markAsOverwritten('notifications')" json code-editor ng-required="!alertDefinition.template" ng-class="{'onTemplate':(notificationsJson == undefined || notificationsJson == '') && alertDefinition.template}"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inp-period" class="col-sm-2 control-label"><a href="/docs/alert-definitions.html#time-periods" rel="help" target="docs">Time Period</a></label>
+        <div class="col-sm-10">
+            <div class="inheritance-overwrite">
+                <a ng-show="mode === 'inherit' || alertDefinition.parent_id" ng-class="{'semi-transparent':isInheriting('period'), 'clickable':!isInheriting('period')}" ng-attr-title="{{isInheriting('period') ? 'Notifications is being inherited from parent Alert' : 'Click to inherit value from parent Alert'}}" ng-click="inheritProperty('period')"><i class="fa fa-sitemap"></i></a>
+            </div>
+            <input class="form-control" id="inp-period" ng-model="alertDefinition.period" placeholder="Notification time period (e.g. 'wd {Mon-Fri} hr {9am-5pm}')" ng-change="markAsOverwritten('period')">
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.team.$error.required}">
+        <label for="inp-team" class="col-sm-2 control-label">Team</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="inp-team" name="team" placeholder="Team name (e.g. 'Platform/Software')" ng-model="alertDefinition.team" ng-focus="adForm.submitted && adForm.team.$error.required" ng-change="markAsOverwritten('team')" required>
+            <span class="help-block">Team dashboard to show alert on.</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.responsible.$error.required}">
+        <label for="inp-responsible" class="col-sm-2 control-label">Responsible Team</label>
+        <div class="col-sm-10">
+            <input class="form-control" id="inp-responsible" name="responsible" placeholder="Responsible Team name (e.g. 'Platform/Software')" ng-model="alertDefinition.responsible_team" ng-focus="adForm.submitted && adForm.responsible_team.$error.required" ng-change="markAsOverwritten('responsible_team')" required>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': adForm.submitted && adForm.status.$error.required}">
+        <label for="inp-status" class="col-sm-2 control-label">Status</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inp-status" name="status" ng-model="alertDefinition.status"  ng-click="markAsOverwritten('status')" ng-focus="adForm.submitted && adForm.status.$error.required" ng-options="item.value as item.label for item in statusOptions" required></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inp-period" class="col-sm-2 control-label"><a href="/docs/alert-definition-inheritance.html" rel="help" target="docs">Template</a></label>
+        <div class="col-sm-10 inheritance-template">
+            <input type="checkbox" class="form-control inheritance-form checkbox" id="inp-template" ng-model="alertDefinition.template"/>
+            <div class="markdown-preview" ng-show="alertDefinition.template"><span>Alert is a template. Minimum required fields: team, responsible team and status.</span></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="btn btn-primary" ng-click="cancel()"><i class="fa fa-fw fa-times" ></i>Cancel</span>
+            <button class="btn btn-warning" ng-click="save()"><i class="fa fa-fw fa-save" ></i>Save</button>
+        </div>
+    </div>
+
+</form>

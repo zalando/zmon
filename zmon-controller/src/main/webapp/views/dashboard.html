@@ -1,0 +1,93 @@
+<div class="zmon-widgets" ng-class="{noWidgets:!showWidgets}">
+    <div class="col-md-{{ nextWidgetConf.width }}" ng-repeat="nextWidgetConf in widgetsConf">
+        <dashboard-widget config="nextWidgetConf" data="checkResultsByCheckIdByEntity"/>
+    </div>
+</div>
+
+<div id="zmon-alerts-container" ng-class="{noWidgets: !showWidgets, compact: compact}">
+    <div class="zmon-controls row">
+        <div id="searchbar-container" class="col-md-8">
+            <form id="searchbar" class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn"><i class="fa fa-fw fa-search"></i></button>
+                        </span>
+                        <input class="form-control" placeholder="Filter alerts"  type="text" ng-model="alertSearch" autofocus />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4 text-right">
+
+            <div class="dashboard-tags-container">
+                <button class="btn" click-outside="closeTagsEditPopup()" title="Tags" ng-click="toggleTagsEditPopup()">
+                    <i class="fa fa-fw fa-tags"></i> {{dashboardTags.length || 0}}
+                </button>
+                <div ng-if="tagsEditOpen" class="dashboard-tags popover">
+                    <div class="arrow-right-container">
+                        <div class="arrow-right-border"></div>
+                        <div class="arrow-right"></div>
+                    </div>
+                    <input id="select-tags" type="hidden" class="form-control" zmon-select multi="true" tags="true" visible="true" placeholder="No tag filter selected" data="allTags" default="dashboardTags" unselect="removeTag(unselected)" select="addTag(selected)" init-once="true"/>
+                </div>
+
+            </div>
+
+            <button id="alerts-in-downtime-toggle-button" class="btn" title="Show/Hide Alerts in Downtime" ng-show="alertsInDowntime.length" ng-click="toggleAlertsWithAllDowntime()"><i class="fa fa-flag" ng-hide="showAlertsWithAllEntitiesInDowntime"></i><i class="fa fa-flag-o" ng-show="showAlertsWithAllEntitiesInDowntime"></i> {{ alertsInDowntime.length }}</button>
+            <button id="widgets-toggle-button" class="btn" ng-show="widgetsConf.length" ng-click="showWidgets = !showWidgets" title="Toggle widgets panel"><i class="fa fa-fw fa-toggle-{{ showWidgets ? 'up' : 'down' }}"></i> {{ showWidgets ? 'Hide' : 'Show' }} Widgets</button>
+            <button class="btn" ng-click="toggleCompactView()" title="Toggle default / compact view"><i class="fa fa-fw" ng-class="{'fa-columns': !compact, 'fa-bars': compact}"></i></button>
+            <button ng-show="dashboardId" class="btn" ng-click="configureWidgets()" title="Configure widgets"><i class="fa fa-fw fa-gear"></i></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="zmon-alert no-alerts" ng-show="alertsLoaded && alerts.length === alertsInDowntime.length">
+            <div class="col-md-11">
+                <h1>No Alerts for {{ team }}</h1>
+                <p>Good, there are 0 active alerts for team "{{ team }}" at the moment.</p>
+                <p ng-if="alertsInDowntime.length">There are {{ alertsInDowntime.length }} alerts in Downtime (<a class="clickable" ng-click="toggleAlertsWithAllDowntime()"><span ng-hide="showAlertsWithAllEntitiesInDowntime">Show</span><span ng-show="showAlertsWithAllEntitiesInDowntime">Hide<span></a>)</p>
+            </div>
+            <div class="col-md-1">
+                <div class="text-right oldest-timestamp">
+                    <!-- TODO -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="zmon-alert" ng-repeat="alertInstance in alerts | filter:alertSearch | orderBy:['alert_definition.priority', '-oldestStartTime'] track by $id(alertInstance.alert_definition.id)" ng-class="(compact ? 'col-md-6' : 'row').concat(' alert-prio-' + alertInstance.alert_definition.priority)" ng-hide="alertInstance.alert_definition.priority === 10 && !showAlertsWithAllEntitiesInDowntime">
+        <div ng-class="compact ? 'col-md-10' : 'col-md-7'">
+            <h1><span class="fa fa-exclamation-triangle" title="Check execution for all entities that are in ALERT state now resulted in an exception!" ng-show="{{alertInstance.inException}}" /><a ng-href="#/alert-details/{{alertInstance.alert_definition.id}}">{{alertInstance.message}}</a> <span ng-if="alertInstance.numEntitiesNotInDowntimeNow > 1">({{alertInstance.numEntitiesNotInDowntimeNow}})</span></h1>
+            <span ng-show="!compact" ng-repeat="entityInstance in truncateNonDowntimeEntities(alertInstance.entities)">
+                <span ng-if="$index != 0">, </span>
+                <span popover="value for {{entityInstance.entity}}: {{entityInstance.result.value}}" popover-placement="right"> {{entityInstance.entity}} ({{entityInstance.result.captures.dashboard ? entityInstance.result.captures.dashboard : entityInstance.result.value | prettify}}) </span>
+            </span>
+            <span ng-show="!compact" ng-if="nonDowntimeEntitiesAreTruncated(alertInstance.entities)">
+                <a ng-click="alertInstance.expanded = true" ng-if="!alertInstance.expanded" class="non-href-anchor">More...</a>
+                <a ng-click="alertInstance.expanded = false" ng-if="alertInstance.expanded" class="non-href-anchor">Hide...</a>
+                <div class="display: inline-block" ng-show="alertInstance.expanded">
+                    <span ng-repeat="entityInstance in restOfNonDowntimeEntities(alertInstance.entities)" ng-hide="entityInstance.result.downtimes.length > 0">
+                        {{entityInstance.entity}} ({{entityInstance.result.captures.dashboard ? entityInstance.result.captures.dashboard : entityInstance.result.value | prettify}})
+                    </span>
+                </div>
+            </span>
+        </div>
+        <div class="col-md-3" ng-show="!compact">
+            <a href="/#/check-charts/{{alertInstance.alert_definition.check_definition_id}}?entity_id={{ getEntityNames(alertInstance.entities) }}">
+                <chart chart-data="charts[alertInstance.alert_definition.id]"></chart>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <div class="text-right responsible-team ellipsis" title="{{alertInstance.alert_definition.responsible_team}}">
+                <span ng-show="!compact">{{alertInstance.alert_definition.responsible_team}}</span>
+                <a ng-if="alertInstance.numEntitiesInDowntimeNow" class="fa fa-flag" tooltip="{{alertInstance.numEntitiesInDowntimeNow}} entities in downtime now" tooltip-placement="left" ng-href="/#/alert-details/{{alertInstance.alert_definition.id}}?downtimes"></a>
+            </div>
+            <div ng-show="!compact" class="text-right oldest-timestamp">
+                {{timeSinceLastUpdate(alertInstance.oldestStartTime) | timespan}}
+            </div>
+        </div>
+    </div>
+</div>

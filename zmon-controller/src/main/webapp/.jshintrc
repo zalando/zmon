@@ -1,0 +1,10 @@
+{
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "nonew": true,
+    "trailing": true,
+    "multistr": true,
+    "devel": true,
+    "globals": {"angular": true, "_": true}
+}

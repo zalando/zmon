@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-8" ng-switch="mode">
+        <h1 ng-switch-when="edit">Dashboard {{dashboard.id}} Configuration</h1>
+        <h1 ng-switch-when="add">Add A New Dashboard</h1>
+        <h1 ng-switch-when="clone">Clone from Dashboard {{dashboard.id}}</h1>
+    </div>
+    <div class="col-md-4 text-right" ng-switch on="cloneable">
+        <a ng-switch-when="true" ng-show="mode != 'clone'" href="#/dashboards/clone/{{dashboard.id}}" title="Clone dashboard"><i class="fa fa-fw fa-copy"></i> Clone</a>
+        <span ng-switch-default><i class="fa fa-fw fa-copy semi-transparent"></i> Clone</span>
+    </div>
+</div>
+<div class="zmon-controls row">
+</div>
+
+<form class="form-horizontal" role="form" name="ddForm" novalidate>
+
+    <div class="form-group" ng-class="{'has-error': ddForm.submitted && ddForm.name.$error.required}">
+        <label for="inp-dashboard" class="col-sm-2 control-label">Dashboard name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inp-dashboard" name="name" placeholder="Dashboard name (will be shown on dashboards)" ng-model="dashboardName" ng-focus="ddForm.submitted && ddForm.name.$error.required" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Default view</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inp-default-view" name="defaultView" ng-model="dashboardViewMode">
+                <option value="FULL">Full</option>
+                <option value="COMPACT">Compact</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Edit mode</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="inp-edit-option" name="editOption" ng-disabled="!editOptionEditable && dashboard.id" ng-model="dashboardEditOption">
+                <option value="PRIVATE" selected="selected">PRIVATE (only you can edit the dashboard)</option>
+                <option value="TEAM">TEAM (all members of your team(s) can edit the dashboard)</option>
+                <option value="PUBLIC">PUBLIC (everyone can edit the dashboard)</option>
+            </select>
+            <span ng-show="!editOptionEditable && dashboard.id" class="help-block">Only the owner of the dashboard can change the edit mode</span>
+        </div>
+    </div>
+
+    <div class="form-group inp-tags" ng-class="{'has-error': isTagAndTeamMissing() }">
+        <label for="inp-tags" class="col-sm-2 control-label">Filter Tags</label>
+        <div class="col-sm-10">
+            <input type="hidden" class="form-control" zmon-select multi="true" tags="true" visible="true" placeholder="No Tags selected" width="100%" default="dashboard.tags" data="allTags" select="addTag(selected)" unselect="removeTag(unselected)" ng-required="!isTagAndTeamMissing()"/>
+        </div>
+    </div>
+
+    <!-- WIDGET CONFIG -->
+    <div class="form-group" ng-class="{'has-error': invalidFormat }">
+        <label for="inp-widgets" class="col-sm-2 control-label">Widgets Configuration
+            <div id="widget-config-buttons">
+                <button type="button" class="btn btn-primary fa fa-keyboard-o" ng-model="widgetConfigFormVisible" btn-radio="false" title="Plain text input"></button>
+                <button type="button" class="btn btn-primary fa fa-check-square-o" ng-model="widgetConfigFormVisible" btn-radio="true" title="Form input"></button>
+            </div>
+        </label>
+        <div class="col-sm-10">
+            <div id="inp-widgets" name="widgets" ng-show="!widgetConfigFormVisible" class="code-editor" ng-model="widgetsJson" json code-editor required></div>
+            <div ng-show="widgetConfigFormVisible">
+                <widget-config-container widget-types="widgetTypes" widgets="widgets" widgets-json="widgetsJson" is-visible="widgetConfigFormVisible" invalid-json="ddForm.widgets.$error['valid-json']" empty-json="ddForm.widgets.$error['non-empty-json']"></widget-config-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': invalidFormat || isTagAndTeamMissing() }">
+        <label for="inp-widgets-team" class="col-sm-2 control-label">Alert Teams</label>
+        <div class="col-sm-10">
+            <div id="inp-widgets-team" name="widgets-team" class="code-editor" ng-model="teamsJson" json code-editor ng-required="!isTagAndTeamMissing()"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+            <button ng-disabled="(mode == 'edit' && !editable) || (mode == 'clone' && !cloneable)" class="btn btn-primary" ng-click="cancel()">
+                <i class="fa fa-fw fa-times" ></i>Cancel
+            </button>
+            <button ng-disabled="(mode == 'edit' && !editable) || (mode == 'clone' && !cloneable) || isTagAndTeamMissing()" class="btn btn-warning" ng-click="save()">
+                <i class="fa fa-fw fa-save" ></i>Save
+            </button>
+        </div>
+    </div>
+</form>

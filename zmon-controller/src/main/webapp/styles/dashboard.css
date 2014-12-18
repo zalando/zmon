@@ -1,0 +1,969 @@
+body.dashboard
+{
+    background: #323232;
+}
+
+.dashboard .navbar
+{
+    margin-bottom: 15px;
+}
+
+.dashboard button.btn, .auth button.auth-user
+{
+    background: #222222;
+    border: 1px solid #080808;
+    color: #7f7f7f;
+}
+
+.dashboard button.btn:hover, .auth button.auth-user:hover
+{
+    background: #7f7f7f;
+    color: #222222;
+}
+
+.dashboard input
+{
+    background: #464646;
+    border: 1px solid #080808;
+    color: #fff;
+    height: 35px;
+}
+
+.dashboard input:focus
+{
+    border: 1px solid #080808;
+}
+
+.nofavourite.warning {
+    color: #EF5157;
+    font-weight:bold;
+}
+
+/* WIDGETS */
+/* -------------------------------------------------------------------------- */
+
+.zmon-widgets
+{
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.zmon-widgets.noWidgets
+{
+    margin-left: -100%;
+    margin-right: 100%;
+}
+
+.zmon-widgets .widget-time
+{
+    position: absolute;
+    color: #323232;
+    bottom: 3px;
+    right: 3px;
+}
+
+.zmon-widgets .warning
+{
+    color: #EF5157;
+}
+
+.dashboard-widget
+{
+    background: #222222;
+    border: 1px solid #080808;
+    color: #fff;
+    position: relative;
+    padding: 0;
+}
+
+.dashboard-widget .widget-bg
+{
+    position: absolute;
+    width: 100%;
+    height: 208px;
+}
+
+.dashboard-widget .widget-contents
+{
+    position: relative;
+    height: 210px;
+}
+
+.dashboard-widget .widget-contents.warning
+{
+    border: 5px solid #F5A360;
+}
+
+.dashboard-widget h5
+{
+    font-size: 17px;
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    margin: 0;
+    color: #8F8F8F;
+    width: 100%;
+}
+
+.dashboard-widget .iframe-container
+{
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-widget .iframe-widget
+{
+    border: 1px solid black;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+.dashboard-widget .iframe-widget::-webkit-scrollbar
+{
+    display: none;
+}
+
+/* SPECIAL STYLES FOR WIDGETS */
+/* -------------------------------------------------------------------------- */
+
+.dashboard-widget.huge-title h5
+{
+    font-size: 50px;
+}
+
+.dashboard-widget.big-title h5
+{
+    font-size: 30px;
+}
+
+.dashboard-widget.small-title
+{
+    font-size: 14px;
+}
+
+/* VALUE WIDGET */
+/* -------------------------------------------------------------------------- */
+
+.value-widget
+{
+    font-size: 9em;
+    font-weight: bold;
+    text-align: right;
+    padding: 8px;
+    overflow: hidden;
+}
+
+/* TREND WIDGET */
+/* -------------------------------------------------------------------------- */
+
+.dashboard-widget-trend .trend-arrow
+{
+    display: inline-block;
+    font-size: 9em;
+    text-align: center;
+    color: #ffff00;
+    opacity: 0.8;
+}
+
+/* Force height on block widgets */
+.dashboard-widget-chart,
+.dashboard-widget-gauge,
+.dashboard-widget-value,
+.dashboard-widget-trend
+{
+    text-align: center;
+    height: 210px;
+}
+
+.dashboard-widget-chart .widget-contents chart
+{
+    position: relative;
+    top: 30px;
+    height: 150px;
+}
+
+.dashboard-widget-trend .widget-contents .trend
+{
+    margin-top: 4px;
+}
+
+/* COP WIDGET */
+/* -------------------------------------------------------------------------- */
+
+.dashboard-widget-networkmap
+{
+    clear: both;
+    color: #DDDDDD;
+    display: block;
+    text-align: left;
+    margin: 15px;
+    padding: 15px;
+    vertical-align: top;
+}
+
+/* Network map contents and div have different heights than other widgets */
+
+.dashboard-widget-networkmap .widget-contents
+{
+    height: auto;
+    vertical-align: top;
+}
+
+.dashboard-widget-networkmap .widget-bg
+{
+    height: 100%;
+}
+
+/* Normalize fonts, sizes and positioning, hide default widget title */
+
+.dashboard-widget-networkmap label
+{
+    font-weight: normal;
+}
+
+.dashboard-widget-networkmap .left
+{
+    float: left;
+}
+
+.dashboard-widget-networkmap .right
+{
+    float: right;
+}
+
+.dashboard-widget-networkmap h5
+{
+    display: none;
+}
+
+.dashboard-widget-networkmap h4
+{
+    color: #DDDDDD;
+}
+
+/* Network map domain list */
+
+.dashboard-widget-networkmap .domains
+{
+    margin-bottom: 20px;
+}
+
+.dashboard-widget-networkmap .domains label
+{
+    display: inline-block;
+}
+
+.dashboard-widget-networkmap .domains .datacenter
+{
+    float: right;
+    margin-right: 2px;
+}
+
+.dashboard-widget-networkmap .domains .fa-warning
+{
+    float: right;
+    margin-right: 2px;
+}
+
+.dashboard-widget-networkmap .country-panel
+{
+    clear: none;
+    display: inline-block;
+    margin: 0 22px 10px 22px;
+    text-align: left;
+    width: 120px;
+}
+
+.dashboard-widget-networkmap .country-panel > div
+{
+    color: #888888;
+}
+
+/* Network map clouds: CDN and prolexic */
+
+.dashboard-widget-networkmap .backbones
+{
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    width: 10%;
+}
+
+.dashboard-widget-networkmap .backbones .cloud-wrapper
+{
+    width: 100%;
+}
+
+.dashboard-widget-networkmap .cloud-wrapper
+{
+    display: inline-block;
+    position: relative;
+}
+
+.dashboard-widget-networkmap .cloud-wrapper.active .fa
+{
+    color: #008CF1;
+}
+
+.dashboard-widget-networkmap .cloud-wrapper label
+{
+    color: #AAAAAA;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 99%;
+    top: 25px;
+}
+
+/* Network map left column: gauges */
+
+.dashboard-widget-networkmap .gauge-wrapper
+{
+    display: inline-block;
+    position: relative;
+    width: 49%;
+}
+
+/* Network map RIGHT COLUMN */
+
+.dashboard-widget-networkmap .connections
+{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    width: 58%;
+}
+
+.dashboard-widget-networkmap .connections div.datacenter
+{
+    background: #323232;
+    color: #A0A0A0;
+    border-radius: 5px;
+    padding: 12px;
+    position: relative;
+    width: 150px;
+    text-align: left;
+}
+
+.dashboard-widget-networkmap .ident
+{
+    margin-left: 20px;
+}
+
+.dashboard-widget-networkmap .ident:before
+{
+    content: "- ";
+}
+
+/* Network map Offices and connections */
+
+.dashboard-widget-networkmap .conn
+{
+    border-bottom: 5px solid #303030;
+    color: #444444;
+    display: inline-block;
+    font-size: 11px;
+    padding-bottom: 3px;
+    text-align: center;
+    position: absolute;
+}
+
+.dashboard-widget-networkmap .gth-itr
+{
+    left: 150px;
+    right: 150px;
+    top: 20px;
+}
+
+.dashboard-widget-networkmap .itr-gth
+{
+    left: 150px;
+    right: 150px;
+    top: 220px;
+}
+
+.dashboard-widget-networkmap .gth-bmo
+{
+    top: 120px;
+    left: 150px;
+    width: 90px;
+}
+
+.dashboard-widget-networkmap .itr-bnb
+{
+    top: 120px;
+    right: 150px;
+    width: 90px;
+}
+
+.dashboard-widget-networkmap .bmo-bnb
+{
+    top: 110px;
+    left: 310px;
+    right: 310px;
+}
+
+.dashboard-widget-networkmap .bmo-bnb-2
+{
+    top: 145px;
+    left: 310px;
+    right: 310px;
+}
+
+.dashboard-widget-networkmap .office
+{
+    background: #323232;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 115px;
+    width: 70px;
+}
+
+.dashboard-widget-networkmap .office.bmo
+{
+    left: 240px;
+}
+
+.dashboard-widget-networkmap .office.bnb
+{
+    right: 240px;
+}
+
+.dashboard-widget-networkmap .warehouse
+{
+    background: #323232;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    top: 295px;
+    z-index: 2;
+    width: 70px;
+}
+
+.dashboard-widget-networkmap .warehouse.elz
+{
+    left: 30%;
+}
+
+.dashboard-widget-networkmap .warehouse.mlz
+{
+    left: 50%;
+    margin-left: -35px;
+}
+
+.dashboard-widget-networkmap .warehouse.bri
+{
+    right: 30%;
+}
+
+/* Network map Payment Subsystem */
+
+.dashboard-widget-networkmap .payment-subsystem
+{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    padding: 20px;
+    width: 31%;
+    color: #A0A0A0;
+}
+
+.dashboard-widget-networkmap .payone-service
+{
+    top: 71px;
+    left: 30px;
+    width: 56px;
+}
+
+
+.dashboard-widget-networkmap .service-engine
+{
+    top: 115px;
+    left: 75px;
+    right: 60%;
+}
+
+.dashboard-widget-networkmap .engine-entities
+{
+    top: 140px;
+    right: 150px;
+    left: 45%;
+}
+
+.dashboard-widget-networkmap .engine-cda
+{
+    top: 185px;
+    left: 46%;
+    width: 50px;
+    margin-left: -25px;
+}
+
+.dashboard-widget-networkmap .payment-entity
+{
+    background: #323232;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    z-index: 2;
+    margin-bottom: 10px;
+}
+
+.dashboard-widget-networkmap .conn-payment-entity
+{
+    right: 112px;
+    width: 40px;
+    margin-top: -50px;
+}
+
+.dashboard-widget-networkmap .conn-payment-entity.half-up
+{
+    right: 100px;
+    top: 145px;
+    width: 97px;
+}
+
+.dashboard-widget-networkmap .conn-payment-entity.half-down
+{
+    right: 43px;
+    top: 249px;
+    width: 211px;
+}
+
+.dashboard-widget-networkmap .conn-vertical
+{
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+
+.dashboard-widget-networkmap .office.pay-one
+{
+    top: 20px;
+}
+
+.dashboard-widget-networkmap .office.payment-engine
+{
+    left: 45%;
+    margin-left: -35px;
+}
+
+.dashboard-widget-networkmap .office.cda
+{
+    left: 45%;
+    margin-left: -35px;
+    top: 225px;
+}
+
+.dashboard-widget-networkmap .conn-arrow
+{
+    font-size: 18px;
+}
+
+/* Network map Platform Services */
+.dashboard-widget-networkmap .platform-services
+{
+    margin-top: 20px;
+    height: 60px;
+    position: relative;
+}
+
+.dashboard-widget-networkmap .platform-services h4
+{
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.dashboard-widget-networkmap ul
+{
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.dashboard-widget-networkmap li.office
+{
+    position: relative;
+    top: 0;
+    margin-right: 10px;
+}
+
+
+/* Network map COLOURS */
+
+.dashboard-widget-networkmap .fa
+{
+    color: #353535;
+}
+
+.dashboard-widget-networkmap .country-panel .no-ids
+{
+    color: #353535 !important;
+}
+
+.dashboard-widget-networkmap .no-ids, .dashboard-widget-networkmap .no-ids label
+{
+    color: #555555 !important;
+}
+
+/* CUSTOM WIDGET STYLES */
+/* -------------------------------------------------------------------------- */
+
+/* Blinking key frames for COP "red" items */
+@keyframes copblink
+{
+    0%
+    {
+        text-shadow : none;
+    }
+    100%
+    {
+        text-shadow: 2px 2px 5px #ff8b00;
+    }
+}
+
+@-webkit-keyframes copblink
+{
+    0%
+    {
+        text-shadow : none;
+    }
+    100%
+    {
+        text-shadow: 2px 2px 5px #ff8b00;
+    }
+}
+
+/* Blinking key frames */
+@keyframes widgetblink
+{
+    0%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes widgetblink
+{
+    0%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+/* Shake key frames */
+@-webkit-keyframes widgetshake
+{
+    0%
+    {
+        -webkit-transform: translate(2px, 1px) rotate(0deg);
+    }
+    10%
+    {
+        -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20%
+    {
+        -webkit-transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30%
+    {
+        -webkit-transform: translate(0px, 2px) rotate(0deg);
+    }
+    40%
+    {
+        -webkit-transform: translate(1px, -1px) rotate(1deg);
+    }
+    50%
+    {
+        -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60%
+    {
+        -webkit-transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70%
+    {
+        -webkit-transform: translate(2px, 1px) rotate(-1deg);
+    }
+    80%
+    {
+        -webkit-transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90%
+    {
+        -webkit-transform: translate(2px, 2px) rotate(0deg);
+    }
+    100%
+    {
+        -webkit-transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+/* The active class will be appended automatically whenever any of the
+below styles are active for a widget */
+.dashboard-widget.active h5, .dashboard-widget.active .widget-time
+{
+    color: #EEEEEE;
+}
+
+/* Widget blink special effect */
+.dashboard-widget.blink .widget-bg
+{
+    -webkit-animation: widgetblink 1s linear infinite;
+    animation: widgetblink 1s linear infinite;
+    background: #555555;
+}
+
+/* Widget shake special effect */
+.dashboard-widget.shake
+{
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation: widgetshake 0.3s linear infinite;
+    animation: widgetshake 0.3s linear infinite;
+}
+
+.dashboard-widget.red .widget-bg
+{
+    background: #DD3010 !important
+}
+
+.dashboard-widget.orange .widget-bg
+{
+    background: #E77A1D !important;
+}
+
+.dashboard-widget.yellow .widget-bg
+{
+    background: #EBB129 !important
+}
+
+.dashboard-widget.green .widget-bg
+{
+    background: #78B924 !important;
+}
+
+.dashboard-widget.blue .widget-bg
+{
+    background: #008CF1 !important;
+}
+
+/* DASHBOARD ALERTS */
+/* -------------------------------------------------------------------------- */
+
+.zmon-alert
+{
+    color: white;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    padding: 8px;
+    min-height: 130px;
+}
+
+.zmon-alert h1
+{
+    font-weight: 400 !important;
+    margin: 0 0 8px 0;
+}
+
+.zmon-alert a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.zmon-alert a:hover
+{
+    text-decoration: underline;
+}
+
+.zmon-alert .popover-content
+{
+    color: #000;
+    height: 100px;
+    max-height: 200px;
+    width: 400px;
+    overflow: auto;
+}
+
+#zmon-alerts-container.noWidgets
+{
+    position: absolute;
+    top: 65px;
+    background: #323232;
+    left: 0;
+    right: 0;
+}
+
+#zmon-alerts-container.noWidgets .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#zmon-alerts-container h1 span.fa {
+    margin-right: 4px;
+}
+
+.no-alerts
+{
+    background-color: #78B924 !important;
+    border-top: 1px solid #BDE68C;
+    border-bottom: 1px solid #BDE68C;
+    overflow: hidden;
+}
+
+.alert-prio-1
+{
+    background-color: #dd3010 !important;
+    border-color: #b3270f !important;
+    /* to be tested as per JanL's request
+    -webkit-animation: copblink 1s linear infinite;
+    animation: copblink 1s linear infinite;
+    */
+}
+
+.alert-prio-2
+{
+    background-color: #e77a1d !important;
+    border-color: #bd6418 !important;
+}
+
+.alert-prio-3
+{
+    background-color: #ebb129 !important;
+    border-color: #b18620 !important;
+}
+
+/* alert in downtime */
+.alert-prio-10
+{
+    background-color: #707070 !important;
+    border-color: #8F8F8F !important;
+    color: #D7D7D7 !important;
+}
+
+/* COMPACT VIEW */
+/* -------------------------------------------------------------------------- */
+
+#zmon-alerts-container.compact .zmon-alert
+{
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-right-width: 1px;
+    border-right-style: solid;
+    display: inline-block;
+    min-height: 82px;
+}
+
+#zmon-alerts-container.compact .no-alerts
+{
+    border-left: 0;
+    border-right: 0;
+    display: block;
+}
+
+#zmon-alerts-container.compact .zmon-alert h1
+{
+    font-size: 25px;
+}
+
+#zmon-alerts-container.compact .zmon-alert .entities-count
+{
+    font-size: 25px;
+}
+
+/* Tags */
+
+.dashboard-tags-container
+{
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-tags
+{
+    display: block;
+    border: 0;
+    background: transparent;
+    width: 280px;
+    height: 140px;
+    top: -15px;
+    padding: 1px;
+    margin-left: -295px;
+    border-radius: 3px;
+}
+
+.dashboard-tags .select2-container
+{
+    background: transparent;
+    width: 280px !important;
+    border-radius: 5px;
+    display: block !important;
+    border: 1px solid black;
+}
+
+.dashboard-tags ul.select2-choices
+{
+    background: #464646;
+    border-radius: 0 !important;
+    height: 138px !important;
+    width: 278px;
+    overflow: auto;
+    padding: 1px;
+    padding-top: 3px;
+    color: white;
+    border-radius: 3px !important;
+}
+
+.dashboard-tags .select2-search-choice
+{
+    background: black;
+    color: white;
+    border: 0;
+}
+
+.dashboard-tags .select2-search-field input
+{
+    color: #8F8F8F !important;
+    border-radius: 3px !important;
+    padding-left: 10px !important;
+}
+
+.dashboard-tags .arrow-right-container
+{
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-tags .arrow-right
+{
+    position: absolute;
+    top: 20px;
+    right: -13px;
+}
+
+.dashboard-tags .arrow-right-border
+{
+    position: absolute;
+    top: 20px;
+    right: -15px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 13px solid black;
+}

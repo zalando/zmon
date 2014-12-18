@@ -1,0 +1,64 @@
+<h1>Check Definitions</h1>
+
+<div class="zmon-controls row">
+    <div class="row">
+        <div class="col-md-8 text-left">
+            <form id="searchbar" class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fa fa-fw fa-search"></i></button>
+                        </span>
+                        <input class="form-control" placeholder="Filter definitions"  type="text" ng-model="checkFilter" autofocus />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="dropdown team-filter">
+                <label>Filter team:</label>
+                <a class="dropdown-toggle">{{ teamFilter && teamFilter !== 'all' ? teamFilter : 'All Teams' }}</a>
+                <ul class="dropdown-menu team-filter-dropdown">
+                    <li ng-hide="teamFilter === null" ng-click="setTeamFilter()">
+                        All Teams
+                    </li>
+                    <li ng-repeat="team in checkTeams" ng-click="setTeamFilter(team)">
+                        {{ team }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive col-md-12">
+        <table class="zmon-data-table table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="name-col">Name</th>
+                    <th>Command</th>
+                    <th class="entities-col">Entities</th>
+                    <th class="team-col">Team</th>
+                    <th class="interval-col">Intrval</th>
+                    <th class="status-col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="def in checkDefinitions| orderBy:'name' | filter:checkFilter" repeat-monitor last="$last">
+                    <td> <a href="#/check-definitions/view/{{ def.id }}">{{def.name}}</a></td>
+                    <td class="ellipsis" expand>{{def.command}}</td>
+                    <td ng-bind-html="def.entities | entities"></td>
+                    <td>{{def.owning_team}}</td>
+                    <td class="text-right">{{def.interval| timespan:'s'}}</td>
+                    <td class="text-center"><status status="def.status"/></td>
+                </tr>
+                <tr ng-show="!initialLoading && checkDefinitions.length < 1">
+                    <td colspan="6">
+                        No check definitions found for the specified team / filter.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<h1>{{ check_name }}</h1>
+
+<div class="zmon-controls date-form row">
+    <div class="col-md-2">
+        <div class="row">
+            <label class="check-chart-section">Charts</label>
+            <ul class="list-unstyled">
+                <li>
+                    <input type="checkbox" ng-model="dayChartEnabled" ng-click="toggleDefaultChart('dayChart')"><label class="check-chart-options">last Day</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="weeksChartEnabled" ng-click="toggleDefaultChart('weeksChart')"><label class="check-chart-options">last two Weeks</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="useDateRange" ng-click="toggleDateRange()"/><label class="check-chart-options">custom</label>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <label class="check-chart-section">Options</label>
+            <ul class="list-unstyled">
+                <li>
+                    <input type="checkbox" ng-model="compareMode"><label class="check-chart-options">compare</label>
+                </li>
+            </ul>
+        </div>
+        <div class="row" ng-if="dataSeries.length > 1">
+            <label class="check-chart-section">Data Series</label> (<a class="clickable" ng-click="toggleAllDataSeries()"><span ng-show="selectedDataSeries.length < dataSeries.length">select all</span><span ng-show="selectedDataSeries.length == dataSeries.length">unselect all</span></a>)
+            <ul class="list-unstyled">
+                <li ng-repeat="series in dataSeries">
+                    <input type="checkbox" ng-model="series.selected" ng-click="toggleDataSeries(series.name)"/>
+                    {{ series.name }}
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <label class="check-chart-section">Entities</label><span class="select-boxes">(<a class="clickable" ng-click="toggleAllEntities()"><span ng-show="selectedEntities.length < availableEntities.length">select all</span><span ng-show="selectedEntities.length == availableEntities.length">unselect all</span></a>)</span>
+            <ul class="list-unstyled">
+                <li ng-repeat="id in availableEntities">
+                <input type="checkbox" ng-model="entities[id].selected" ng-click="toggleEntity(entities[id])"/>
+                {{ id }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9 col-md-offset-1">
+
+        <div class="row" ng-show="useDateRange">
+            <div class="col-md-5">
+                <div class="col-md-7">
+                    <div class="row">
+                        <label>From</label>
+                    </div>
+                    <div class="row">
+                    <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="dates.startDate" is-open="openedCalendars.from" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="showCalendar($event, 'from')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                    </div>
+                </div>
+                <div class="timepicker col-md-4" ng-model="dates.startTime">
+                    <timepicker hour-step="dateOptions.time.hstep" minute-step="dateOptions.time.mstep" show-meridian="dateOptions.time.ismeridian"></timepicker>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="col-md-7">
+                    <div class="row">
+                        <label>To</label>
+                    </div>
+                    <div class="row">
+                    <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="dates.endDate" is-open="openedCalendars.to" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="showCalendar($event, 'to')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                    </div>
+                </div>
+                <div class="timepicker col-md-4" ng-model="dates.endTime">
+                    <timepicker hour-step="dateOptions.time.hstep" minute-step="dateOptions.time.mstep" show-meridian="dateOptions.time.ismeridian"></timepicker>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <a class="btn btn-primary apply" ng-click="apply()">Apply</a>
+            </div>
+        </div>
+
+        <div class="row col-md-11">
+            <div ng-repeat="entity in entities" ng-if="entity.selected" class="row entity-charts" repeat-monitor last="$last">
+                <div ng-if="selectedDataSeries.length && (dayChartEnabled || weeksChartEnabled || useDateRange)">
+                    <div class="row">
+                        <h3>{{ entity.name }}</h3>
+                    </div>
+                    <div class="row">
+                        <div ng-if="dayChartEnabled || useDateRange">
+                            <div class="chart-label-container" data-containerId="chart-label-container-day-{{entity.name}}"></div>
+                            <chart chart-data="entity.data[0]" options="chartOptionsHour" label-container="chart-label-container-day-{{entity.name}}" ng-if="dayChartEnabled || useDateRange"/>
+                        </div>
+                        <div ng-if="weeksChartEnabled">
+                            <div class="chart-label-container" data-containerId="chart-label-container-weeks-{{entity.name}}" ></div>
+                            <chart chart-data="entity.data[1]" options="chartOptionsDays" label-container="chart-label-container-weeks-{{entity.name}}" ng-if="weeksChartEnabled"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

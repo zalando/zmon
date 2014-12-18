@@ -1,0 +1,202 @@
+<div id="edit-definition-form">
+
+    <!-- filter type: appdomain-->
+    <div ng-if="definition.type == 'appdomain'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Locale:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="locale" ng-model="definition.locale" typeahead="loc for loc in sortItems(config.locale) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Country:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="country" ng-model="definition.country" typeahead="country for country in sortItems(config.country) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Code:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="code" ng-model="definition.code" typeahead="code for code in sortItems(config.code) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Name:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="name" ng-model="definition.name" typeahead="nm for nm in sortItems(config.name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Language:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="language" ng-model="definition.language" typeahead="lang for lang in sortItems(config.language) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: city -->
+    <div ng-if="definition.type == 'city'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">City:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="city" ng-model="definition.city" typeahead="city for city in sortItems(config.city) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Country:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="country" ng-model="definition.country" typeahead="country for country in sortItems(config.country) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Region:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="region" ng-model="definition.region" typeahead="region for region in sortItems(config.region) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Longitude:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="longitude" ng-model="definition.longitude" typeahead="longitude for longitude in sortItems(config.longitude) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Latitude:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="latitude" ng-model="definition.latitude" typeahead="latitude for latitude in sortItems(config.latitude) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Accent city:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="accentcity" ng-model="definition.accentcity" typeahead="accentcity for accentcity in sortItems(config.accentcity) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: database -->
+    <div  ng-if="definition.type == 'database'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Name:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="name" ng-model="definition.name" typeahead="name for name in sortItems(config.name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Env.:</label> <div class="col-md-2"><select name="environment" ng-model="definition.environment" ng-options="env for env in sortItems(config.environment)"> </select> </div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Role:</label> <div class="col-md-2"><select name="role" ng-model="definition.role" ng-options="role for role in sortItems(config.role)"> </select></div>
+            <label class="col-md-1">Repl.delay:</label> <div class="col-md-3"><select name="replication_delay" ng-model="definition.replication_delay" ng-options="replication_delay for replication_delay in sortItems(config.replication_delay)"> </select></div>
+            <label class="col-md-1">Slave type:</label> <div class="col-md-2"><select name="role" ng-model="definition.slave_type" ng-options="slave_type for slave_type in sortItems(config.slave_type)"> </select></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: database_cluster_instance -->
+    <div ng-if="definition.type == 'database_cluster_instance'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Host:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Cluster:</label> <div class="col-md-2"><select name="cluster" ng-model="definition.cluster" ng-options="cluster for cluster in sortItems(config.cluster)"> </select></div>
+            <label class="col-md-1">Role:</label> <div class="col-md-1"><select name="role" ng-model="definition.role" ng-options="role for role in sortItems(config.role)"> </select></div>
+            <label class="col-md-1">Pci:</label> <div class="col-md-1"><select name="pci" ng-model="definition.pci" ng-options="pci for pci in sortItems(config.pci)"> </select></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Service:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="service_name" ng-model="definition.service_name" typeahead="service_name for service_name in sortItems(config.service_name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Port:</label> <div class="col-md-2"><select name="port" ng-model="definition.port" ng-options="port for port in sortItems(config.port)"> </select></div>
+            <label class="col-md-1">Version:</label> <div class="col-md-1"><select name="version" ng-model="definition.version" ng-options="version for version in sortItems(config.version)">{{version}}</option> </select></div>
+            <label class="col-md-1">Instance:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="instance_name" ng-model="definition.instance_name" typeahead="instance_name for instance_name in sortItems(config.instance_name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Slave type:</label> <div class="col-md-2"><select name="role" ng-model="definition.slave_type" ng-options="slave_type for slave_type in sortItems(config.slave_type)">{{slave_type}}</option> </select></div>
+            <label class="col-md-1">DC code:</label> <div class="col-md-2"><select name="data_center_code" ng-model="definition.data_center_code" ng-options="data_center_code for data_center_code in sortItems(config.data_center_code)"> </select></div>
+            <label class="col-md-1">Repl.delay:</label> <div class="col-md-1"><select name="replication_delay" ng-model="definition.replication_delay" ng-options="replication_delay for replication_delay in sortItems(config.replication_delay)"> </select></div>
+            <label class="col-md-1">Env.:</label> <div class="col-md-2"><select name="environment" ng-model="definition.environment" ng-options="environment for environment in sortItems(config.environment)"> </select> </div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: host -->
+    <div ng-if="definition.type == 'host'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Phys.model:</label> <div class="col-md-6"><select name="physical_machine_model" ng-model="definition.physical_machine_model" ng-options="physical_machine_model for physical_machine_model in sortItems(config.physical_machine_model)"> </select></div>
+            <label class="col-md-1">Team:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="team" ng-model="definition.team" typeahead="team for team in sortItems(config.team) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Ext.IP:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="external_ip" ng-model="definition.external_ip" typeahead="external_ip for external_ip in sortItems(config.external_ip) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Virt.type:</label> <div class="col-md-3"><select name="virt_type" ng-model="definition.virt_type" ng-options="virt_type for virt_type in sortItems(config.virt_type)"> </select></div>
+            <label class="col-md-1">Host:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Int.IP:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="internal_ip" ng-model="definition.internal_ip" typeahead="internal_ip for internal_ip in sortItems(config.internal_ip) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">DC code:</label> <div class="col-md-3"><select name="data_center_code" ng-model="definition.data_center_code" ng-options="data_center_code for data_center_code in sortItems(config.data_center_code)"> </select></div>
+            <label class="col-md-1">Host role id:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="host_role_id" ng-model="definition.host_role_id" typeahead="host_role_id as host_role_id.label for host_role_id in sortItems(config.host_role_id) | filter:{label:$viewValue} | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: loadbalancer -->
+    <div  ng-if="definition.type == 'loadbalancer' || definition.type == 'loadbalancer_ip'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Host:</label> <div class="col-md-3"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">DC code:</label> <div class="col-md-3"><select name="data_center_code" ng-model="definition.data_center_code" ng-options="data_center_code for data_center_code in sortItems(config.data_center_code)"> </select></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: mysqldb -->
+    <div  ng-if="definition.type == 'mysqldb'" class="entity-filter-definition">
+        <div class="row">
+            <div class="col-md-1">Name:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="name" ng-model="definition.name" typeahead="name for name in sortItems(config.name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <div class="col-md-1">Env.:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="environment" ng-model="definition.environment" typeahead="environment for environment in sortItems(config.environment) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">Role:</div> <div class="col-md-2"><select name="role" ng-model="definition.role"> <option value="{{role}}" ng-repeat="role in sortItems(config.role)">{{role}}</option> </select></div>
+            <div class="col-md-1">Shards:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="shards" ng-model="definition.shards" typeahead="shards for shards in sortItems(config.shards) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: netapp -->
+    <div  ng-if="definition.type == 'netapp' || definition.type == 'netapp_ip'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Host:</label> <div class="col-md-3"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">DC code:</label> <div class="col-md-3"><select name="data_center_code" ng-model="definition.data_center_code" ng-options="data_center_code for data_center_code in sortItems(config.data_center_code)"></select></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: oracledb -->
+    <div  ng-if="definition.type == 'oracledb'" class="entity-filter-definition">
+        <div class="row">
+            <div class="col-md-1">Name:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="name" ng-model="definition.name" typeahead="name for name in sortItems(config.name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <div class="col-md-1">Env.:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="environment" ng-model="definition.environment" typeahead="environment for environment in sortItems(config.environment) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">Role:</div> <div class="col-md-2"><select name="role" ng-model="definition.role"> <option value="{{role}}" ng-repeat="role in sortItems(config.role)">{{role}}</option> </select></div>
+
+            <div class="col-md-1">Host:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <div class="col-md-1">Port:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="port" ng-model="definition.port" typeahead="port for port in sortItems(config.port) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <div class="col-md-1">SID:</div> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="sid" ng-model="definition.sid" typeahead="port for port in sortItems(config.sid) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: project -->
+     <div ng-if="definition.type == 'project'" class="entity-filter-definition">
+        <div class="row">
+            <label class="col-md-1">Inst.type:</label> <div class="col-md-4"><select name="instance_type" ng-model="definition.instance_type" ng-options="instType for instType in sortItems(config.instance_type)"> </select></div>
+            <label class="col-md-1">Deployable:</label> <div class="col-md-2"><select name="deployable" ng-model="definition.deployable" ng-options="depl for depl in sortItems(config.deployable)"> </select></div>
+            <label class="col-md-1">Name:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="name" ng-model="definition.name" typeahead="nm for nm in sortItems(config.name) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+        </div>
+        <div class="row">
+            <label class="col-md-1">Team:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="team" ng-model="definition.team" typeahead="team for team in sortItems(config.team) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+            <label class="col-md-1">Proj.type:</label> <div class="col-md-2"><select name="project_type" ng-model="definition.project_type" ng-options="projType for projType in sortItems(config.project_type)"> </select></div>
+        </div>
+        <div class="row col-md-12 text-right">
+            <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+            <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- filter type: zomcat & zompy -->
+     <div ng-if="definition.type == 'zomcat' || definition.type == 'zompy'" class="entity-filter-definition">
+          <div class="row">
+                <label class="col-md-1">Project:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="project" ng-model="definition.project" typeahead="proj for proj in sortItems(config.project) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+                <label class="col-md-1">Instance:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="instance" ng-model="definition.instance" typeahead="inst for inst in sortItems(config.instance) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+                <label class="col-md-1">Env:</label> <div class="col-md-3"><select name="environment" ng-model="definition.environment" ng-options="env for env in sortItems(config.environment)">  </select></div>
+          </div>
+          <div class="row">
+               <label class="col-md-1">DC code:</label> <div class="col-md-2"><select name="data_center_code" ng-model="definition.data_center_code" ng-options="data_center_code for data_center_code in sortItems(config.data_center_code)"> </select></div>
+               <label class="col-md-1">Path:</label> <div class="col-md-2"><select name="path" ng-model="definition.path" ng-options="path for path in sortItems(config.path)"> </select></div>
+               <label class="col-md-1">Team:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="team" ng-model="definition.team" typeahead="team for team in sortItems(config.team) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+         </div>
+          <div class="row">
+               <label class="col-md-1">Host:</label> <div class="col-md-2"><input type="text" placeholder="Type to search" class="form-control" name="host" ng-model="definition.host" typeahead="host for host in sortItems(config.host) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+               <label class="col-md-2">Proj.org.:</label> <div class="col-md-4"><input type="text" placeholder="Type to search" class="form-control" name="project" ng-model="definition.project_organization" typeahead="proj_org for proj_org in sortItems(config.project_organization) | filter:$viewValue | limitTo:10" typeahead-editable="false"></div>
+         </div>
+         <div class="row col-md-12 text-right">
+               <button class="btn btn-primary" id="submit-definition" ng-click="save()">Save</button>
+               <button class="btn btn-primary" id="cancel-definition-edit" ng-click="cancel()">Cancel</button>
+         </div>
+    </div>
+</div>

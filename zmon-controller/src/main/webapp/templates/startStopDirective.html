@@ -1,0 +1,8 @@
+<span class="start-stop">
+    <strong ng-show="!refreshing">PAUSED</strong>
+    <button title="{{ refreshing ? 'Pause refreshing' : 'Resume refreshing' }}">
+        <i class="fa fa-fw fa-play" ng-if='!refreshing' ng-click="startRefreshCallback()"></i>
+        <i class="fa fa-fw fa-pause" ng-if='refreshing' ng-click="stopRefreshCallback()"></i>
+    </button>
+</span>
+

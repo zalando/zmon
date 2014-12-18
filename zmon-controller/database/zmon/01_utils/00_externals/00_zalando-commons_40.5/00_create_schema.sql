@@ -1,0 +1,23 @@
+RESET role;
+
+DO $$
+BEGIN
+  PERFORM 1 FROM pg_namespace WHERE nspname = 'zz_utils';
+  IF NOT FOUND THEN
+    CREATE SCHEMA zz_utils AUTHORIZATION postgres;
+  END IF;
+END;
+$$;
+
+SET ROLE TO postgres;
+
+GRANT USAGE ON SCHEMA zz_utils TO public;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA zz_utils GRANT EXECUTE ON FUNCTIONS TO public;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA zz_utils GRANT USAGE ON SEQUENCES TO public;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA zz_utils GRANT SELECT ON SEQUENCES TO public;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA zz_utils GRANT SELECT ON TABLES TO public;
+
+SET search_path TO zz_utils, public;

@@ -1,0 +1,91 @@
+<h1>Alert Definitions</h1>
+
+<div class="zmon-controls row">
+    <div class="row">
+        <div class="col-md-8 text-left">
+            <form id="searchbar" class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fa fa-fw fa-search"></i></button>
+                        </span>
+                        <input class="form-control" placeholder="Filter definitions"  type="text" ng-model="alertFilter" constant-focus />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="dropdown team-filter">
+                <label>Filter team:</label>
+                <a class="dropdown-toggle">{{ teamFilter && teamFilter !== 'all' ? teamFilter : 'All Teams' }}</a>
+                <ul class="dropdown-menu team-filter-dropdown">
+                    <li ng-hide="teamFilter === null" ng-click="setTeamFilter()">
+                        All Teams
+                    </li>
+                    <li ng-repeat="team in alertTeams" ng-click="setTeamFilter(team)">
+                        {{ team }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="zmon-controls row">
+    <a class="btn btn-primary" href="#/check-definitions/" tooltip="You will be redirected to check definitions page. Please select a check."><i class="fa fa-fw fa-plus"></i> Add New Alert Definition</a>
+</div>
+
+<div class="row">
+    <div class="table-responsive col-md-12">
+        <tabset>
+            <tab id="alert-status-{{tab.name.toLowerCase()}}-tab" ng-repeat="tab in tabs" select="setAlertsFilter(tab.name)" active="tab.active">
+                <tab-heading>{{tab.name}} ({{ alertDefinitions[tab.name].length + templates[tab.name].length }}) <i id='star' class='fa fa-star' ng-show="tabHasStar(tab.name)" title="new alerts"></i></tab-heading>
+            </tab>
+        </tabset>
+
+        <div class="zmon-controls row">
+            <div class="col-md-8">
+                <button class="btn" ng-class="{'active-page': !isFilteredByTemplate}" ng-disabled="alertDefinitions[statusFilter].length === 0" ng-click="setTemplateFilter('alerts')">Alerts ({{alertDefinitions[statusFilter].length}})</button>
+                <button class="btn" ng-class="{'active-page': isFilteredByTemplate}" ng-disabled="templatesByStatus.length === 0" ng-click="setTemplateFilter('template')">Templates ({{templatesByStatus.length}})</button>
+            </div>
+        </div>
+
+        <table class="zmon-data-table table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="actions-col">Actions</th>
+                    <th class="name-col">Name</th>
+                    <th>Condition</th>
+                    <th class="entities-col">Entities</th>
+                    <th class="check-id-col">Check ID</th>
+                    <th class="team-col">Team</th>
+                    <th class="responsible-team-col">Responsible Team</th>
+                    <th class="priority-col">Priority</th>
+                    <th class="status-col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="def in alertDefinitionsByStatus | filter: alertFilter | orderBy:'name'" repeat-monitor last="$last">
+                    <td class="text-center" ng-switch on="def.editable">
+                        <a ng-switch-when="true" href="#/alert-definitions/edit/{{def.id}}"><i class="fa fa-fw fa-edit"></i></a>
+                        <i ng-switch-default class="fa fa-fw fa-edit semi-transparent"></i>
+                    </td>
+                    <td><a href="#/alert-details/{{def.id}}">{{def.name || '(no name)'}}</a></td>
+                    <td class="ellipsis" expand>{{def.condition}}</td>
+                    <td><span class="text-muted" ng-show="def.entities.length === 0">(no entity filter)</span><div ng-bind-html="def.entities | entities"></div></td>
+                    <td><a href="#/check-definitions/view/{{def.check_definition_id}}">{{def.check_definition_id}}</a></td>
+                    <td>{{def.team}}</td>
+                    <td>{{def.responsible_team}}</td>
+                    <td class="text-center"><priority prio="def.priority"></priority></td>
+                    <td><status status="def.status"></status><i id="star" class='fa fa-star' ng-show="def.star" title="new alert"></i></td>
+                </tr>
+                <tr ng-show="!initialLoading && alertDefinitionsByStatus.length < 1">
+                    <td colspan="9">
+                        No alert definitions found for the specified team / filter.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

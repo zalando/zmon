@@ -1,0 +1,6 @@
+<span class="status-{{status|lowercase}}" title="status: {{status}}">
+    <i class="fa fa-fw fa-check-square" ng-if="status == 'ACTIVE'"></i>
+    <i class="fa fa-fw fa-square" ng-if="status == 'INACTIVE'"></i>
+    <i class="fa fa-fw fa-minus-square" ng-if="status == 'REJECTED'"></i>
+    <i class="fa fa-fw fa-trash-o" ng-if="status == 'DELETED'"></i>
+</span>

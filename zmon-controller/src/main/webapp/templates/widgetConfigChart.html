@@ -1,0 +1,116 @@
+<div class="text-left json-config-definition widget-config-chart">
+    <div class="col-sm-6">
+        <div class="form-horizontal edit-definition">
+
+            <div class="row">
+                <label for="inp-title" class="col-sm-2">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inp-title" name="title" placeholder="Chart Title" ng-model="widget.title" required />
+                </div>
+            </div>
+
+            <div class="row" ng-if="!isKairosChart">
+                <label for="inp-checkDefinitionId" class="col-sm-2">CheckId</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inp-checkDefinitionId" name="checkDefinitionId" ng-model="widget.checkDefinitionId" />
+                </div>
+                <label for="inp-entityId" class="col-sm-2 ">Entity Id</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="inp-entityId" name="entityId" ng-model="widget.entityId" />
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-sm-2">Colors</label>
+                <div class="col-sm-6">
+                    <input type="text" id="colors" class="form-control" name="colors" ng-model="widget.options.colors" placeholder="#F00, #00F,..." ng-list />
+                </div>
+                <label class="col-sm-2">Area</label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="areaChart" class="radiobutton" name="areaChart" ng-model="area" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div ng-hide="isKairosChart">
+                    <label for="inp-series" class="col-sm-2">Series</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="inp-series" name="series" placeholder="data01, data02, ..." ng-model="series" ng-list />
+                    </div>
+                </div>
+                <div ng-show="isKairosChart">
+                    <label for="inp-metrics-name" class="col-sm-2">Name</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="inp-metrics-name" name="metrics-name" class="form-control" ng-model="metric.name" model-change-blur />
+                    </div>
+                </div>
+
+                <label class="col-sm-2">Stack</label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="stackSeries" class="radiobutton" name="stackSeries" ng-model="widget.options.series.stack" />
+                </div>
+            </div>
+
+            <div class="widget-chart-metrics" ng-show="isKairosChart">
+                <div class="row" ng-repeat="metric in widget.options.metrics">
+
+                    <div ng-repeat="aggregation in aggregators">
+                        <label for="inp-metrics-aggregator" class="col-sm-2">Aggregation</label>
+                        <div class="col-sm-3">
+                            <select ng-model="aggregation.name" ng-options="aggregation for aggregation in availableAggregators"></select>
+                        </div>
+                        <label for="inp-metrics-sampling" class="col-sm-2">Sampling</label>
+                        <div class="col-sm-2">
+                                <input type="text" id="inp-metrics-sampling" name="metrics-sampling" class="form-control" ng-model="aggregation.sampling.value" required model-change-blur />
+                        </div>
+                        <div class="col-sm-2">
+                                <select ng-model="aggregation.sampling.unit" ng-options="unit for unit in availableAggregatorUnits" required></select>
+                        </div>
+                    </div>
+                    <div ng-if="!aggregators.length">
+                        <label for="inp-metrics-aggregator" class="col-sm-2">Aggregation</label>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary btn-xs widget-config-plus-btn" ng-disabled="invalidJson" ng-click="addAggregation()"><i class="fa fa-plus"></i> Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="inp-metrics-entities" class="col-sm-2">Entities</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="inp-metrics-entities" name="metrics-entities" ng-model="metric.tags.entity" model-change-blur ng-list />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="inp-metrics-keys" class="col-sm-2">Keys</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="inp-metrics-keys" name="metrics-keys" ng-model="metric.tags.key" model-change-blur ng-list />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="inp-metrics-group-by" class="col-sm-2">Group By</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="inp-metrics-group-by-tags" name="metrics-tag-by-tags" ng-model="groupByTags" model-change-blur ng-list />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="inp-metrics-time-range" class="col-sm-2">From</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="inp-metrics-time-range" name="metrics-time-range" ng-model="widget.options.start_relative.value" model-change-blur />
+                    </div>
+                    <div class="col-sm-5 nopadding">
+                       <select ng-model="widget.options.start_relative.unit" ng-options="unit for unit in availableTimeRangeUnits"></select> (ago)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 widget-config-chart-area">
+        <dashboard-widget config="widget" data="chartData"/>
+    </div>
+</div>
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+        <constructor-arg value="${ldap.url}"/>
+        <property name="userDn" value="${ldap.userDn}"/>
+        <property name="password" value="${ldap.password}"/>
+        <property name="baseEnvironmentProperties">
+            <map>
+                <entry key="com.sun.jndi.ldap.connect.timeout" value="${ldap.connect.timeout}"/>
+                <entry key="com.sun.jndi.ldap.read.timeout" value="${ldap.read.timeout}"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="ldapAuthenticationProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+        <constructor-arg>
+            <bean class="org.springframework.security.ldap.authentication.BindAuthenticator">
+                <constructor-arg ref="ldapContextSource"/>
+                <property name="userDnPatterns">
+                    <list>
+                        <value>${ldap.pattern.people}</value>
+                        <value>${ldap.pattern.robots}</value>
+                    </list>
+                </property>
+
+                <!-- Return the groups of the user -->
+                <property name="userAttributes">
+                    <list>
+                        <value>${ldap.attributes.groups}</value>
+                    </list>
+                </property>
+            </bean>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="de.zalando.zmon.security.ZMonLdapAuthoritiesPopulator">
+                <constructor-arg name="groupAttribute" value="${ldap.attributes.groups}" />
+                <constructor-arg name="adminGroup" value="${ldap.group.admin}" />
+                <constructor-arg name="leadGroup" value="${ldap.group.lead}" />
+                <constructor-arg name="userGroup" value="${ldap.group.user}" />
+                <constructor-arg name="viewerGroup" value="${ldap.group.viewer}" />
+                <constructor-arg name="apiReaderGroup" value="${ldap.group.api.reader}" />
+                <constructor-arg name="apiWriterGroup" value="${ldap.group.api.writer}" />
+                <constructor-arg name="teamRegex" value="${ldap.team.regex}" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <security:authentication-manager>
+            <security:authentication-provider ref="ldapAuthenticationProvider" />
+    </security:authentication-manager>
+
+    <!-- Resources without Spring Security filtering -->
+    <security:http pattern="/logo.png" security="none"/>
+    <security:http pattern="/favicon.ico" security="none"/>
+    <security:http pattern="/docs/**" security="none"/>
+    <security:http pattern="/asset/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/lib/**" security="none"/>
+    <security:http pattern="/styles/**" security="none"/>
+    <security:http pattern="/views/**" security="none"/>
+    <security:http pattern="/templates/**" security="none"/>
+    <security:http pattern="/toggleOperationMode" security="none"/>
+    <security:http pattern="/toggleHeartbeatMode" security="none"/>
+    <security:http pattern="/jobs.monitor/**" security="none"/>
+    <security:http pattern="/status.info" security="none"/>
+    <security:http pattern="/manifest.info" security="none"/>
+    <security:http pattern="/heartbeat.jsp" security="none"/>
+
+    <!-- swagger -->
+    <security:http pattern="/rest/api-docs" security="none"/>
+    <security:http pattern="/rest/api-docs/**" security="none"/>
+    <security:http pattern="/swagger/**" security="none"/>
+
+    <!-- rest api -->
+    <security:http use-expressions="true" entry-point-ref="entryPoint" pattern="/rest/api/**" create-session="stateless">
+        <security:intercept-url pattern="/**" method="GET" access="hasAnyRole('ZMON_API_READER','ZMON_API_WRITER')"/>
+        <security:intercept-url pattern="/**" access="hasRole('ZMON_API_WRITER')"/>
+        <security:access-denied-handler ref="jsonAccessDeniedHandler"/>
+        <security:http-basic entry-point-ref="entryPoint"/>
+    </security:http>
+
+    <!-- frontend -->
+    <security:http use-expressions="true" entry-point-ref="entryPoint" disable-url-rewriting="true">
+        <security:intercept-url pattern="/login.jsp" access="permitAll"/>
+        <security:intercept-url pattern="/index.html" access="permitAll"/>
+
+        <!-- Allowed unauthenticated requests inside viewers network segment -->
+        <security:intercept-url pattern="/rest/status" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/allAlerts" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/alertsById" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/checkResults" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/allDashboards" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/dashboard" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/kairosDBPost" access="${allowed.viewers.ip}"/>
+        <security:intercept-url pattern="/rest/allTags" access="${allowed.viewers.ip}"/>
+
+        <!-- Protect soap web services -->
+        <security:intercept-url pattern="/ws/**" access="${allowed.workers.ip}"/>
+
+        <!-- Protect everything else -->
+        <security:intercept-url pattern="/**" access="hasAnyRole('ZMON_ADMIN','ZMON_USER', 'ZMON_LEAD', 'ZMON_VIEWER')"/>
+
+        <security:form-login authentication-success-handler-ref="authSuccessHandler"
+                             authentication-failure-handler-ref="authFailHandler"
+                             login-page="/login.jsp"
+                             login-processing-url="/login"/>
+        <security:logout logout-url="/logout" logout-success-url="/" />
+    </security:http>
+
+    <!-- Custom entry point that throws 401 -->
+    <bean id="entryPoint" class="de.zalando.zmon.security.Http401UnauthorizedEntryPoint" />
+
+    <!-- Custom access denied bean used to serialize messages to JSON-->
+    <bean id="jsonAccessDeniedHandler" class="de.zalando.zmon.security.JSONAccessDeniedHandler"/>
+
+    <!-- form authentication-->
+    <bean id="authSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/"/>
+        <property name="targetUrlParameter" value="next_page"/>
+        <property name="redirectStrategy" ref="redirectStrategy"/>
+    </bean>
+    <bean id="redirectStrategy" class="org.springframework.security.web.DefaultRedirectStrategy">
+        <property name="contextRelative" value="true"/>
+    </bean>
+
+    <bean id ="authFailHandler" class="de.zalando.zmon.security.UrlRedirectAuthenticationFailureHandler">
+         <constructor-arg index="0" value="/login.jsp" />
+         <constructor-arg index="1" value="next_page" />
+    </bean>
+</beans>

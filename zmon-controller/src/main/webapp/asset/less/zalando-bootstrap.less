@@ -1,0 +1,108 @@
+/*!
+ *  Zalando Bootstrap
+ *  the iconic theme designed on top of Bootstrap.
+ *  ------------------------------------------------------------------------------
+ *  Please feel free to contact us, if there are any questions!
+ *
+ *  Authors - Mehmet Yueksel <mehmet.yueksel@zalando.de>
+ *            and Hagen Tarner <hagen.tarner@zalando.de>
+ *  ------------------------------------------------------------------------------
+ */
+
+  // Font Setup
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic);
+
+  // Core variables and mixins
+@import "variables";
+@import "bootstrap/mixins";
+
+  // Reset
+@import "bootstrap/normalize";
+@import "bootstrap/print";
+
+  // Core CSS
+@import "bootstrap/scaffolding";
+@import "bootstrap/type";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+
+  // Components
+@import "bootstrap/component-animations";
+@import "bootstrap/dropdowns";
+@import "bootstrap/button-groups";
+@import "bootstrap/input-groups";
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/pagination";
+@import "bootstrap/pager";
+@import "bootstrap/labels";
+@import "bootstrap/badges";
+@import "bootstrap/jumbotron";
+@import "bootstrap/thumbnails";
+@import "bootstrap/alerts";
+@import "bootstrap/progress-bars";
+@import "bootstrap/media";
+@import "bootstrap/list-group";
+@import "bootstrap/panels";
+@import "bootstrap/wells";
+@import "bootstrap/close";
+
+  // Components w/ JavaScript
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+@import "bootstrap/carousel";
+
+  // Utility classes
+@import "bootstrap/utilities";
+@import "bootstrap/responsive-utilities";
+
+  // Font Awesome
+@import "font-awesome/font-awesome";
+
+  // CSS Tweaks
+table.table {
+  thead, tfoot {
+    background: @gray-light;
+    color: @white;
+  }
+  thead {
+    tr {
+      th {
+        padding: 6px 8px ;
+        border-right: 1px solid @white;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+  tfoot {
+    tr {
+      td {
+        padding: 6px 8px;
+        text-align: right;
+      }
+    }
+  }
+  th.action, td.action { text-align: center; }
+  tr.selected {
+    td { background: @blue-lighter; }
+  }
+  tbody {
+    tr {
+      td {
+        padding: 6px 8px;
+        ul.list-inline { margin-bottom: 0; }
+      }
+    }
+  }
+}
+
+.tooltip {
+  &.in { .opacity(1); }
+}

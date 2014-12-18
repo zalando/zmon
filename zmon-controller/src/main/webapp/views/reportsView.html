@@ -1,0 +1,91 @@
+<h1>Report: 24x7 Alert Modification History</h1>
+<div class="row">
+    <div class="zmon-controls reports-form">
+        <div class="col-md-3">
+            <input type="checkbox" name="useDateRange" class="checkbox" ng-model="useDateRange" ng-click="handleDateRangeClick()"/>
+            <label>Date range</label>
+        </div>
+        <div class="col-md-4">
+            <div class="dropdown">
+                <label>Filter by team:</label>
+                <a class="dropdown-toggle">{{ teamFilter ? teamFilter : 'All Teams' }}</a>
+                <ul class="dropdown-menu">
+                    <li ng-hide="teamFilter === null">
+                        <a ng-click="setTeamFilter()">All Teams</a>
+                    </li>
+                    <li ng-repeat="team in teams">
+                        <a ng-click="setTeamFilter(team)">{{ team }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row reports-form" ng-show="useDateRange">
+    <div class="col-md-5">
+        <div class="col-md-8">
+            <label class="date">From</label>
+            <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="dates.fromDate" is-open="openedCalendars.from" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="showCalendar($event, 'from')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="timepicker col-md-3" ng-model="dates.fromTime">
+            <timepicker hour-step="dateOptions.time.hstep" minute-step="dateOptions.time.mstep" show-meridian="dateOptions.time.ismeridian"></timepicker>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="col-md-8">
+            <label class="date">To</label>
+            <input type="text" class="form-control date" datepicker-popup="{{format}}" ng-model="dates.toDate" is-open="openedCalendars.to" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="showCalendar($event, 'to')"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="timepicker col-md-3" ng-model="dates.toTime">
+            <timepicker hour-step="dateOptions.time.hstep" minute-step="dateOptions.time.mstep" show-meridian="dateOptions.time.ismeridian"></timepicker>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-primary apply" ng-click="apply()">Apply</button>
+    </div>
+</div>
+<div class="row">
+    <div class="zmon-controls col-md-2 reports-form">
+        <a download="report.csv" class="btn btn-warning pointer" ng-click="export()" ng-href="{{csvBlobUrl}}"><i class="fa fa-fw fa-download" ></i>Export</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label>Results limited to 100 rows</label>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive col-md-12">
+        <table class="zmon-data-table table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="timestamp-col">Last Modified</th>
+                    <th class="modified-by-col">Modified By</th>
+                    <th class="name-col">Name</th>
+                    <th class="modification-type-col">Modification Type</th>
+                    <th class="data-col">Original Data</th>
+                    <th class="data-col">New Data</th>
+                    <th class="link-icon-col">Change Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in reports">
+                    <td class="no-wrap">{{ record.time | epochToDate }}</td>
+                    <td>{{ record.attributes.cd_last_modified_by || record.attributes.adt_last_modified_by }}</td>
+                    <td>{{ record.attributes.cd_name || record.attributes.adt_name }}</td>
+                    <td><span class="history-tag" style="background-color: {{ hslFromEventType(record.type_id)}}">{{ record.action }}</span></td>
+                    <td class="ellipsis" expand ng-bind-html="getChanges(record.attributes)"></td>
+                    <td class="ellipsis" expand ng-bind-html="getChanges(record.changed_attributes)"></td>
+                    <td><a href="{{ getLink(record) }}"><i class="fa fa-link"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

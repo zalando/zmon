@@ -1,0 +1,20 @@
+<div>
+    <div class="json-config">
+        <select id="widget-types-dropdown" class="col-sm-2" ng-disabled="invalidJson" ng-model="selectedWidgetType" ng-options="widgetType.type for widgetType in widgetTypes"></select>
+        <div class="col-sm-10">
+            <button class="btn btn-primary" ng-disabled="filterEditPending || invalidJson" ng-click="addChart()">Add Widget</button>
+        </div>
+        <span ng-show="invalidJson">Error: Invalid JSON; please switch to text editor and fix</span>
+        <span ng-show="emptyJson">Error: Empty JSON</span>
+    </div>
+    <div class="col-sm-12">
+        <div class="row widgets-preview" ng-repeat="widgetDef in widgets | filter: {type:'chart'}">
+            <div>
+                <a class="clickable widget-config-remove-btn" ng-disabled="invalidJson" ng-click="removeWidget($index)"><i class="fa fa-times"></i></a>
+            </div>
+            <div>
+                <widget-config-chart widget="widgetDef" chart-data="chartData"/>
+            </div>
+        </div>
+    </div>
+</div>

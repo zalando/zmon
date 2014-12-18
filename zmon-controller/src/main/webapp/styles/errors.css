@@ -1,0 +1,42 @@
+#error-overlay
+{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1 !important;
+    background-color: black;
+    opacity: 0.75;
+}
+
+#error-overlay-msg
+{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2 !important;
+}
+
+#error-overlay-msg div
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin: 30px auto;
+    width: 30%;
+    color: white;
+    opacity: 1.0;
+    background: #dd3010;
+    padding: 15px;
+    z-index: 1 !important;
+    border: 3px solid #b32710;
+}
+
+.has-error .control-label a
+{
+    color: #d40018;
+    border-color: #d40018;
+}
