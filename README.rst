@@ -1,6 +1,10 @@
 ZMON
 ====
 
+.. image:: https://readthedocs.org/projects/zmon/badge/?version=latest
+   :target: https://readthedocs.org/projects/zmon/?badge=latest
+   :alt: Documentation Status
+
 ZMON is Zalando's monitoring tool.
 
 Build everything from source
@@ -31,3 +35,10 @@ Issues with the Vagrant box:
 * every LDAP user has admin role (because I could not get the OpenLDAP "memberOf" overlay to work)
 * no entity adapters are configured (except "cities")
 * many configuration options are hardcoded
+
+Install the command line interface
+==================================
+
+.. code-block:: bash
+
+    $ sudo pip3 install --upgrade zmon-cli
