@@ -11,7 +11,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.hostname = "zmon"
 
-    config.vm.network "forwarded_port", guest: 8080, host: 38080
+    # ZMON Controller
+    config.vm.network :forwarded_port, guest: 8080, host: 38080
+    # KairosDB
+    config.vm.network :forwarded_port, guest: 8083, host: 38083
 
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "2048"]

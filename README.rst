@@ -22,8 +22,12 @@ Install a recent Vagrant version and simply do:
 
     $ vagrant up
 
+The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
+
+The KairosDB frontend will be exposed on 38083 on localhost, i.e. you can manually query metrics on http://localhost:38083/
+
 Issues with the Vagrant box:
 
 * every LDAP user has admin role (because I could not get the OpenLDAP "memberOf" overlay to work)
-
-The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
+* no entity adapters are configured (except "cities")
+* many configuration options are hardcoded
