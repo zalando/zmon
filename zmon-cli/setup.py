@@ -32,12 +32,16 @@ EMAIL = 'henning.jacobs@zalando.de'
 # Add here all kinds of additional classifiers as defined under
 # https://pypi.python.org/pypi?%3Aaction=list_classifiers
 CLASSIFIERS = [
+    'Environment :: Console',
     'Development Status :: 4 - Beta',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: Implementation :: CPython',
     'Operating System :: POSIX :: Linux',
-    'License :: OSI Approved :: Apache Software License'
+    'Operating System :: MacOS :: MacOS X',
+    'License :: OSI Approved :: Apache Software License',
+    'Topic :: System :: Monitoring',
+    'Topic :: System :: Networking :: Monitoring'
 ]
 
 CONSOLE_SCRIPTS = ['zmon = zmon_cli.main:main']
@@ -62,7 +66,7 @@ def setup_package():
         author_email=EMAIL,
         url=URL,
         license=LICENSE,
-        keywords='zmon command line interface',
+        keywords='zmon monitoring command line interface',
         classifiers=CLASSIFIERS,
         test_suite='tests',
         packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
