@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from mock import patch
-from functions import NagiosWrapper
-from functions.nagios import NagiosError
+from zmon_worker.functions import NagiosWrapper
+from zmon_worker.functions.nagios import NagiosError
 
 import unittest
 

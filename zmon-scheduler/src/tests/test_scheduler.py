@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from cmdb.client import Host, Client
-from deployctl.client import Instance, Project, DeployCtl
-from mock import patch, ANY, Mock, PropertyMock
+from mock import patch, ANY, Mock
 from web import cherrypy, ZmonScheduler
 
 import json
@@ -33,28 +31,6 @@ def mock_check_definitions(self):
 
 def mock_alert_definitions(self):
     pass
-
-
-def mock_appdomains(self):
-    self.entities = [{}]
-
-
-def mock_instances(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures', 'instances.json')) as f:
-        instances = json.load(f)
-    return [Instance(i) for i in instances]
-
-
-def mock_projects(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures', 'projects.json')) as f:
-        projects = json.load(f)
-    return [Project(p) for p in projects]
-
-
-def mock_hosts(self, *args, **kwargs):
-    with open(os.path.join(DIR, 'fixtures/hosts.json')) as f:
-        hosts = json.load(f)
-    return [Host(h) for h in hosts if all(h.get(k) == v for (k, v) in kwargs.iteritems())]
 
 
 def mock_wsclient(self):
@@ -123,9 +99,6 @@ class TestScheduler(unittest.TestCase):
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
     @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
     def test_generate_requests(self):
         scheduler = ZmonScheduler(os.getpid(), Mock())
         scheduler.alert_definitions = {
@@ -151,48 +124,18 @@ class TestScheduler(unittest.TestCase):
             11: set([11, 12]),
         }
         self.assertIsNotNone(scheduler)
-        self.assertTrue(len(scheduler.instances.entities) > 0, 'Should load mocked instances')
-        self.assertTrue(len(scheduler.projects.entities) > 0, 'Should load mocked projects')
-        self.assertTrue(len(scheduler.hosts.entities) > 0, 'Should load mocked hosts')
 
-        # Test happy path: generate entities for all python projects runnning on integration.
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'zompy',
-                        'environment': 'integration'}], 1), False))
+        # Test happy path: generate entities
+        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'city'}], 1), False))
         self.assertTrue(len(entities) > 0)
         for entity in entities:
             self.assertEqual('zompy', entity['type'])
             self.assertEqual('integration', entity['environment'])
 
-        # Test more complex happy path: generate entities for shop project on multiple environments.
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'project': 'shop', 'environment': 'live'},
-                        {'project': 'shop', 'environment': 'release-staging'}], 2), False))
-        self.assertTrue(len(entities) > 0)
-        envs = frozenset(['live', 'release-staging'])
-        for entity in entities:
-            self.assertEqual('shop', entity['project'])
-            self.assertIn(entity['environment'], envs)
-
-        # There should be no python instances in shop and solr projects running on live environment.
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'zompy', 'project': 'shop',
-                        'environemt': 'live'}, {'type': 'zompy', 'project': 'solr', 'environemt': 'live'}], 3), False))
-        self.assertEquals(len(entities), 0)
-
         # Test check definition containing wrong keys (not present in instance).
         entities = list(scheduler._generate_check_entities(CheckDefinition([{'lang': 'ruby', 'environment': 'space'}],
                         4), False))
         self.assertEquals(len(entities), 0)
-
-        # Test check definition for type host
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'host', 'host': 'monitor03'}], 5),
-                        False))
-        self.assertEquals(len(entities), 1, 'Should generate one entity for type host')
-
-        # Test team filtering
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'host', 'team': 'Shop'}], 6),
-                        False))
-        self.assertTrue(len(entities) > 0, 'Should generate entities based on team')
-        for entity in entities:
-            self.assertIn('Shop', entity['teams'])
 
         # Test combination with alert definitions entities filter, check definition specifies all hosts and alert
         # definition narrows it down to two entities.
@@ -269,9 +212,6 @@ class TestScheduler(unittest.TestCase):
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
     @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
     def test_generate_alerts(self):
         scheduler = ZmonScheduler(os.getpid(), Mock())
         entity = {
@@ -314,18 +254,12 @@ class TestScheduler(unittest.TestCase):
         # Test if numbers are handled correctly
         scheduler.alert_definitions = {1: {'id': 1, 'entities_map': [{'host_role_id': '33'}], 'check_id': 1}}
         scheduler.check_alert_map = {1: set([1])}
-        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'host'}], 1), False))
+        entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'city'}], 1), False))
         # It looks like doing the opposite, but we store entities for which we're able to generate an alert. This way
         # we can check later if the entities match the filter.
         matching = [e for e in entities if scheduler._generate_alerts(e, 1)]
 
-        self.assertTrue(len(entities) > 0, 'Should generate entities for type host')
         self.assertTrue(len(matching) > 0, 'Should generate entities matching the alert filter')
-        self.assertTrue(all(m['host_role_id'] == '33' for m in matching), 'All entities should match the alert filter')
-        self.assertTrue(all('physical_machine_model' in m for m in matching),
-                        'All entities should have physical machine model')
-        self.assertTrue(all(m['virt_type'] is not None and m['virt_type'] != 'None' for m in matching),
-                        'There should be no None values in virt_type')
 
         # Test empty alert entities
         scheduler.alert_definitions = {1: {'id': 1, 'entities_map': [], 'check_id': 1}}
@@ -350,9 +284,6 @@ class TestScheduler(unittest.TestCase):
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
     @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
     def test_cleanup(self):
         scheduler = ZmonScheduler(os.getpid(), Mock())
         scheduler.check_definitions = {1: CheckDefinition([{'type': 'host', 'host': 'http01'}], 1)}
@@ -362,9 +293,6 @@ class TestScheduler(unittest.TestCase):
 
         # Sanity check
         self.assertIsNotNone(scheduler)
-        self.assertTrue(len(scheduler.instances.entities) > 0, 'Should load mocked instances')
-        self.assertTrue(len(scheduler.projects.entities) > 0, 'Should load mocked projects')
-        self.assertTrue(len(scheduler.hosts.entities) > 0, 'Should load mocked hosts')
 
         # Test generating cleanup args for one host entity, the logic is the same for instances.
         scheduler._run_cleanup()
@@ -460,9 +388,6 @@ class TestScheduler(unittest.TestCase):
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
     @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
     def test_schedule_trial_runs(self):
         app = Mock()
         app.signature = MockSignature()
@@ -503,9 +428,6 @@ class TestScheduler(unittest.TestCase):
     @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
     @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
     @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
     def test_db_cluster_instances(self):
         scheduler = ZmonScheduler(os.getpid(), Mock())
 
@@ -522,29 +444,6 @@ class TestScheduler(unittest.TestCase):
         entities = list(scheduler._generate_check_entities(CheckDefinition([{'type': 'database_cluster_instance'}], 1),
                         False))
         self.assertTrue(len(entities) > 0, 'Should generate entities with type database_cluster_instance')
-
-    @patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions)
-    @patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions)
-    @patch.object(requests, 'get', mock_get_request)
-    @patch.object(DeployCtl, 'get_instances', mock_instances)
-    @patch.object(DeployCtl, 'get_projects', mock_projects)
-    @patch.object(Client, 'get_hosts', mock_hosts)
-    def test_exception_handling(self):
-
-        # Test if scheduler starts if it fails to connect to zmon-controller
-        with patch.object(ZmonScheduler, 'ws_client', new_callable=PropertyMock) as mock_ws_client:
-            with patch.object(AppdomainAdapter, 'ws_client', new_callable=PropertyMock):
-                mock_ws_client.side_effect = [Exception('WS initialization exception')] * 2
-                scheduler = ZmonScheduler(os.getpid(), Mock())
-                self.assertIsNotNone(scheduler, 'Scheduler should be initialized without exceptions (1)')
-
-        # Test if the scheduler starts if Appdomain adapter fails to connect to config service
-        with patch.object(ZmonScheduler, '_load_check_definitions', mock_check_definitions):
-            with patch.object(ZmonScheduler, '_load_alert_definitions', mock_alert_definitions):
-                with patch.object(AppdomainAdapter, 'ws_client', new_callable=PropertyMock) as mock_cfgs_client:
-                    mock_cfgs_client.side_effect = Exception('WS initialization exception')
-                    scheduler = ZmonScheduler(os.getpid(), Mock())
-                    self.assertIsNotNone(scheduler, 'Scheduler should be initialized without exceptions (2)')
 
 
 if __name__ == '__main__':

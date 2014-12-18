@@ -150,7 +150,7 @@ class ZmonScheduler(Process):
 
     graphite_client = property(graphite_client_get, graphite_client_set)
 
-    def __init__(self, parentPID, app, instance_code, host, loglevel=logging.INFO):
+    def __init__(self, parentPID, app, instance_code='local', host='unknown', loglevel=logging.INFO):
         super(ZmonScheduler, self).__init__()
 
         self.check_definitions = {}

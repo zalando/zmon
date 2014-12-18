@@ -1,7 +1,7 @@
 ===============
 Zmon Scheduler
 ===============
- 
+
 Unit tests
 ----------------
 Navigate to zmon-scheduler/src directory:

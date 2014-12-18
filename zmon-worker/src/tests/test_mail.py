@@ -5,7 +5,7 @@ from mock import patch, Mock, ANY
 
 import datetime
 import jinja2
-import notifications.mail as m
+import zmon_worker.notifications.mail as m
 import smtplib
 import unittest
 
