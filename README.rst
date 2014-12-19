@@ -7,16 +7,17 @@ ZMON
 
 ZMON is Zalando's monitoring tool.
 
-Build everything from source and start Vagrant demo cluster
-===========================================================
+Build everything and start Vagrant demo cluster
+===============================================
 
-Install a recent Vagrant_ version and simply do:
+Install a recent Vagrant_ version (at least 1.6) and simply do:
 
 .. code-block:: bash
 
     $ vagrant up
 
 This will start a new Vagrant box and install all dependencies, build all components and start them.
+Please note that the provisioning process will take quite some time as many tools and dependencies need to be downloaded.
 
 The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
 
@@ -31,9 +32,22 @@ Issues with the Vagrant box:
 Install the command line interface
 ==================================
 
+Use PIP to install the ``zmon`` executable from PyPI_.
+
 .. code-block:: bash
 
     $ sudo pip3 install --upgrade zmon-cli
+
+Build components from source locally
+====================================
+
+The ``vagrant up`` will automatically build all components from source inside the Vagrant box,
+but you can also build them manually on your local machine.
+You need Java 7 or 8, Maven 3 and Python 2.7:
+
+.. code-block:: bash
+
+    $ ./build.sh
 
 ToDos
 =====
@@ -50,3 +64,4 @@ This project is in catastrophic shape and has many to-dos:
 * add documentation (architecture, operations manual, etc)
 
 .. _Vagrant: https://www.vagrantup.com/
+.. _PyPI: https://pypi.python.org/pypi/zmon-cli
