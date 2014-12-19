@@ -23,7 +23,7 @@ def read_version(package):
 NAME = 'zmon-cli'
 MAIN_PACKAGE = 'zmon_cli'
 VERSION = read_version(MAIN_PACKAGE)
-DESCRIPTION = 'ZMON CLI'
+DESCRIPTION = 'Command line interface for Zalando\'s monitoring tool ZMON'
 LICENSE = 'Apache License 2.0'
 URL = 'https://github.com/zalando/zmon'
 AUTHOR = 'Henning Jacobs'
@@ -62,6 +62,7 @@ def setup_package():
         name=NAME,
         version=VERSION,
         description=DESCRIPTION,
+        long_description=read('README.rst'),
         author=AUTHOR,
         author_email=EMAIL,
         url=URL,

@@ -18,6 +18,8 @@ MAX_COLUMN_WIDTH = {
     'command': 16
 }
 
+TITLES = {}
+
 
 def action(msg, **kwargs):
     click.secho(msg.format(**kwargs), nl=False, bold=True)
@@ -30,8 +32,10 @@ def ok(**kwargs):
 def error(msg, **kwargs):
     click.secho(' {}'.format(msg), fg='red', bold=True, **kwargs)
 
+
 def highlight(msg, **kwargs):
-    click.secho(' {}'.format(msg), fg='cyan',nl=False, bold=True, **kwargs)
+    click.secho(' {}'.format(msg), fg='cyan', nl=False, bold=True, **kwargs)
+
 
 def format_time(ts):
     if ts == 0:

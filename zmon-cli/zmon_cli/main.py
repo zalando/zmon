@@ -288,8 +288,8 @@ def remove_phone(ctx, member_email, phone_nr):
 @click.argument("member_name")
 @click.pass_context
 def set_name(ctx, member_email, member_name):
-    action("Chaning user name ....")
-    r = put("/groups/{}/name/{}/".format(member_email, member_name))
+    action("Changing user name ....")
+    put("/groups/{}/name/{}/".format(member_email, member_name))
     ok()
 
 
@@ -304,19 +304,16 @@ def status(ctx):
     workers = sorted(workers)
 
     action("Looking for <30s interval scheduler ...")
-    found_p3423 = False
-    scheduler = filter(lambda x: x[:7]=='s-p3423', workers)
-    if len(scheduler)==0:
+    scheduler = filter(lambda x: x[:7] == 's-p3423', workers)
+    if not scheduler:
         error("not found! check p3423")
     else:
         action("... running {}".format(scheduler[0][2:]))
         ok()
 
-
     action("Looking for >30s interval scheduler ...")
-    found_p3422 = False
-    scheduler = filter(lambda x: x[:7]=='s-p3422', workers)
-    if len(scheduler)==0:
+    scheduler = filter(lambda x: x[:7] == 's-p3422', workers)
+    if not scheduler:
         error("not found! check p3422")
     else:
         action("... running {}".format(scheduler[0][2:]))
@@ -352,4 +349,4 @@ def main():
     try:
         cli()
     except requests.HTTPError as e:
-        click.secho('', bold=True, fg='red')
+        click.secho('ERROR: {}'.format(e), bold=True, fg='red')
