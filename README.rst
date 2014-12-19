@@ -7,24 +7,16 @@ ZMON
 
 ZMON is Zalando's monitoring tool.
 
-Build everything from source
-============================
+Build everything from source and start Vagrant demo cluster
+===========================================================
 
-Use the master build script to build everything from source:
-
-.. code-block:: bash
-
-    $ ./build.sh
-
-Start Vagrant demo cluster
-==========================
-
-You need to run ``build.sh`` first.
 Install a recent Vagrant_ version and simply do:
 
 .. code-block:: bash
 
     $ vagrant up
+
+This will start a new Vagrant box and install all dependencies, build all components and start them.
 
 The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
 

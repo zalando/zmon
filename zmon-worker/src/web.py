@@ -40,12 +40,6 @@ if __name__ == '__main__':
         if env_key in os.environ:
             cherrypy.config[key] = os.environ[env_key]
 
-    # TODO This is ugly. Cherrypy has to be configured and started in the same process and we have to pass the same
-    # config to the worker, so we have to read it twice. Putting celery in a separate process and passing the config
-    # doesn't work because then we cannot kill all python processes at once (killing the main process doesn't kill all
-    # the workers.
-    # Decrypt potentially encrypted config settings. (Trying to decrypt unencrypted config settings is safe.)
-
     # save cherrypy config in owr settings module
     settings.set_workers_log_level(cherrypy.config.get('loglevel', 'INFO'))
     settings.set_external_config(cherrypy.config)

@@ -14,3 +14,4 @@ atlassian-ide-plugin.xml
 .venv
 .vagrant
 *.tar
+kairosdb-client
