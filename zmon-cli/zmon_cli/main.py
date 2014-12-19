@@ -295,9 +295,9 @@ def set_name(ctx, member_email, member_name):
 
 @cli.command()
 @click.pass_obj
-def status(ctx):
+def status(config):
     """check system status"""
-    redis, workers = check_redis_host('monitor03', 6379)
+    redis, workers = check_redis_host(config['redis_host'], 6379)
 
     print("")
 
