@@ -256,7 +256,8 @@
             <id>integration-test</id>
             <properties>
                 <test.db.name>local_zmon_db</test.db.name>
-                <test.db.port>5435</test.db.port>
+                <test.db.host>localhost</test.db.host>
+                <test.db.port>5432</test.db.port>
             </properties>
             <build>
                 <plugins>
