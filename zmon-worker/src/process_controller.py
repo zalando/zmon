@@ -85,8 +85,6 @@ class ProcessController(object):
         kwargs = dict(kwargs if kwargs else self.default_kwargs)
         kwargs.update(self.always_add_kwargs)
 
-        #logger.info('>>>>>>> spawn_process: %s, %s, %s', target, args, kwargs)
-
         try:
             proc = Process(target=target, args=args, kwargs=kwargs)
             proc.start()
@@ -101,7 +99,7 @@ class ProcessController(object):
             # store process arguments to relaunch it if it dies
             self.proc_args[pname] = dict(target=target, args=args, kwargs=kwargs)
 
-            #creating entry in stats table
+            # creating entry in stats table
             self.proc_stats[pname] = dict(self.proc_stat_element)
             self.proc_stats[pname]['pid'] = proc.pid
             self.proc_stats[pname]['alive'] = proc.is_alive()
@@ -191,7 +189,7 @@ class ProcessController(object):
         raise NotImplementedError('Method get_info not implemented yet')
 
     def list_running(self):
-        return [(proc_name, proc.pid)  for proc_name, proc in self.proc_dict.items()]
+        return [(proc_name, proc.pid) for proc_name, proc in self.proc_dict.items()]
 
     def list_stats(self):
         proc_stats = copy.deepcopy(self.proc_stats)

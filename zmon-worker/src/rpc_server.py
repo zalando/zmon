@@ -34,8 +34,9 @@ def save_pid(abort_pidfile=False):
 
 
 def sigterm_handler(signum, frame):
-    #this will propagate the SystemExit exception all around, so we can quit listening loops, cleanup and exit
+    # this will propagate the SystemExit exception all around, so we can quit listening loops, cleanup and exit
     sys.exit(0)
+
 
 class ProcessControllerProxy(rpc_utils.RpcProxy):
     """
@@ -64,8 +65,6 @@ class ProcessControllerProxy(rpc_utils.RpcProxy):
 
     def on_exit(self):
         self.get_exposed_obj().terminate_all_processes()  # TODO: Think why exit codes are sometimes -15 and others 0
-
-
 
 
 class MainProcess(object):
@@ -102,8 +101,6 @@ def main(config=None):
                                settings.RPC_SERVER_CONF['PORT'],
                                settings.RPC_SERVER_CONF['RPC_PATH'],
                                rpc_proxy)
-
-
 
 
 if __name__ == '__main__':

@@ -14,9 +14,9 @@ if __name__ == '__main__':
 
 logger = logging.getLogger(__name__)
 
-#env vars get droped via zompy startup
+# env vars get droped via zompy startup
 os.environ["ORACLE_HOME"] = "/opt/oracle/instantclient_12_1/"
-os.environ["LD_LIBRARY_PATH"] = os.environ.get("LD_LIBRARY_PATH",'') + ":/opt/oracle/instantclient_12_1/"
+os.environ["LD_LIBRARY_PATH"] = os.environ.get("LD_LIBRARY_PATH", '') + ":/opt/oracle/instantclient_12_1/"
 
 import rpc_server
 
@@ -45,16 +45,13 @@ if __name__ == '__main__':
     settings.set_external_config(cherrypy.config)
     settings.set_rpc_server_port('2{}'.format('3500'))
 
-    #start the process controller
+    # start the process controller
     main_proc.start_proc_control()
 
-    #start some processes per queue according to the config
+    # start some processes per queue according to the config
     queues = cherrypy.config['zmon.queues']['local']
     for qn in queues.split(','):
         queue, N = (qn.rsplit('/', 1) + [DEFAULT_NUM_PROC])[:2]
         main_proc.proc_control.spawn_many(int(N), kwargs={"queue": queue, "flow": "simple_queue_processor"})
 
-    #start the rpc_Server
     main_proc.start_rpc_server()
-
-
