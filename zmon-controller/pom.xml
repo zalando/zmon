@@ -275,8 +275,8 @@
                         <version>2.18</version>
                         <configuration>
                             <systemPropertyVariables>
-                                <frontend.sproc.datasource.username>zalando_api</frontend.sproc.datasource.username>
-                                <frontend.sproc.datasource.password>zalando_api</frontend.sproc.datasource.password>
+                                <frontend.sproc.datasource.username>postgres</frontend.sproc.datasource.username>
+                                <frontend.sproc.datasource.password>postgres</frontend.sproc.datasource.password>
                                 <frontend.sproc.datasource.url>jdbc:postgresql://${test.db.host}:${test.db.port}/${test.db.name}</frontend.sproc.datasource.url>
                             </systemPropertyVariables>
                         </configuration>

@@ -33,3 +33,7 @@ echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
 chmod 600 /root/.pgpass
 cp /root/.pgpass /home/vagrant/.pgpass
 
+# to run integration tests:
+mkdir /root/.m2
+echo '<settings><servers><server><id>testdb</id><username>postgres</username><password>postgres</password></server></servers></settings>' > /root/.m2/settings.xml
+
