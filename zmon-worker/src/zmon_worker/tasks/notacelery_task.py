@@ -29,8 +29,8 @@ import setproctitle
 from datetime import timedelta, datetime
 
 from zmon_worker.functions import HistoryWrapper, HttpWrapper, NagiosWrapper, RedisWrapper, SnmpWrapper, JmxWrapper, TcpWrapper, \
-    ping, SqlWrapper, SoapWrapper, CounterWrapper, EventLogWrapper, LdapWrapper, ExaplusWrapper, ZomcatWrapper, \
-    ExceptionsWrapper, JobsWrapper, SqlOracleWrapper, JoblocksWrapper, ZmonWrapper, MySqlWrapper, ShopFrontendWrapper, \
+    ping, SqlWrapper, CounterWrapper, EventLogWrapper, LdapWrapper, ExaplusWrapper, ZomcatWrapper, \
+    ExceptionsWrapper, JobsWrapper, SqlOracleWrapper, JoblocksWrapper, ZmonWrapper, MySqlWrapper, \
     WhoisWrapper, MsSqlWrapper
 
 from bisect import bisect_left
@@ -1379,7 +1379,6 @@ class NotaZmonTask(object):
                              timeout=soft_time_limit * 1000),
             'mssql': propartial(MsSqlWrapper, host, port, database, user=NotaZmonTask._mssql_user, password=NotaZmonTask._mssql_pass,
                                 timeout=soft_time_limit),
-            'soap': propartial(SoapWrapper, config=NotaZmonTask._soap_config),
             'counter': counter,
             'eventlog': EventLogWrapper,
             'ldap': propartial(LdapWrapper, user=NotaZmonTask._ldapuser, password=NotaZmonTask._ldappass, host=host, counter=counter),
@@ -1391,8 +1390,6 @@ class NotaZmonTask(object):
             'job_locks': propartial(JoblocksWrapper, cmdb_url=NotaZmonTask._cmdb_url, project=entity.get('name')),
             'history': propartial(HistoryWrapper, logger=logger, check_id=req['check_id'], entities=normalize_kairos_id(entity['id'])),
             'zmon': propartial(ZmonWrapper, NotaZmonTask._zmon_url, self.get_redis_host(), self.get_redis_port()),
-            'shop_frontend': propartial(ShopFrontendWrapper, host, instance, external_ip, load_balancer_status,
-                                     data_center_code),
             'whois': propartial(WhoisWrapper, host=host),
         })
 

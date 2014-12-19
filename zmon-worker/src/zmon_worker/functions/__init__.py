@@ -16,7 +16,6 @@ from nagios import NagiosWrapper
 from ping_ import ping
 from redis_wrapper import RedisWrapper
 from snmp import SnmpWrapper
-from soap import SoapWrapper
 from sql import SqlWrapper
 from sql_oracle import SqlOracleWrapper
 from sql_mysql import MySqlWrapper
@@ -26,7 +25,6 @@ from time_ import TimeWrapper
 from whois_ import WhoisWrapper
 from zomcat import ZomcatWrapper
 from zmon import ZmonWrapper
-from shop_frontend import ShopFrontendWrapper
 
 __all__ = [
     'CounterWrapper',
@@ -43,7 +41,6 @@ __all__ = [
     'NagiosWrapper',
     'RedisWrapper',
     'SnmpWrapper',
-    'SoapWrapper',
     'SqlOracleWrapper',
     'MySqlWrapper',
     'MsSqlWrapper',
@@ -54,5 +51,4 @@ __all__ = [
     'ZomcatWrapper',
     'ZmonWrapper',
     'ping',
-    'ShopFrontendWrapper',
 ]
