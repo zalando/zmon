@@ -299,12 +299,6 @@ class TestScheduler(unittest.TestCase):
         self.assertIn('de-berlin', scheduler.cleanup['check_entities'][1],
                       'Cleanup args should contain entity id for given check definition id')
 
-        # Simulate removing entity (e.g. decommissioning a host).
-        for i in range(len(scheduler.hosts.entities)):
-            if scheduler.hosts.entities[i]['host'] == 'http01':
-                del scheduler.hosts.entities[i]
-                break
-
         # Check whether cleanup args reflect changes after removing an entity.
         scheduler._run_cleanup()
         self.assertIn(1, scheduler.cleanup['check_entities'],

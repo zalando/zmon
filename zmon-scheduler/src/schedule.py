@@ -133,7 +133,7 @@ class Schedule(object):
         if self._downtime_started(check_id, now) or self._downtime_ended(check_id, now):
             return True
 
-        if not check_id in self._schedule and interval > 29 and interval < 901:
+        if check_id not in self._schedule and interval > 29 and interval < 901:
             self._schedule[check_id] = {'last_run': now + get_sleep_interval(interval, check_id) - interval}
 
         if ((self._schedule[check_id]['last_run'] if check_id in self._schedule else 0)) < now - interval:
@@ -150,5 +150,3 @@ class Schedule(object):
             self._schedule[check_id]['last_run'] = 0
         else:
             self._schedule[check_id] = {'last_run': 0}
-
-

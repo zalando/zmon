@@ -65,7 +65,7 @@ def async_creation_runner(cache, somekey, creator, mutex):
 # Asynchronous cache decorator persisted to memory.
 # After the first successful invocation cache updates happen in a background thread.
 async_memory_cache = make_region(async_creation_runner=async_creation_runner).configure('dogpile.cache.memory',
-        expiration_time=DEFAULT_CACHE_EXPIRATION_TIME)
+                                 expiration_time=DEFAULT_CACHE_EXPIRATION_TIME)
 
 
 class PropertiesEncoder(json.JSONEncoder):
@@ -162,7 +162,7 @@ class ZmonScheduler(Process):
 
         # A list of all active adapters and adapter -> entity type mapping.
         self.adapters = {
-                'cities': ['city'],
+            'cities': ['city'],
         }
 
         # These two should be set to None in case initial checks/alerts request fails. After update starts, passing
@@ -186,7 +186,6 @@ class ZmonScheduler(Process):
         self.logger = logging.getLogger('zmon-scheduler')
         self.logger.setLevel(loglevel)
 
-        #self._redis_connection = None
         self._graphite_client = None
         self._ws_client = None
         self.pubsub_initialized = False
@@ -235,21 +234,18 @@ class ZmonScheduler(Process):
         checks_thread.start()
         alerts_thread.start()
 
-
         self.heap = []
         # mark forced executions to skip one execution
         self.mark_as_skip = {}
         self.cache_check_route = {}
 
         for adapter in self.adapters:
-            if adapter != 'hosts':
-                getattr(self, adapter).load_thread.start()
+            getattr(self, adapter).load_thread.start()
 
         checks_thread.join()
         alerts_thread.join()
         for adapter in self.adapters:
-            if adapter != 'hosts':
-                getattr(self, adapter).load_thread.join()
+            getattr(self, adapter).load_thread.join()
 
         # Initialization of cleanup dict
         # Cleanup dict consists of two parts: disabled checks/alerts and currently active checks/alerts. The disabled
@@ -587,7 +583,7 @@ class ZmonScheduler(Process):
 
             p.hdel('zmon:trial_run:requests', request['id'])
             p.execute()
-        except Exception, e:
+        except Exception as e:
             self.logger.warn('Failed to update the trial runs')
             self.logger.exception(e)
 
@@ -624,7 +620,6 @@ class ZmonScheduler(Process):
                 heapq.heappush(self.heap, (0, check_id))
             else:
                 self.schedule.mark_for_run(check_id)
-
 
         else:
             self.logger.warn('Non-valid alert id %s received in immediate evaluation request', alert_id)
@@ -963,7 +958,7 @@ class ZmonScheduler(Process):
 
         items = 0
         for check in self.check_definitions.values():
-            #legacy partition, needs to be removed if scheduler is fast enough again
+            # legacy partition, needs to be removed if scheduler is fast enough again
             if self.instance_code in ['3422', '3423']:
                 if self.instance_code == '3423' and check.interval > 30:
                     continue
@@ -1115,12 +1110,8 @@ class ZmonScheduler(Process):
                             'routing_key': routing_key,
                         }
 
-                        #if str(each.id) in ['7', '285']:
-                        #    self.logger.info('Sending check_id: %s => through queue: %s', each.id, queue)
-
                         # update count_checks_per_queue
                         self._add_to_count_checks(routing_key, 1)
-
 
                         try:
                             number_of_requests += 1
@@ -1128,7 +1119,7 @@ class ZmonScheduler(Process):
                             task = self.app.signature('check_and_notify', args=(req, self._generate_alerts(entity,
                                                       each.id)), options=options)
                             task.apply_async(task_id='check-{}-{}-{:.2f}'.format(each.id, entity['id'], time.time()))
-                        except Exception, e:
+                        except Exception as e:
                             self.logger.exception(e)
 
                     loop_scheduled += number_of_requests
@@ -1206,7 +1197,7 @@ def main():
         if env_key in os.environ:
             cherrypy.config[key] = os.environ[env_key]
 
-    #configuring redis connection handler
+    # configuring redis connection handler
     RedisConnHandler.configure(**dict(cherrypy.config))
 
     app = Celery('zmon')
