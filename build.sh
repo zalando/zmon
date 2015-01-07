@@ -36,11 +36,6 @@ JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -o '1\.[78]')
 PYTHON_VERSION=$(python --version 2>&1 | grep -o '2\.7')
 [ "v$PYTHON_VERSION" = "v2.7" ] || fail "Python 2.7 is required"
 
-progress 'Building KairosDB Client'
-git clone https://github.com/zalando/kairosdb-client.git
-# we need to skip tests as KairosDB client tries to start embedded server :-P
-(cd kairosdb-client && mvn clean install -Dmaven.test.skip=true -Dgpg.skip=true)
-
 progress 'Building Controller'
 git clone https://github.com/zalando/zmon-controller.git
 (cd zmon-controller && mvn clean package && docker build -t zmon-controller .)
