@@ -1,5 +1,0 @@
-CREATE TYPE history_type AS ENUM
-(
-    'CHECK_DEFINITION',
-    'ALERT_DEFINITION'
-);

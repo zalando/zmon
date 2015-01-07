@@ -42,10 +42,13 @@ git clone https://github.com/zalando/kairosdb-client.git
 (cd kairosdb-client && mvn clean install -Dmaven.test.skip=true -Dgpg.skip=true)
 
 progress 'Building Controller'
+git clone https://github.com/zalando/zmon-controller.git
 (cd zmon-controller && mvn clean package && docker build -t zmon-controller .)
 
 progress 'Building Scheduler'
+git clone https://github.com/zalando/zmon-scheduler.git
 (cd zmon-scheduler && docker build -t zmon-scheduler .)
 
 progress 'Building Worker'
+git clone https://github.com/zalando/zmon-worker.git
 (cd zmon-worker && docker build -t zmon-worker .)

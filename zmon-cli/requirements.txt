@@ -1,4 +1,0 @@
-click>=3.3
-requests>=2.2.1
-PyYAML>=3.11
-redis
