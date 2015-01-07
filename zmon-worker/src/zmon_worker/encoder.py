@@ -3,9 +3,10 @@
 
 import datetime
 import json
+import numpy
+
 from collections import Set
 from decimal import Decimal
-
 
 class JsonDataEncoder(json.JSONEncoder):
 
@@ -16,6 +17,8 @@ class JsonDataEncoder(json.JSONEncoder):
             return float(o)
         elif isinstance(o, Set):
             return list(o)
+        elif isinstance(o, numpy.bool_):
+            return bool(o)
         else:
             return super(JsonDataEncoder, self).default(o)
 
@@ -25,9 +28,9 @@ class JsonDataEncoder(json.JSONEncoder):
 
 
 if __name__ == '__main__':
-    import numpy
 
     the_encoder = JsonDataEncoder()
+
     print repr(the_encoder.encode(numpy.nan))
     print repr(the_encoder.encode(numpy.Infinity))
     print repr(the_encoder.encode(-numpy.Infinity))
