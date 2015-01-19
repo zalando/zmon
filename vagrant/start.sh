@@ -25,7 +25,7 @@ psql -f /vagrant/vagrant/initial.sql
 container=$(docker ps | grep openldap)
 if [ -z "$container" ]; then
     docker rm openldap
-    docker run --name openldap --net host -d hjacobs/slapd
+    docker run --name openldap --net host -d zalando/slapd
 fi
 
 until nc -w 5 -z localhost 389; do
