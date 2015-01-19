@@ -29,6 +29,11 @@ adduser vagrant docker
 
 apt-get install -y postgresql-client ldap-utils maven openjdk-7-jdk git
 
+# install dependencies for acceptance and unit testing
+apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xserver-xorg-core dbus-x11
+apt-get install -y npm nodejs-legacy xvfb chromium-browser firefox
+npm install -g gulp protractor chromedriver
+
 echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
 chmod 600 /root/.pgpass
 cp /root/.pgpass /home/vagrant/.pgpass

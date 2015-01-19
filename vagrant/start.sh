@@ -81,3 +81,6 @@ for comp in controller scheduler worker; do
         done
     fi
 done
+
+#XVFB_ARGS=":10 -extension RANDR -noreset -ac -screen 10 1024x768x16" start-stop-daemon --start --quiet --oknodo \
+#    --pidfile /var/run/Xvfb.pid --background --make-pidfile --exec /usr/bin/Xvfb -- $XVFB_ARGS
