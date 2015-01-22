@@ -5,10 +5,10 @@ export PGUSER=postgres
 export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
-container=$(docker ps | grep postgres:9.3.5)
+container=$(docker ps | grep postgres:9.4.0)
 if [ -z "$container" ]; then
     docker rm postgres
-    docker run --name postgres --net host -e POSTGRES_PASSWORD=postgres -d postgres:9.3.5
+    docker run --name postgres --net host -e POSTGRES_PASSWORD=postgres -d postgres:9.4.0
 fi
 
 until nc -w 5 -z localhost 5432; do
