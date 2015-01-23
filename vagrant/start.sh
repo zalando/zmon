@@ -74,7 +74,7 @@ done
 docker rm zmon-eventlog-service
 docker run --name zmon-eventlog-service --net host -e POSTGRESQL_USER=PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d zmon-eventlog-service
 
-for comp in controller scheduler worker do
+for comp in controller scheduler worker; do
     docker rm zmon-$comp
     docker run --name zmon-$comp --net host -d zmon-$comp
 
