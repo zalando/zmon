@@ -7,7 +7,7 @@ export PGDATABASE=local_zmon_db
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     docker rm zmon-eventlog-service
-    docker run --name zmon-eventlog-service --net host -e POSTGRESQL_USER=PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d zmon-eventlog-service
+    docker run --name zmon-eventlog-service --net host -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d zmon-eventlog-service
 fi
 
 for comp in controller scheduler worker; do
