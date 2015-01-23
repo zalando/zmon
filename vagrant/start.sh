@@ -21,6 +21,7 @@ psql -c "CREATE DATABASE $PGDATABASE;" postgres
 psql -c 'CREATE EXTENSION hstore;'
 find -name '*.sql' | sort | xargs cat | psql
 psql -f /vagrant/vagrant/initial.sql
+psql -f /vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
 container=$(docker ps | grep openldap)
 if [ -z "$container" ]; then
@@ -70,7 +71,10 @@ until nc -w 5 -z localhost 8083; do
     sleep 3
 done
 
-for comp in controller scheduler worker; do
+docker rm zmon-eventlog-service
+docker run --name zmon-eventlog-service --net host -e POSTGRESQL_USER=PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d zmon-eventlog-service
+
+for comp in controller scheduler worker do
     docker rm zmon-$comp
     docker run --name zmon-$comp --net host -d zmon-$comp
 
