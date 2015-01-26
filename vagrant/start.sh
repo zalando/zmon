@@ -70,14 +70,35 @@ until nc -w 5 -z localhost 8083; do
     sleep 3
 done
 
-for comp in controller scheduler worker; do
+lroot=/vagrant/zmon-controller
+snap=$lroot/target/zmon-controller-1.0.1-SNAPSHOT
+lwebapp=$lroot/src/main/webapp
+croot=/usr/local/tomcat
+cwebapp=$croot/webapps/ROOT
+
+docker rm zmon-controller
+docker run --name zmon-controller --net host -d \
+    -v $snap:$cwebapp \
+    -v $lwebapp/asset/:$cwebapp/asset/ \
+    -v $lwebapp/js/:$cwebapp/js/ \
+    -v $lwebapp/lib/:$cwebapp/lib/ \
+    -v $lwebapp/styles/:$cwebapp/styles/ \
+    -v $lwebapp/templates/:$cwebapp/templates/ \
+    -v $lwebapp/views/:$cwebapp/views/ \
+    zmon-controller
+
+ln -fs $lwebapp/index.jsp $snap/index.jsp
+ln -fs $lwebapp/login.jsp $snap/login.jsp
+ln -fs $lwebapp/logo.jsp $snap/logo.png
+ln -fs $lwebapp/favicon.ico $snap/favicon.ico
+ln -fs $lwebapp/package.json $snap/package.json
+
+until curl http://localhost:8080/index.jsp &> /dev/null; do
+    echo 'Waiting for ZMON Controller..'
+    sleep 3
+done
+
+for comp in scheduler worker; do
     docker rm zmon-$comp
     docker run --name zmon-$comp --net host -d zmon-$comp
-
-    if [ "$comp" = "controller" ]; then
-        until curl http://localhost:8080/index.jsp &> /dev/null; do
-            echo 'Waiting for ZMON Controller..'
-            sleep 3
-        done
-    fi
 done
