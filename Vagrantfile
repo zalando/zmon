@@ -14,10 +14,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # ZMON Controller
     config.vm.network :forwarded_port, guest: 8080, host: 38080
     # KairosDB
+    config.vm.network :forwarded_port, guest: 8084, host: 38084
+
+    # KairosDB
     config.vm.network :forwarded_port, guest: 8083, host: 38083
 
     config.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--memory", "2048"]
+        vb.memory = 2048
+        vb.cpus = 3
+        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     end
 
     config.vm.provision "shell", path: "vagrant/setup.sh"

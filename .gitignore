@@ -16,5 +16,6 @@ atlassian-ide-plugin.xml
 *.tar
 kairosdb-client
 zmon-controller
+zmon-eventlog-service
 zmon-scheduler
 zmon-worker

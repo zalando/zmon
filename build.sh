@@ -36,14 +36,26 @@ JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -o '1\.[78]')
 PYTHON_VERSION=$(python --version 2>&1 | grep -o '2\.7')
 [ "v$PYTHON_VERSION" = "v2.7" ] || fail "Python 2.7 is required"
 
-progress 'Building Controller'
-git clone https://github.com/zalando/zmon-controller.git
-(cd zmon-controller && mvn clean package && docker build -t zmon-controller .)
+if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
+    progress 'Building Controller'
+    git clone https://github.com/zalando/zmon-controller.git
+    (cd zmon-controller && mvn clean package && docker build -t zmon-controller .)
+fi
 
-progress 'Building Scheduler'
-git clone https://github.com/zalando/zmon-scheduler.git
-(cd zmon-scheduler && docker build -t zmon-scheduler .)
+if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
+    progress 'Building Eventlog Service'
+    git clone https://github.com/zalando/zmon-eventlog-service.git
+    (cd zmon-eventlog-service && mvn clean package && docker build -t zmon-eventlog-service .)
+fi
 
-progress 'Building Worker'
-git clone https://github.com/zalando/zmon-worker.git
-(cd zmon-worker && docker build -t zmon-worker .)
+if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
+    progress 'Building Scheduler'
+    git clone https://github.com/zalando/zmon-scheduler.git
+    (cd zmon-scheduler && docker build -t zmon-scheduler .)
+fi
+
+if [ "b$1" = "b" ] || [ "b$1" = "bworker" ] ; then
+    progress 'Building Worker'
+    git clone https://github.com/zalando/zmon-worker.git
+    (cd zmon-worker && docker build -t zmon-worker .)
+fi
