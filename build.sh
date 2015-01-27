@@ -36,6 +36,8 @@ JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -o '1\.[78]')
 PYTHON_VERSION=$(python --version 2>&1 | grep -o '2\.7')
 [ "v$PYTHON_VERSION" = "v2.7" ] || fail "Python 2.7 is required"
 
+cd /home/vagrant
+
 if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
     progress 'Building Controller'
     git clone https://github.com/zalando/zmon-controller.git

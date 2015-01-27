@@ -27,7 +27,9 @@ fi
 
 adduser vagrant docker
 
-apt-get install -y postgresql-client ldap-utils maven openjdk-7-jdk git
+#echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
+
+apt-get install -y postgresql-client ldap-utils maven openjdk-7-jdk git redis-tools
 
 # install dependencies for acceptance and unit testing
 apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xserver-xorg-core dbus-x11
