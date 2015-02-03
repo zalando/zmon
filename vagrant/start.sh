@@ -16,12 +16,12 @@ until nc -w 5 -z localhost 5432; do
     sleep 3
 done
 
-cd /vagrant/zmon-controller/database/zmon
+cd /home/vagrant/zmon-controller/database/zmon
 psql -c "CREATE DATABASE $PGDATABASE;" postgres
 psql -c 'CREATE EXTENSION hstore;'
 find -name '*.sql' | sort | xargs cat | psql
 psql -f /vagrant/vagrant/initial.sql
-psql -f /vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
+psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
 container=$(docker ps | grep openldap)
 if [ -z "$container" ]; then
