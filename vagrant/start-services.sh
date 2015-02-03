@@ -14,7 +14,7 @@ fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
 
-    lroot=/vagrant/zmon-controller
+    lroot=/home/vagrant/zmon-controller
     snap=$lroot/target/zmon-controller-1.0.1-SNAPSHOT
     lwebapp=$lroot/src/main/webapp
     croot=/usr/local/tomcat
