@@ -35,7 +35,6 @@ apt-get install -y postgresql-client ldap-utils maven openjdk-7-jdk git redis-to
 apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xserver-xorg-core dbus-x11
 apt-get install -y npm nodejs-legacy xvfb chromium-browser firefox
 npm install -g gulp protractor chromedriver
-(cd /vagrant/zmon-controller/src/main/webapp && npm install)
 
 echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
 chmod 600 /root/.pgpass
