@@ -20,7 +20,7 @@ start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --background --mak
 if ps aux | grep "Xvfb"> /dev/null
 then
     export DISPLAY=:10
-    cd /vagrant/zmon-controller/src/main/webapp/
+    cd /home/vagrant/zmon-controller/src/main/webapp/
     gulp test
     start-stop-daemon --stop --pidfile $PIDFILE
 else
