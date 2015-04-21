@@ -27,7 +27,9 @@ echo " /_____|_|  |_|\____/|_| \_|"
 progress 'Checking prerequisites'
 git --version > /dev/null || fail "git is required"
 
-MAVEN_VERSION=$(mvn --version | head -n 1 | grep -o '3\.')
+export JAVA_HOME=/usr/lib/jvm/default-java
+
+MAVEN_VERSION=$(mvn --version | grep "Apache Maven" | grep -o '3\.')
 [ "v$MAVEN_VERSION" = "v3." ] || fail "Maven 3 is required"
 
 JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -o '1\.[78]')
@@ -52,8 +54,8 @@ fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
     progress 'Building Scheduler'
-    git clone https://github.com/zalando/zmon-scheduler.git
-    (cd zmon-scheduler && docker build -t zmon-scheduler .)
+    git clone https://github.com/zalando/zmon-scheduler-ng.git zmon-scheduler
+    (cd zmon-scheduler && mvn clean compile package && docker build -t zmon-scheduler .)
 fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bworker" ] ; then

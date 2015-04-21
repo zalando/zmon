@@ -29,7 +29,12 @@ adduser vagrant docker
 
 #echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
 
-apt-get install -y postgresql-client ldap-utils maven openjdk-7-jdk git redis-tools
+add-apt-repository ppa:webupd8team/java
+apt-get -y update
+
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+apt-get install -y postgresql-client ldap-utils maven git redis-tools
 
 # install dependencies for acceptance and unit testing
 apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xserver-xorg-core dbus-x11
