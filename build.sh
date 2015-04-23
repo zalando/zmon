@@ -27,7 +27,7 @@ echo " /_____|_|  |_|\____/|_| \_|"
 progress 'Checking prerequisites'
 git --version > /dev/null || fail "git is required"
 
-export JAVA_HOME=/usr/lib/jvm/default-java
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 
 MAVEN_VERSION=$(mvn --version | grep "Apache Maven" | grep -o '3\.')
 [ "v$MAVEN_VERSION" = "v3." ] || fail "Maven 3 is required"
