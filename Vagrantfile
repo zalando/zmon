@@ -16,6 +16,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # KairosDB
     config.vm.network :forwarded_port, guest: 8084, host: 38084
 
+    # Scheduler
+    config.vm.network :forwarded_port, guest: 8085, host: 38085
+
     # KairosDB
     config.vm.network :forwarded_port, guest: 8083, host: 38083
 
