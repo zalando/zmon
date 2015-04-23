@@ -34,6 +34,8 @@ apt-get -y update
 
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 
+apt-get install -y oracle-java8-installer
+
 apt-get install -y postgresql-client ldap-utils maven git redis-tools
 
 # install dependencies for acceptance and unit testing
