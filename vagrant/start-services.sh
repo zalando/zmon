@@ -8,9 +8,12 @@ export PGDATABASE=local_zmon_db
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     docker rm zmon-eventlog-service
     docker run --name zmon-eventlog-service --net host -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d zmon-eventlog-service
+
+    until curl http://localhost:8081/\?key=alertId\&value=3\&types=212993 &> /dev/null; do
+        echo 'Waiting for eventlog service'
+        sleep 3
+    done
 fi
-
-
 
 if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
 
@@ -37,11 +40,9 @@ if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
     done
 fi
 
-for comp in scheduler worker; do
+for comp in scheduler worker data-service; do
     if [ "b$1" = "b" ] || [ "b$1" = "b$comp" ] ; then
-
         docker rm zmon-$comp
         docker run --name zmon-$comp --net host -d zmon-$comp
-
     fi
 done

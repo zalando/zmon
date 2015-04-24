@@ -52,6 +52,12 @@ if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     (cd zmon-eventlog-service && mvn clean package && docker build -t zmon-eventlog-service .)
 fi
 
+if [ "b$1" = "b" ] || [ "b$1" = "bdata-service" ] ; then
+    progress 'Building Data Service'
+    git clone https://github.com/zalando/zmon-data-service.git
+    (cd zmon-data-service && mvn clean package && docker build -t zmon-data-service .)
+fi
+
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
     progress 'Building Scheduler'
     git clone https://github.com/zalando/zmon-scheduler-ng.git zmon-scheduler
