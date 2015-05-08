@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, guest: 8083, host: 38083
 
     config.vm.provider "virtualbox" do |vb|
-        vb.memory = 3072
+        vb.memory = 4072
         vb.cpus = 3
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     end
