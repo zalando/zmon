@@ -5,7 +5,7 @@ ZMON
    :target: https://readthedocs.org/projects/zmon/?badge=latest
    :alt: Documentation Status
 
-ZMON is Zalando's monitoring tool.
+ZMON is Zalando's monitoring tool, to get a descriptive look at what i does for us, read our blog article about it on: http://tech.zalando.com/posts/monitoring-the-zalando-platform.html
 
 Build everything and start Vagrant demo cluster
 ===============================================
