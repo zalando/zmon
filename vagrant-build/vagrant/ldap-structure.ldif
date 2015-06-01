@@ -1,0 +1,47 @@
+dn: ou=users,dc=example,dc=com
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=people,ou=users,dc=example,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: uid=admin,ou=people,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+uid: admin
+userpassword: admin
+cn: Admin
+sn: Admin
+
+dn: uid=jdoe,ou=people,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+uid: jdoe
+userpassword: test
+cn: John Doe
+sn: Doe
+
+dn: ou=robots,ou=users,dc=example,dc=com
+objectClass: organizationalUnit
+ou: robots
+
+dn: ou=teams,dc=example,dc=com
+objectClass: organizationalUnit
+ou: teams
+
+dn: ou=apps,dc=example,dc=com
+objectClass: organizationalUnit
+ou: apps
+
+dn: ou=zmon,ou=apps,dc=example,dc=com
+objectClass: organizationalUnit
+ou: zmon
+
+dn: cn=admins,ou=zmon,ou=apps,dc=example,dc=com
+objectClass: groupOfNames
+cn: admins
+member: uid=admin,ou=people,ou=users,dc=example,dc=com
+
+dn: cn=users,ou=zmon,ou=apps,dc=example,dc=com
+objectClass: groupOfNames
+cn: users
+member: uid=jdoe,ou=people,ou=users,dc=example,dc=com

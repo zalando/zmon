@@ -9,8 +9,8 @@ ZMON is Zalando's monitoring tool, to get a quick look at what it does for us, r
 
 http://tech.zalando.com/posts/monitoring-the-zalando-platform.html
 
-Build everything and start Vagrant demo cluster
-===============================================
+Start Demo using Vagrant
+========================
 
 Install a recent Vagrant_ version (at least 1.6) and simply do:
 
@@ -18,9 +18,7 @@ Install a recent Vagrant_ version (at least 1.6) and simply do:
 
     $ vagrant up
 
-This will start a new Vagrant box and install all dependencies, build all components and start them.
-
-Please note that the provisioning process will take quite some time as many tools and dependencies need to be downloaded.
+Please note that the provisioning process will take some time as it downloads the docker images.
 
 The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
 
@@ -42,6 +40,8 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 Build components from source locally
 ====================================
 
+Inside the ./vagrant-build folder you will find the old Vagrant setup, that includes cloning and compiling from source, but for a Demo this was just taking too much time.
+
 The ``vagrant up`` will automatically build all components from source inside the Vagrant box,
 but you can also build them manually on your local machine.
 You need Java 7 or 8, Maven 3 and Python 2.7:
@@ -53,11 +53,6 @@ You need Java 7 or 8, Maven 3 and Python 2.7:
 ToDos
 =====
 
-* fix unit tests and setup CI (e.g. Travis)
-* find solution to replace EventLog Service
-* remove CherryPy dependency from zmon-worker (use YAML config file instead)
-* fix all hardcoded configurations
-* remove unnecessary files (e.g. unused JS libs)
 * add documentation (architecture, operations manual, etc)
 
 .. _Vagrant: https://www.vagrantup.com/
