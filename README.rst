@@ -20,7 +20,9 @@ Install a recent Vagrant_ version (at least 1.6) and simply do:
 
 Please note that the provisioning process will take some time as it downloads the docker images.
 
-The ZMON Controller frontend will be exposed on 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
+The ZMON Controller frontend will be exposed on port 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
+
+To access Grafana which is deployed with the ZMON Controller, goto: http://localhost:38080/grafana. You will be able to create/save dashboards.
 
 The KairosDB frontend will be exposed on 38083 on localhost, i.e. you can manually query metrics on http://localhost:38083/
 
@@ -36,6 +38,8 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 .. code-block:: bash
 
     $ sudo pip3 install --upgrade zmon-cli
+
+Use the zmon cli to push/create/update entities ( e.g. hosts, databases, ...), check definitons and optionally alerts (also possible via UI).
 
 Build components from source locally
 ====================================
