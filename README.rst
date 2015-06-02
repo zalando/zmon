@@ -57,3 +57,14 @@ ToDos
 
 .. _Vagrant: https://www.vagrantup.com/
 .. _PyPI: https://pypi.python.org/pypi/zmon-cli
+
+Thanks
+======
+
+  Docker images/scripts used in slightly modified version are:
+
+  * abh1nav/cassandra:latest
+  * wangdrew/kairosdb
+  * official Redis and PostgreSQL
+  
+  Thanks to the original authors!

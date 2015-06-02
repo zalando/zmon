@@ -3,8 +3,8 @@
 rm /etc/update-motd.d/*
 cp /vagrant/vagrant/etc/update-motd.d/* /etc/update-motd.d/
 
-apt-get remove --purge -y puppet chef
-apt-get autoremove -y
+#apt-get remove --purge -y puppet chef
+#apt-get autoremove -y
 
 if [ ! -x "/usr/bin/docker" ]; then
 
