@@ -5,9 +5,19 @@ ZMON
    :target: https://readthedocs.org/projects/zmon/?badge=latest
    :alt: Documentation Status
 
-ZMON is Zalando's monitoring tool, to get a quick look at what it does for us, read our blog article about it:
+ZMON is Zalando's monitoring tool, for a quick intro, read our blog article about it:
 
 http://tech.zalando.com/posts/monitoring-the-zalando-platform.html
+
+Features / Working:
+ * Define checks as data sources executed on self defined entities
+ * Define alerts on checks and entities as it fits your team with thresholds
+ * Define custom dashboards with widgets and alert filters base on teams and tags
+ * Check command and Alert condition are arbitrary Python expressions, giving you a lot of power
+ * Store all results, incl. flattened dicts in time series in KairosDB
+ * Internal charting and integrated Grafana for dash boards
+ * Entity service to push entities, e.g. hosts, databases, ... we push ec2, elbs, ... via zmon-aws-agent
+ * Define checks via yaml files and push using zmon-cli or via discovery from git sources
 
 Start Demo using Vagrant
 ========================
@@ -18,13 +28,13 @@ Install a recent Vagrant_ version (at least 1.6) and simply do:
 
     $ vagrant up
 
-Please note that the provisioning process will take some time as it downloads the docker images.
+Please note that the provisioning process will take some time as it downloads the docker images (~15min).
 
-The ZMON Controller frontend will be exposed on port 38080 on localhost, i.e. point your browser to http://localhost:38080/ and login with username "admin" and password "admin".
+The ZMON frontend: http://localhost:38080/ and login with username "admin" and password "admin".
 
-To access Grafana which is deployed with the ZMON Controller, goto: http://localhost:38080/grafana. You will be able to create/save dashboards.
+Integrated Grafana: http://localhost:38080/grafana. You will be able to create/save dashboards.
 
-The KairosDB frontend will be exposed on 38083 on localhost, i.e. you can manually query metrics on http://localhost:38083/
+ KairosDB frontend, i.e. for manually query of metrics, via http://localhost:38083/
 
 Issues with the Vagrant box:
 
