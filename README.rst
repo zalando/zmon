@@ -9,6 +9,8 @@ ZMON is Zalando's monitoring tool, for a quick intro, read our blog article abou
 
 http://tech.zalando.com/posts/monitoring-the-zalando-platform.html
 
+Originating in the hackweek end of 2013, ZMON became our replacement of Nagios/Icinga and has been in use to monitor our platform since then. Today our production ZMON features close to 2000 check definitions and about 4500 alert definitions for various teams, mostly within Zalando's Tech department.
+
 Features / Working:
  * Define checks as data sources executed on self defined entities
  * Define alerts on checks and entities as it fits your team with thresholds
@@ -18,6 +20,8 @@ Features / Working:
  * Internal charting and integrated Grafana for dash boards
  * Entity service to push entities, e.g. hosts, databases, ... we push ec2, elbs, ... via zmon-aws-agent
  * Define checks via yaml files and push using zmon-cli or via discovery from git sources
+ * Use trial run in the UI to develop your checks/alerts with quick feedback
+ * Trigger instant evaluation from UI for checks on longer intervals to rerun commands
 
 Start Demo using Vagrant
 ========================
