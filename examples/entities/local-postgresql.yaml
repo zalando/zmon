@@ -1,0 +1,4 @@
+type: postgres
+host: localhost
+port: 5432
+shards: {"local_zmon_db":"localhost:5432/local_zmon_db"}
