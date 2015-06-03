@@ -7,7 +7,7 @@ export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=0.1.3
 export WORKER_VERSION=0.1.3
-export CONTROLLER_VERSION=0.1.6
+export CONTROLLER_VERSION=0.1.7
 export SCHEDULER_VERSION=0.1.6
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then

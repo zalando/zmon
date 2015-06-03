@@ -29,9 +29,14 @@ adduser vagrant docker
 
 #echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
 
-apt-get install -y postgresql-client ldap-utils git redis-tools
+apt-get install -y postgresql-client ldap-utils git redis-tools python3-pip
 
 echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
+
+echo -e "redis_host: localhost\nurl: http://localhost:8080/rest/api/v1\nuser: admin\npassword: admin" > ~/.zmon-cli.yaml
+
+sudo pip3 install --upgrade zmon-cli
+
 chmod 600 /root/.pgpass
 cp /root/.pgpass /home/vagrant/.pgpass
 

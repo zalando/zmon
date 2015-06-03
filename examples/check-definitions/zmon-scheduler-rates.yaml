@@ -1,0 +1,10 @@
+status: ACTIVE
+name: "Scheduler NG Queue Rates"
+description: "Scheduler NG Queue Rates"
+owning_team: "Team 1"
+command: |
+   dict((k.replace("scheduler.queue.","").replace("_","-").replace(".","-"),v) for (k,v) in http(url='http://'+entity["host"]+':'+entity['port']+'/metrics').json().iteritems() if (str(k)).startswith('scheduler.queue') or str(k)=="heap.used" or (str(k)).startswith("scheduler.byte-throughput") )
+interval: 30
+entities:
+ - type: "instance"
+   application: "zmon-scheduler"
