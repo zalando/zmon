@@ -34,7 +34,7 @@ The ZMON frontend: http://localhost:38080/ and login with username "admin" and p
 
 Integrated Grafana: http://localhost:38080/grafana. You will be able to create/save dashboards.
 
- KairosDB frontend, i.e. for manually query of metrics, via http://localhost:38083/
+KairosDB frontend, i.e. for manually query of metrics, via http://localhost:38083/
 
 Issues with the Vagrant box:
 
