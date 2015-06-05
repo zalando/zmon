@@ -1,8 +1,0 @@
----
-name: ZMON Check Entities Total
-description: Check for overall number of entities processed by ZMON
-entities:
-    - type: GLOBAL
-interval: 600
-command: "zmon().check_entities_total()"
-status: ACTIVE
