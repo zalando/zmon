@@ -67,9 +67,6 @@ Modify the alert defintion to point to the right check id, before doing:
 
     $ zmon check-definitions update examples/check-definitions/zmon-scheduler-rates.yaml
 
-    
-
-
 
 Links
 =====
