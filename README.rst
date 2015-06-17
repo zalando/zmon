@@ -36,7 +36,7 @@ Please note that the provisioning process will take some time as it downloads th
 
 The ZMON frontend: http://localhost:38080/ and login with username "admin" and password "admin".
 
-Integrated Grafana: http://localhost:38080/grafana. You will be able to create/save dashboards.
+Integrated Grafana: http://localhost:38080/grafana/ - You will be able to create/save dashboards.
 
 KairosDB frontend, i.e. for manually query of metrics, via http://localhost:38083/
 
@@ -55,23 +55,24 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 
 Use the zmon cli to push/create/update entities ( e.g. hosts, databases, ...), check definitons and optionally alerts (also possible via UI).
 
-Build components from source locally
-====================================
+.. code-block:: bash
 
-Inside the ./vagrant-build folder you will find the old Vagrant setup, that includes cloning and compiling from source, but for a Demo this was just taking too much time.
+    $ zmon entities push examples/entities/local-postgresql.yaml
 
-The ``vagrant up`` will automatically build all components from source inside the Vagrant box,
-but you can also build them manually on your local machine.
-You need Java 7 or 8, Maven 3 and Python 2.7:
+    $ zmon entities push examples/entities/local-scheduler-instance.json
+
+Modify the alert defintion to point to the right check id, before doing:
 
 .. code-block:: bash
 
-    $ ./build.sh
+    $ zmon check-definitions update examples/check-definitions/zmon-scheduler-rates.yaml
 
-ToDos
+    
+
+
+
+Links
 =====
-
-* add documentation (architecture, operations manual, etc)
 
 .. _Vagrant: https://www.vagrantup.com/
 .. _PyPI: https://pypi.python.org/pypi/zmon-cli

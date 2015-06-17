@@ -1,0 +1,16 @@
+
+check_definition_id: 10
+status: ACTIVE
+name: "Scheduler Rate too low {rate}"
+description: "Example Alert Description"
+team: "Devops"
+responsible_team: "Devops"
+condition: |
+  capture(rate=value['zmon:queue:default-oneMinuteRate']) < 5
+entities:
+entities_exclude:
+status: ACTIVE
+priority: 2
+tags:
+parent_id:
+parameters:
