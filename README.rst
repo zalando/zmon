@@ -61,11 +61,17 @@ Use the zmon cli to push/create/update entities ( e.g. hosts, databases, ...), c
 
     $ zmon entities push examples/entities/local-scheduler-instance.json
 
-Modify the alert defintion to point to the right check id, before doing:
+Push your first check definition:
 
 .. code-block:: bash
 
     $ zmon check-definitions update examples/check-definitions/zmon-scheduler-rates.yaml
+
+Modify the alert defintion to point to the right check id, before doing:
+
+.. code-block:: bash
+
+    $ zmon alert-definitions update examples/alert-definitions/scheduler-rate-too-low.yaml
 
 
 Links
