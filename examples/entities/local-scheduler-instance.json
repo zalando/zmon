@@ -1,1 +1,7 @@
-{"type":"instance", "id":"localhost:8083", "host":"localhost", "application":"zmon-scheduler", "port":8083}
+{
+	"type": "instance",
+	"id": "localhost:8083",
+	"host": "localhost",
+	"application": "zmon-scheduler",
+	"port": 8083
+}
