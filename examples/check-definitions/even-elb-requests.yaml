@@ -1,0 +1,26 @@
+
+status: ACTIVE
+name: "Even Request Statistics"
+description: "Example ZMON check definition which returns a HTTP status code"
+owning_team: "Team"
+interval: 60 # seconds
+command: |
+  def check():
+      application_id = 'even'
+      data = {}
+      stats = {'RequestCount': 'Sum',
+               'HTTPCode_Backend_4XXX': 'Sum',
+               'HTTPCode_Backend_5XXX': 'Sum',
+               'Latency': 'Average'}
+      for metric, stat in stats.items():
+          data[metric] = cloudwatch().query({'AvailabilityZone': 'NOT_SET', 'LoadBalancerName': application_id + '-*'}, metric, stat)[metric]
+      results = {}
+      # RequestCount/s
+      results['requests_per_sec'] = data['RequestCount'] / 60.
+      results['http4xx_errors_per_sec'] = data['HTTPCode_Backend_4XXX'] / 60.
+      results['http5xx_errors_per_sec'] = data['HTTPCode_Backend_5XXX'] / 60.
+      # Latency in ms
+      results['latency_ms'] = data['Latency'] * 1000.
+      return results
+entities:
+  - type: GLOBAL 

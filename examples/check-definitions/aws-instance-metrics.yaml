@@ -1,0 +1,26 @@
+name: AWS Instance Metrics
+description: Gathers AWS Instance Metrics using CloudWatch
+status: ACTIVE
+interval: 60
+entities:
+ - type: instance
+command: |
+  def check():
+      data = {}
+      
+      stats = {'CPUUtilization': 'Average',
+               'NetworkOut':'Average',
+               'NetworkIn':'Average',
+               'DiskReads':'Average',
+               'DiskReadOperations':'Average',
+               'DiskWrites':'Average',
+               'DiskWriteOperations':'Average'}
+               
+      for metric, stat in stats.items():
+          data[metric] = cloudwatch().query({'AvailabilityZone': 'NOT_SET', 'InstanceId':entity["id"].split("[")[:1]}, metric, stat)[metric]
+      
+      results=data
+      
+      return results
+  
+owning_team: "Team"
