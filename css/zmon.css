@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 10000px;
+}
+
+body {
+    font-size: 150%;
+    line-height: 1.5;
+    height: 100%;
+}
+
+header {
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border: 1px solid red;
+    background: white;
+}
+
+main {
+    padding-top: 150px;
+    max-width: 768px;
+    margin: 0 auto;
+    border: 1px solid blue;
+    min-height: 100%;
+}
+
+path {
+    fill: none;
+    stroke: black;
+}
+
+.u-hidden {
+    display: none;
+}
