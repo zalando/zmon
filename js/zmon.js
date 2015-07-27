@@ -1,11 +1,19 @@
 (function($, d3) {
     var svg = d3.select('header > svg').attr('height', 100),
+        header = d3.select('body > header'),
         HEIGHT = 100,
-        WIDTH = 300,
+        WIDTH = 450,
+        MAX_SIZE = 50,
         NOW = Date.now(),
-        data = d3.range(50).map(function(d) { return [NOW - (50-d) * 200, 0]; }),
+        data = d3.range(MAX_SIZE)
+                 .map(function(d) { return [NOW - (MAX_SIZE-d) * 200, 0]; }),
         DOC_HEIGHT = $(document).height(),
         path = svg.append('path');
+
+    function showAlert(prio) {
+        $('[data-alert]').hide();
+        $('[data-alert="alert-' + prio + '"]').show();
+    }
 
     function render(data) {
         var XMIN = d3.min(data.map(function(d) { return d[0]; })),
@@ -14,8 +22,8 @@
                 .domain([XMIN, XMAX])
                 .range([50, WIDTH]),
             y = d3.scale.linear()
-                    .domain([0, DOC_HEIGHT])
-                    .range([0, HEIGHT]),
+                    .domain([10, DOC_HEIGHT])
+                    .range([HEIGHT - 10, 10]),
             yAxis = d3.svg.axis()
                     .scale(y)
                     .ticks(5)
@@ -37,10 +45,17 @@
             .attr('transform', 'translate(' + (WIDTH + 50) + ', 0)')
             .call(yAxis);
 
-        if (data[data.length - 1][1] < DOC_HEIGHT / 2) {
-            $('header').removeClass('has-error');
+        var currentScroll = data[data.length - 1][1];
+
+        if (currentScroll < (1 / 3) * DOC_HEIGHT) {
+            header.attr('class', 'grid prio-3');
+            showAlert(3);
+        } else if (currentScroll > (2 / 3) * DOC_HEIGHT) {
+            header.attr('class', 'grid prio-1');
+            showAlert(1);
         } else {
-            $('header').addClass('has-error');
+            header.attr('class', 'grid prio-2');
+            showAlert(2);
         }
     }
 

@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
 
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/zmon.css">
     </head>
@@ -19,12 +19,26 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <header>
-            <svg>
+        <header class="grid">
+            <svg class="grid-col">
                 <g class="y-axis" />
             </svg>
-            <div class="alert u-hidden">
-                You scrolled too far!
+            <div
+                data-alert="alert-1"
+                class="grid-col alert u-hidden">
+                The scroll position exceeded critical level.
+            </div>
+
+            <div
+                data-alert="alert-2"
+                class="grid-col alert u-hidden">
+                The scroll position is alarming.
+            </div>
+
+            <div
+                data-alert="alert-3"
+                class="grid-col alert u-hidden">
+                The scroll position is fine.
             </div>
         </header>
 
