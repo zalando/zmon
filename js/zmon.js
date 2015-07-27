@@ -100,12 +100,15 @@ function John() {
         }
     }
 
-    setInterval(function() {
-        data.push([Date.now(), window.scrollY]);
-        data.shift();
+    setTimeout(function() {
+        setInterval(function() {
+            data.push([Date.now(), window.scrollY]);
+            data.shift();
 
-        render(data);
-    }, 200);
+            render(data);
+        }, 200);
+        
+    }, 0);
 
     $(window).resize(function() {
         WIDTH = Math.min($('svg').width(), 450);
