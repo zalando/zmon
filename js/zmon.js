@@ -61,14 +61,14 @@ function John() {
             XMAX = d3.max(data.map(function(d) { return d[0]; })),
             x = d3.scale.linear()
                 .domain([XMIN, XMAX])
-                .range([50, WIDTH - 50]),
+                .range([50, WIDTH - 25]),
             y = d3.scale.linear()
                     .domain([10, DOC_HEIGHT])
                     .range([HEIGHT - 10, 10]),
             yAxis = d3.svg.axis()
                     .scale(y)
                     .ticks(5)
-                    .tickSize(WIDTH - 100)
+                    .tickSize(WIDTH - 75)
                     .tickFormat(function(d) { return d + ' px'; })
                     .orient('left'),
             line = d3.svg.line()
@@ -83,7 +83,7 @@ function John() {
 
         
         svg.select('.y-axis')
-            .attr('transform', 'translate(' + (WIDTH - 50) + ', 0)')
+            .attr('transform', 'translate(' + (WIDTH - 25) + ', 0)')
             .call(yAxis);
 
         var currentScroll = data[data.length - 1][1];
