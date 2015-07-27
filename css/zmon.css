@@ -10,7 +10,6 @@ body {
     font-family: 'Source Sans Pro';
     font-weight: 400;
     height: 100%;    
-    min-width: 320px;
     background: rgba(68, 67, 73, .025);
 }
 
@@ -215,6 +214,14 @@ path {
     font-size: .5em;
     color: white;
     opacity: .5;
+}
+
+@media(max-width: 640px) {
+    .hero {
+        font-size: 2em;
+        top: 160px;
+        height: 300px;
+    }
 }
 
 /** content styles */
