@@ -222,6 +222,14 @@ path {
         top: 160px;
         height: 300px;
     }
+
+    .hero h1 {
+        text-shadow:
+           -1px -1px 0 #fb9521,  
+            1px -1px 0 #fb9521,
+           -1px  1px 0 #fb9521,
+            1px  1px 0 #fb9521;
+    }
 }
 
 /** content styles */
