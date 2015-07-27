@@ -35,7 +35,7 @@ function John() {
     };
 }
 
-(function($, d3) {
+(function(d3) {
     var svg = d3.select('.demo svg').attr('height', 100),
         container = d3.select('.demo'),
         TEMPLATE = new John(),
@@ -46,14 +46,14 @@ function John() {
         WIDTH = SVG_MAX_WIDTH,
         data = d3.range(MAX_SIZE)
                  .map(function(d) { return [NOW - (MAX_SIZE-d) * 200, 0]; }),
-        DOC_HEIGHT = $('body').height(),
+        DOC_HEIGHT = document.getElementsByTagName('body')[0].clientHeight,
         path = svg.append('path');
 
     function showAlert(scrollPos, prio) {
-        $('[data-alert]').hide();
-        var $activeAlert = $('[data-alert="alert-' + prio + '"]');
-        $activeAlert.show();
-        $activeAlert.text(TEMPLATE.tmpl($activeAlert.attr('data-template'), { value: scrollPos }));
+        d3.selectAll('[data-alert]').attr('style', 'display:none;');
+        var activeAlert = d3.select('[data-alert="alert-' + prio + '"]');
+        activeAlert.attr('style', 'display:block;');
+        activeAlert.text(TEMPLATE.tmpl(activeAlert.attr('data-template'), { value: scrollPos }));
     }
 
     function render(data) {
@@ -110,9 +110,11 @@ function John() {
         
     }, 0);
 
-    $(window).resize(function() {
-        WIDTH = Math.min($('svg').width(), 450);
-        DOC_HEIGHT = $('body').height();
-    });
+    window.onresize = function() {
+        var svg = document.getElementsByTagName('svg')[0],
+            svgStyle = window.getComputedStyle(svg);
+        WIDTH = Math.min(parseInt(svgStyle.width, 10), 450);
+        DOC_HEIGHT = document.getElementsByTagName('body')[0].clientHeight;
+    };
 
-})(window.jQuery, window.d3);
+})(window.d3);
