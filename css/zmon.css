@@ -14,15 +14,18 @@ body {
     background: rgba(68, 67, 73, .025);
 }
 
-main {
+.wrapper {
     padding-top: 100px;
-    max-width: 1140px;
-    margin: 0 auto;
     min-height: 100%;
-    padding: .5em;
     top: 170px;
     position: relative;
     z-index: 0;
+}
+
+main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: .5em;
 }
 
 img {
@@ -186,6 +189,15 @@ path {
 
 .u-box {
 
+}
+
+/** footer */
+
+footer {
+    background: #444349;
+    top: 230px;
+    position: relative;
+    height: 1000px;
 }
 
 /** grid */
