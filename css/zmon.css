@@ -70,12 +70,10 @@ a.btn {
 }
 
 .btn-default {
-    color: #333;
     background-color: #fff;
 }
 
 .btn-default:hover {
-    color: #333;
     background-color: #e6e6e6;
 }
 
