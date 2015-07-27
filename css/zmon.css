@@ -3,57 +3,106 @@
 }
 
 html {
-    height: 5000px;
-    min-width: 320px;
+
 }
 
 body {
-    font-size: 150%;
     font-family: 'Source Sans Pro';
-    line-height: 1.5;
-    height: 100%;
-    padding: .5em;
-
+    font-weight: 400;
+    height: 100%;    
+    min-width: 320px;
+    background: rgba(68, 67, 73, .025);
 }
 
 main {
-    padding-top: 150px;
-    max-width: 768px;
+    padding-top: 100px;
+    max-width: 1140px;
     margin: 0 auto;
-    border: 1px solid blue;
     min-height: 100%;
+    padding: .5em;
+    top: 170px;
+    position: relative;
+    z-index: 0;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 2px;
+}
+
+a {
+    transition: .2s ease-in-out color;
+    color: #fb9521;
+}
+
+a:visited {
+    color: #a43900;
+}
+
+a:hover {
+    color: #ce5909;
 }
 
 /** header */
-
 header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    border: 2px solid red;
-    padding: 5px;
     color: white;
+    z-index: 20;
+}
+
+.u-box {
+    margin: .5em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+/** nav */
+nav {
+    background: #444349;
+    min-height: 3em;
+    line-height: 1;
+    vertical-align: middle;
+    z-index: 10;
+    position: relative;
+    padding: .5em;
+}
+
+nav img.logo {
+    top: 8px;
+    position: relative;
+}
+
+/** demo alert */
+
+.demo {
+    z-index: 0;
+    position: relative;
     display: flex;
+    font-size: 28px;
+    padding: 5px;
     margin: 0 auto;
     justify-content: center;
+    border-width: 1px;
+    border-style: solid;
     transition: .2s ease-in-out background-color, border-color;
 }
 
-header.has-error {
+.demo.has-error {
     background-color: #dd3010;
     border-color: #b3270f;
     color: white;
 }
 
-header.has-error .alert {
+.demo.has-error .alert {
     display: block;
 }
 
 .alert {
     display: none;
-    margin-left: 1em;
-    max-width: 375px;
+    max-width: 375px !important;
     flex: 1;
 }
 
@@ -75,10 +124,9 @@ header.has-error .alert {
 /** chart */
 
 svg {
-    border: 1px solid green;
     background: #333;
     flex: 1;
-    max-width: 375px;
+    max-width: 375px !important;
 }
 
 path {
@@ -103,13 +151,50 @@ path {
     fill: none;
 }
 
+/** hero */
+
+.hero {
+    background-image: url(../img/stardust_@2X.png);
+    font-size: 4em;
+    text-align: center;
+    line-height: 1;
+    color: white;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    top: 170px;
+    position: relative;
+}
+
+.hero h1 {
+    margin: 0;
+    color: rgba(68, 67, 73, .75);
+    text-shadow:
+       -5px -5px 0 #fb9521,  
+        5px -5px 0 #fb9521,
+       -5px  5px 0 #fb9521,
+        5px  5px 0 #fb9521;
+}
+
+.hero small {
+    font-size: .5em;
+    color: white;
+    opacity: .5;
+}
+
+/** content styles */
+
+.u-box {
+
+}
+
 /** grid */
 
 .grid {
   width: 100%;
   display: flex;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid {
     display: block;
   }
@@ -120,7 +205,7 @@ path {
     align-self: center;
   }
 }
-@media (min-width: 480px) {
+@media (min-width: 640px) {
   .grid {
     flex-direction: row;
   }
@@ -128,7 +213,7 @@ path {
 .grid.with-gutter {
   margin-left: -2em;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid.with-gutter {
     margin-left: 0;
   }
@@ -136,7 +221,7 @@ path {
 .grid.with-gutter > .grid-col {
   padding-left: 2em;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid.with-gutter > .grid-col {
     padding-left: 0;
   }
@@ -149,7 +234,7 @@ path {
 .grid .grid-col.col-1-8 {
   flex: 0 0 12.5%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-1-8 {
     width: 100%;
     display: block;
@@ -158,7 +243,7 @@ path {
 .grid .grid-col.col-1-4 {
   flex: 0 0 25%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-1-4 {
     width: 100%;
     display: block;
@@ -167,7 +252,7 @@ path {
 .grid .grid-col.col-3-8 {
   flex: 0 0 37.5%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-3-8 {
     width: 100%;
     display: block;
@@ -176,7 +261,7 @@ path {
 .grid .grid-col.col-1-3 {
   flex: 0 0 33.33333333333333%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-1-3 {
     width: 100%;
     display: block;
@@ -185,7 +270,7 @@ path {
 .grid .grid-col.col-1-2 {
   flex: 0 0 50%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-1-2 {
     width: 100%;
     display: block;
@@ -194,7 +279,7 @@ path {
 .grid .grid-col.col-5-8 {
   flex: 0 0 62.5%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-5-8 {
     width: 100%;
     display: block;
@@ -203,7 +288,7 @@ path {
 .grid .grid-col.col-2-3 {
   flex: 0 0 66.66666666666666%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-2-3 {
     width: 100%;
     display: block;
@@ -212,7 +297,7 @@ path {
 .grid .grid-col.col-3-4 {
   flex: 0 0 75%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-3-4 {
     width: 100%;
     display: block;
@@ -221,7 +306,7 @@ path {
 .grid .grid-col.col-7-8 {
   flex: 0 0 87.5%;
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .grid .grid-col.col-7-8 {
     width: 100%;
     display: block;
@@ -244,4 +329,64 @@ path {
 }
 .grid .grid-col.row-center {
   align-items: center;
+}
+
+/** typo */
+body {
+  font-size: 1.25em;
+  line-height: 1.5em;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 2.35em;
+  line-height: 1.276595744em;
+  margin-top: 1.27659574em;
+  margin-bottom: 0.63829787em;
+  font-weight: 700;
+}
+h2 {
+  font-size: 1.8em;
+  line-height: 1.666666666em;
+  margin-top: 1.66666667em;
+  margin-bottom: 0.83333333em;
+  font-weight: 700;
+}
+h3 {
+  font-size: 1.35em;
+  line-height: 1.111111111em;
+  margin-top: 1.11111111em;
+  margin-bottom: 1.11111111em;
+  font-weight: 700;
+}
+h4 {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-weight: 700;
+}
+p, ul, ol, pre, table, blockquote {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+/* Sanitation */
+hr {
+  border: 1px solid;
+  margin: -1px 0;
+}
+ul ul, ol ol, ul ol, ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+b, strong, em, small, code {
+  line-height: 1;
+}
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+sub {
+  top: 0.4em;
 }

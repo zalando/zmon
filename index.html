@@ -9,7 +9,7 @@
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/zmon.css">
     </head>
@@ -19,36 +19,87 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <header class="grid">
-            <svg class="grid-col">
-                <g class="y-axis" />
-            </svg>
-            <div
-                data-alert="alert-1"
-                class="grid-col alert u-hidden">
-                The scroll position exceeded critical level.
-            </div>
+        <header>
+            
+            <section class="demo grid">
+                <div
+                    data-alert="alert-1"
+                    data-template="Critical scroll position (<%= value %> px)"
+                    class="grid-col alert u-hidden">
+                    Critical scroll position
+                </div>
 
-            <div
-                data-alert="alert-2"
-                class="grid-col alert u-hidden">
-                The scroll position is alarming.
-            </div>
+                <div
+                    data-alert="alert-2"
+                    data-template="High scroll position (<%= value %> px)"
+                    class="grid-col alert u-hidden">
+                    High scroll position
+                </div>
 
-            <div
-                data-alert="alert-3"
-                class="grid-col alert u-hidden">
-                The scroll position is fine.
-            </div>
+                <div
+                    data-alert="alert-3"
+                    data-template="Low scroll position (<%= value %> px)"
+                    class="grid-col alert u-hidden">
+                    Low scroll position
+                </div>
+
+                <svg class="grid-col">
+                    <g class="y-axis" />
+                </svg>
+            </section>
+            <nav>
+                <img class="logo" src="img/logo.png" alt="">
+                <a href="#intro">Home</a>
+                <a href="#features">Features</a>
+                <a href="#docs">Documentation</a>
+            </nav>
         </header>
 
-        <main class="wrapper">
-            <section>
-                <h1>ZMON</h1>
-            </section>
+        <section class="hero" id="hero">
+            <h1>ZMON</h1>
+            <small>Zalando’s Monitoring Tool</small>
+        </section>
 
-            <section>
-                So awesome
+        <main class="wrapper">
+            <section class="grid with-gutter">
+                <div class="grid-col u-box">
+                    <h3>Alerts</h3>
+                    <p>
+                        Define checks executed on self defined entities.
+                        Define alerts with thresholds on checks and entities as it fits your team.
+                    </p>
+                    <a href="//tech.zalando.com/blog/images/zmon/zmon-1.png">
+                        <img src="//tech.zalando.com/blog/images/zmon/zmon-1.png" alt="">
+                    </a>
+                </div>
+                <div class="grid-col u-box">
+                    <h3>Grafana</h3>
+                    <p>
+                        Define custom dashboards with widgets and alert filters base on teams and tags. Use Grafana if you want to.
+                    </p>
+                    <a href="img/grafana.png">
+                        <img src="img/grafana.png" alt="">
+                    </a>
+                </div>
+            </section>
+            <section class="grid with-gutter">
+                <div class="grid-col u-box">
+                    <h3>Python expressions</h3>
+                    <p>Check command and Alert condition are arbitrary Python expressions, giving you a lot of power.</p>
+                    <a href="//tech.zalando.com/blog/images/zmon/zmon-2.png">
+                        <img src="//tech.zalando.com/blog/images/zmon/zmon-2.png" alt="">
+                    </a>
+                </div>
+                <div class="grid-col u-box">
+                    <h3>Trial Run &amp; Instant Evaluation</h3>
+                    <p>
+                        Use trial run in the UI to develop your checks/alerts with quick feedback.
+                        Trigger instant evaluation from UI for checks on longer intervals to rerun commands
+                    .</p>
+                    <a href="img/trialrun.png">
+                        <img src="img/trialrun.png" alt="">
+                    </a>
+                </div>
             </section>
         </main>
 

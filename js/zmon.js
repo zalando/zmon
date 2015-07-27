@@ -1,6 +1,44 @@
+/**
+ * http://ejohn.org/blog/javascript-micro-templating/
+ */
+function John() {
+    var cache = {};
+ 
+    this.tmpl = function tmpl(str, data){
+    // Figure out if we're getting a template, or if we need to
+    // load the template - and be sure to cache the result.
+    var fn = !/\W/.test(str) ?
+        cache[str] = cache[str] ||
+        tmpl(document.getElementById(str).innerHTML) :
+     
+        // Generate a reusable function that will serve as a template
+        // generator (and which will be cached).
+        new Function("obj",
+            "var p=[],print=function(){p.push.apply(p,arguments);};" +
+           
+            // Introduce the data as local variables using with(){}
+            "with(obj){p.push('" +
+           
+            // Convert the template into pure JavaScript
+            str
+                .replace(/[\r\t\n]/g, " ")
+                .split("<%").join("\t")
+                .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+                .replace(/\t=(.*?)%>/g, "',$1,'")
+                .split("\t").join("');")
+                .split("%>").join("p.push('")
+                .split("\r").join("\\'")
+            + "');}return p.join('');");
+       
+        // Provide some basic currying to the user
+        return data ? fn( data ) : fn;
+    };
+}
+
 (function($, d3) {
-    var svg = d3.select('header > svg').attr('height', 100),
-        header = d3.select('body > header'),
+    var svg = d3.select('.demo svg').attr('height', 100),
+        container = d3.select('.demo'),
+        TEMPLATE = new John(),
         HEIGHT = 100,
         SVG_MAX_WIDTH = 375,
         MAX_SIZE = 50,
@@ -8,12 +46,14 @@
         WIDTH = SVG_MAX_WIDTH,
         data = d3.range(MAX_SIZE)
                  .map(function(d) { return [NOW - (MAX_SIZE-d) * 200, 0]; }),
-        DOC_HEIGHT = $(document).height(),
+        DOC_HEIGHT = $('body').height(),
         path = svg.append('path');
 
-    function showAlert(prio) {
+    function showAlert(scrollPos, prio) {
         $('[data-alert]').hide();
-        $('[data-alert="alert-' + prio + '"]').show();
+        var $activeAlert = $('[data-alert="alert-' + prio + '"]');
+        $activeAlert.show();
+        $activeAlert.text(TEMPLATE.tmpl($activeAlert.attr('data-template'), { value: scrollPos }));
     }
 
     function render(data) {
@@ -21,14 +61,14 @@
             XMAX = d3.max(data.map(function(d) { return d[0]; })),
             x = d3.scale.linear()
                 .domain([XMIN, XMAX])
-                .range([50, WIDTH]),
+                .range([50, WIDTH - 50]),
             y = d3.scale.linear()
                     .domain([10, DOC_HEIGHT])
                     .range([HEIGHT - 10, 10]),
             yAxis = d3.svg.axis()
                     .scale(y)
                     .ticks(5)
-                    .tickSize(WIDTH)
+                    .tickSize(WIDTH - 100)
                     .tickFormat(function(d) { return d + ' px'; })
                     .orient('left'),
             line = d3.svg.line()
@@ -43,27 +83,25 @@
 
         
         svg.select('.y-axis')
-            .attr('transform', 'translate(' + (WIDTH + 50) + ', 0)')
+            .attr('transform', 'translate(' + (WIDTH - 50) + ', 0)')
             .call(yAxis);
 
         var currentScroll = data[data.length - 1][1];
 
         if (currentScroll < (1 / 3) * DOC_HEIGHT) {
-            header.attr('class', 'prio-3');
-            showAlert(3);
+            container.attr('class', 'demo grid prio-3');
+            showAlert(currentScroll, 3);
         } else if (currentScroll > (2 / 3) * DOC_HEIGHT) {
-            header.attr('class', 'prio-1');
-            showAlert(1);
+            container.attr('class', 'demo grid prio-1');
+            showAlert(currentScroll, 1);
         } else {
-            header.attr('class', 'prio-2');
-            showAlert(2);
+            container.attr('class', 'demo grid prio-2');
+            showAlert(currentScroll, 2);
         }
     }
 
-    var inter = setInterval(function() {
-        var timestamp = Date.now(),
-            top = window.scrollY;
-        data.push([timestamp, top]);
+    setInterval(function() {
+        data.push([Date.now(), window.scrollY]);
         data.shift();
 
         render(data);
@@ -71,6 +109,7 @@
 
     $(window).resize(function() {
         WIDTH = Math.min($('svg').width(), 450);
+        DOC_HEIGHT = $('body').height();
     });
 
 })(window.jQuery, window.d3);
