@@ -3,7 +3,7 @@
 }
 
 html {
-    height: 10000px;
+    height: 5000px;
 }
 
 body {
@@ -14,12 +14,14 @@ body {
 
 header {
     position: fixed;
-    height: 100px;
+    height: 120px;
     width: 100%;
     top: 0;
     left: 0;
     border: 1px solid red;
+    padding: 5px;
     background: white;
+    display: flex;
 }
 
 main {
@@ -30,11 +32,36 @@ main {
     min-height: 100%;
 }
 
+.alert {
+    display: none;
+}
+
+header.has-error .alert {
+    display: block;
+}
+
+/** chart */
+
+svg {
+    border: 1px solid green;
+}
+
 path {
     fill: none;
     stroke: black;
 }
 
-.u-hidden {
-    display: none;
+.domain {
+    stroke: none;
+}
+
+.y-axis {
+    font-size: 10px;
+}
+
+.tick line {
+    stroke-width: 1px;
+    stroke: lightgray;
+    stroke-dasharray: 6px 6px;
+    fill: none;
 }
