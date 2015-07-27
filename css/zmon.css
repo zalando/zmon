@@ -17,7 +17,7 @@ body {
 .wrapper {
     padding-top: 100px;
     min-height: 100%;
-    top: 170px;
+    top: 110px;
     position: relative;
     z-index: 0;
 }
@@ -163,10 +163,10 @@ path {
     text-align: center;
     line-height: 1;
     color: white;
-    height: 400px;
+    height: 450px;
     margin: 0;
     padding: 0;
-    top: 170px;
+    top: 110px;
     position: relative;
 }
 
