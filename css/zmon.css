@@ -204,10 +204,10 @@ path {
     margin: 0;
     color: rgba(68, 67, 73, .75);
     text-shadow:
-       -5px -5px 0 #fb9521,  
-        5px -5px 0 #fb9521,
-       -5px  5px 0 #fb9521,
-        5px  5px 0 #fb9521;
+       -2px -2px 0 #fb9521,  
+        2px -2px 0 #fb9521,
+       -2px  2px 0 #fb9521,
+        2px  2px 0 #fb9521;
 }
 
 .hero small {
