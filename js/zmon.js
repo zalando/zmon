@@ -2,9 +2,10 @@
     var svg = d3.select('header > svg').attr('height', 100),
         header = d3.select('body > header'),
         HEIGHT = 100,
-        WIDTH = 450,
+        SVG_MAX_WIDTH = 375,
         MAX_SIZE = 50,
         NOW = Date.now(),
+        WIDTH = SVG_MAX_WIDTH,
         data = d3.range(MAX_SIZE)
                  .map(function(d) { return [NOW - (MAX_SIZE-d) * 200, 0]; }),
         DOC_HEIGHT = $(document).height(),
@@ -48,13 +49,13 @@
         var currentScroll = data[data.length - 1][1];
 
         if (currentScroll < (1 / 3) * DOC_HEIGHT) {
-            header.attr('class', 'grid prio-3');
+            header.attr('class', 'prio-3');
             showAlert(3);
         } else if (currentScroll > (2 / 3) * DOC_HEIGHT) {
-            header.attr('class', 'grid prio-1');
+            header.attr('class', 'prio-1');
             showAlert(1);
         } else {
-            header.attr('class', 'grid prio-2');
+            header.attr('class', 'prio-2');
             showAlert(2);
         }
     }
@@ -67,5 +68,9 @@
 
         render(data);
     }, 200);
+
+    $(window).resize(function() {
+        WIDTH = Math.min($('svg').width(), 450);
+    });
 
 })(window.jQuery, window.d3);

@@ -1,28 +1,10 @@
-/*
-   
-*/
-
-.prio-1 {
-    background-color: #dd3010;
-    border-color: #b3270f;
-}
-
-.prio-2 {
-    background-color: #e77a1d;
-    border-color: #bd6418;
-}
-
-.prio-3 {
-    background-color: #78B924;
-    border-color: #BDE68C;
-}
-
 * {
     box-sizing: border-box;
 }
 
 html {
     height: 5000px;
+    min-width: 320px;
 }
 
 body {
@@ -30,6 +12,8 @@ body {
     font-family: 'Source Sans Pro';
     line-height: 1.5;
     height: 100%;
+    padding: .5em;
+
 }
 
 main {
@@ -56,12 +40,6 @@ header {
     transition: .2s ease-in-out background-color, border-color;
 }
 
-.alert {
-    display: none;
-    margin-left: 1em;
-    width: 300px;
-}
-
 header.has-error {
     background-color: #dd3010;
     border-color: #b3270f;
@@ -72,11 +50,35 @@ header.has-error .alert {
     display: block;
 }
 
+.alert {
+    display: none;
+    margin-left: 1em;
+    max-width: 375px;
+    flex: 1;
+}
+
+.prio-1 {
+    background-color: #dd3010;
+    border-color: #b3270f;
+}
+
+.prio-2 {
+    background-color: #e77a1d;
+    border-color: #bd6418;
+}
+
+.prio-3 {
+    background-color: #78B924;
+    border-color: #BDE68C;
+}
+
 /** chart */
 
 svg {
     border: 1px solid green;
     background: #333;
+    flex: 1;
+    max-width: 375px;
 }
 
 path {
