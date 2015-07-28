@@ -9,14 +9,12 @@ html {
 body {
     font-family: 'Source Sans Pro';
     font-weight: 400;
-    height: 100%;    
-    background: rgba(68, 67, 73, .025);
+    height: 100%;
 }
 
 .wrapper {
-    padding-top: 100px;
     min-height: 100%;
-    top: 110px;
+    top: 120px;
     position: relative;
     z-index: 0;
 }
@@ -136,6 +134,7 @@ nav img.logo {
 .alert {
     display: none;
     padding-top: .5em;
+    margin-bottom: .5em;
     max-width: 375px !important;
     flex: 1;
 }
@@ -188,12 +187,14 @@ path {
 /** hero */
 
 .hero {
-    background-image: url(../img/stardust_@2X.png);
-    font-size: 4em;
+    background-image: url(../img/squairy_light_@2X.png);
+    background-color: #666;
+    background-blend-mode: multiply;
+    font-size: 2em;
     text-align: center;
     line-height: 1;
     color: white;
-    height: 450px;
+    height: 300px;
     margin: 0;
     padding: 0;
     top: 110px;
@@ -202,18 +203,17 @@ path {
 
 .hero h1 {
     margin: 0;
-    color: rgba(68, 67, 73, .75);
-    text-shadow:
-       -2px -2px 0 #fb9521,  
-        2px -2px 0 #fb9521,
-       -2px  2px 0 #fb9521,
-        2px  2px 0 #fb9521;
+    padding-top: .5em;
+    line-height: 1;
+    
 }
 
 .hero small {
     font-size: .5em;
-    color: white;
-    opacity: .5;
+}
+
+.hero .btn {
+    margin-top: 3em;
 }
 
 @media(max-width: 640px) {
