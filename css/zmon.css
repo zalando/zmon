@@ -90,22 +90,6 @@ header {
     padding-right: 2em;
 }
 
-/** nav */
-nav {
-    background: #444349;
-    min-height: 3em;
-    line-height: 1;
-    vertical-align: middle;
-    z-index: 10;
-    position: relative;
-    padding: .5em;
-}
-
-nav img.logo {
-    top: 8px;
-    position: relative;
-}
-
 /** demo alert */
 
 .demo {
