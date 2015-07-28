@@ -14,7 +14,7 @@ body {
 
 .wrapper {
     min-height: 100%;
-    top: 120px;
+    top: 100px;
     position: relative;
     z-index: 0;
 }
@@ -181,7 +181,7 @@ path {
     height: 300px;
     margin: 0;
     padding: 0;
-    top: 110px;
+    top: 85px;
     position: relative;
 }
 
@@ -189,7 +189,6 @@ path {
     margin: 0;
     padding-top: .5em;
     line-height: 1;
-    
 }
 
 .hero small {
@@ -203,16 +202,8 @@ path {
 @media(max-width: 640px) {
     .hero {
         font-size: 2em;
-        top: 160px;
+        top: 140px;
         height: 300px;
-    }
-
-    .hero h1 {
-        text-shadow:
-           -1px -1px 0 #fb9521,  
-            1px -1px 0 #fb9521,
-           -1px  1px 0 #fb9521,
-            1px  1px 0 #fb9521;
     }
 }
 
@@ -228,7 +219,7 @@ footer {
     background: #444349;
     top: 230px;
     position: relative;
-    height: 750px;
+    height: 1000px;
     color: #999;
 }
 

@@ -36,14 +36,14 @@ function John() {
 }
 
 (function(d3) {
-    var svg = d3.select('.demo svg').attr('height', 100),
-        container = d3.select('.demo'),
-        TEMPLATE = new John(),
-        HEIGHT = 100,
+    var TEMPLATE = new John(),
+        HEIGHT = 75,
         SVG_MAX_WIDTH = 375,
         MAX_SIZE = 50,
         NOW = Date.now(),
         WIDTH = SVG_MAX_WIDTH,
+        container = d3.select('.demo'),
+        svg = d3.select('.demo svg').attr('height', HEIGHT),
         data = d3.range(MAX_SIZE)
                  .map(function(d) { return [NOW - (MAX_SIZE-d) * 200, 0]; }),
         DOC_HEIGHT = document.getElementsByTagName('body')[0].clientHeight,
