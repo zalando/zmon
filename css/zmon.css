@@ -85,10 +85,6 @@ header {
     z-index: 20;
 }
 
-.grid + .grid {
-    margin-top: 3em;
-}
-
 /** demo alert */
 
 .demo {
@@ -198,8 +194,12 @@ path {
 
 /** content styles */
 
-.u-box {
+.grid + .grid {
+    margin-top: 3em;
+}
 
+.grid-col h3 {
+    margin-top: 0;
 }
 
 /** footer */
