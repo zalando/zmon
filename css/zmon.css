@@ -14,7 +14,6 @@ body {
 
 .wrapper {
     min-height: 100%;
-    top: 100px;
     position: relative;
     z-index: 0;
 }
@@ -178,16 +177,14 @@ path {
     text-align: center;
     line-height: 1;
     color: white;
-    height: 300px;
+    height: 365px;
     margin: 0;
     padding: 0;
-    top: 65px;
-    position: relative;
 }
 
 .hero h1 {
     margin: 0;
-    padding-top: .5em;
+    padding-top: 1.25em;
     line-height: 1;
 }
 
@@ -197,14 +194,6 @@ path {
 
 .hero .btn {
     margin-top: 3em;
-}
-
-@media(max-width: 640px) {
-    .hero {
-        font-size: 2em;
-        top: 140px;
-        height: 300px;
-    }
 }
 
 /** content styles */
