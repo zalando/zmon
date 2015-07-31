@@ -8,7 +8,7 @@ export PGDATABASE=local_zmon_db
 container=$(docker ps | grep postgres:9.4.0)
 if [ -z "$container" ]; then
     docker rm postgres
-    docker run --name postgres --net host -e POSTGRES_PASSWORD=postgres -d os-registry.stups.zalan.do/stups/zmon-postgres:0.1.3
+    docker run --name postgres --net host -e POSTGRES_PASSWORD=postgres -d os-registry.stups.zalan.do/stups/zmon-postgres:0.1.4
 fi
 
 until nc -w 5 -z localhost 5432; do
@@ -26,7 +26,7 @@ psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.s
 container=$(docker ps | grep openldap)
 if [ -z "$container" ]; then
     docker rm openldap
-    docker run --name openldap --net host -d os-registry.stups.zalan.do/stups/zmon-ldap:0.1.3
+    docker run --name openldap --net host -d os-registry.stups.zalan.do/stups/zmon-ldap:0.1.4
 fi
 
 until nc -w 5 -z localhost 389; do
@@ -39,7 +39,7 @@ ldapadd -c -x -D cn=admin,dc=example,dc=com -w toor -f /vagrant/vagrant/ldap-str
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
     docker rm redis
-    docker run --name redis --net host -d os-registry.stups.zalan.do/stups/zmon-redis:0.1.3
+    docker run --name redis --net host -d os-registry.stups.zalan.do/stups/zmon-redis:0.1.4
 fi
 
 until nc -w 5 -z localhost 6379; do
@@ -64,7 +64,7 @@ done
 container=$(docker ps | grep kairosdb)
 if [ -z "$container" ]; then
     docker rm kairosdb
-    docker run --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" os-registry.stups.zalan.do/stups/zmon-kairosdb:0.1.3
+    docker run --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" os-registry.stups.zalan.do/stups/zmon-kairosdb:0.1.4
 fi
 
 until nc -w 5 -z localhost 8083; do
