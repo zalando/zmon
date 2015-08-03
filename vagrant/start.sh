@@ -64,7 +64,7 @@ done
 container=$(docker ps | grep kairosdb)
 if [ -z "$container" ]; then
     docker rm kairosdb
-    docker run --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" os-registry.stups.zalan.do/stups/zmon-kairosdb:0.1.4
+    docker run --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" os-registry.stups.zalan.do/stups/zmon-kairosdb:0.1.6
 fi
 
 until nc -w 5 -z localhost 8083; do
