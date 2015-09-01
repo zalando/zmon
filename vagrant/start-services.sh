@@ -8,7 +8,7 @@ export PGDATABASE=local_zmon_db
 export EVENTLOG_VERSION=0.1.9
 export WORKER_VERSION=0.1.10
 export CONTROLLER_VERSION=0.1.9
-export SCHEDULER_VERSION=0.1.9
+export SCHEDULER_VERSION=0.1.10
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     docker rm zmon-eventlog-service
