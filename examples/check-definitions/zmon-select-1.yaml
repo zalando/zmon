@@ -1,7 +1,8 @@
-name: “Select 1”
-owning_team: “Team 1”
-command: sql().execute("select 1").results()
+name: "Select 1 - Random"
+owning_team: "Team 1"
+command: | 
+  sql().execute("select 1 as a, 1 / case when random() < 0.5 then 0 else 1 end as b").results()
 entities:
  - type: postgres
 interval: 15
-description: “test connection”
+description: "Returns something, randomly throws division by zero exception to raise alert"
