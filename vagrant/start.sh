@@ -19,6 +19,10 @@ done
 cd /home/vagrant/zmon-controller/database/zmon
 psql -c "CREATE DATABASE $PGDATABASE;" postgres
 psql -c 'CREATE EXTENSION hstore;'
+
+# creating demo role here
+psql -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
+
 find -name '*.sql' | sort | xargs cat | psql
 psql -f /vagrant/vagrant/initial.sql
 psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql

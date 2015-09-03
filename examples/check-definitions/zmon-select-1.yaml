@@ -1,0 +1,7 @@
+name: “Select 1”
+owning_team: “Team 1”
+command: sql().execute("select 1").results()
+entities:
+ - type: postgres
+interval: 15
+description: “test connection”
