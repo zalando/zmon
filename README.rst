@@ -44,6 +44,8 @@ Issues with the Vagrant box:
 
 * every LDAP user has admin role (because I could not get the OpenLDAP "memberOf" overlay to work
 
+* If single containers do not start up ssh into the vagrant box and run the start.sh script again manually or use the start-services.sh script to restart single components. Later one takes parameters like controller or worker.
+
 Install the command line interface
 ==================================
 
