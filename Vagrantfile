@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.box = "ubuntu/vivid64"
 
-#    config.vm.hostname = "zmon"
+    config.vm.hostname = "zmon"
 
     # ZMON Controller
     config.vm.network :forwarded_port, guest: 8080, host: 38080
@@ -22,6 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, guest: 8083, host: 38083
 
     config.vm.provider "virtualbox" do |vb|
+        vb.name = "ZMON-DEMO"
         vb.memory = 4072
         vb.cpus = 3
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]

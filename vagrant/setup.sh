@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 rm /etc/update-motd.d/*
 cp /vagrant/vagrant/etc/update-motd.d/* /etc/update-motd.d/
 
