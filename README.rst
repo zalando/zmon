@@ -8,9 +8,11 @@ ZMON
 ZMON is Zalando's platform monitoring tool
 
 Take a look at slides from our recent talk at DevOps Ireland Meetup:
+
 https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/
 
 A introduction on how it started:
+
 https://tech.zalando.com/blog/monitoring-the-zalando-platform/
 
 Originating in the hackweek end of 2013, ZMON became our replacement of Nagios/Icinga and has been in use to monitor our platform since then. Today our production ZMON features close to 2000 check definitions and about 4500 alert definitions for various teams, mostly within Zalando's Tech department.
