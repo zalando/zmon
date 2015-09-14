@@ -8,7 +8,7 @@ export PGDATABASE=local_zmon_db
 export EVENTLOG_VERSION=0.1.9
 export WORKER_VERSION=0.1.10
 export CONTROLLER_VERSION=0.1.12
-export SCHEDULER_VERSION=0.1.11
+export SCHEDULER_VERSION=0.1.12
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     docker rm zmon-eventlog-service
@@ -38,5 +38,5 @@ fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
     docker rm zmon-scheduler
-    docker run --restart "on-failure:10" --name zmon-scheduler --net host -d os-registry.stups.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
+    docker run --restart "on-failure:10" --name zmon-scheduler --net host -d registry.opensource.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
 fi
