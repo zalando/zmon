@@ -5,7 +5,7 @@ export PGUSER=postgres
 export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
-export EVENTLOG_VERSION=0.1.10
+export EVENTLOG_VERSION=0.1.11
 export WORKER_VERSION=0.1.11
 export CONTROLLER_VERSION=0.1.13
 export SCHEDULER_VERSION=0.1.12
