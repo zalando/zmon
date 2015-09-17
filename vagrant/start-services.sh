@@ -23,7 +23,7 @@ fi
 if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
    
     docker rm zmon-controller
-    docker run --restart "on-failure:10" --name zmon-controller --net host -d registry.opensource.stups.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
+    docker run --restart "on-failure:10" --name zmon-controller --net host -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
 
     until curl http://localhost:8080/index.jsp &> /dev/null; do
         echo 'Waiting for ZMON Controller..'
