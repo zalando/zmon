@@ -82,19 +82,27 @@ Modify the alert defintion to point to the right check id, before doing:
     $ zmon alert-definitions update examples/alert-definitions/scheduler-rate-too-low.yaml
 
 
-Links
-=====
-
 .. _Vagrant: https://www.vagrantup.com/
 .. _PyPI: https://pypi.python.org/pypi/zmon-cli
 
 Thanks
 ======
 
-  Docker images/scripts used in slightly modified version are:
+Docker images/scripts used in slightly modified version are:
 
-  * abh1nav/cassandra:latest
-  * wangdrew/kairosdb
-  * official Redis and PostgreSQL
-  
-  Thanks to the original authors!
+* abh1nav/cassandra:latest
+* wangdrew/kairosdb
+* official Redis and PostgreSQL
+
+Thanks to the original authors!
+
+License
+=======
+
+Copyright 2013-2015 Zalando SE
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
