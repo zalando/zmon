@@ -1,24 +1,24 @@
 ZMON
 ====
 
+ZMON is Zalando's open source platform monitoring tool. It is in production use since early 2014 and supports our large number of teams in observing their services and metrics on various layers from CPU load to Team KPIs.
+
 .. image:: https://readthedocs.org/projects/zmon/badge/?version=latest
    :target: https://readthedocs.org/projects/zmon/?badge=latest
    :alt: Documentation Status
 
-ZMON is Zalando's platform monitoring tool
-
 Take a look at slides from our recent talk at DevOps Ireland Meetup:
 
-https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/
+  https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/
 
 A introduction on how it started:
 
-https://tech.zalando.com/blog/monitoring-the-zalando-platform/
+  https://tech.zalando.com/blog/monitoring-the-zalando-platform/
 
 Documentation:
-http://zmon.readthedocs.org/en/latest/intro.html
 
-Originating in the hackweek end of 2013, ZMON became our replacement of Nagios/Icinga and has been in use to monitor our platform since then. Today our production ZMON features close to 2000 check definitions and about 4500 alert definitions for various teams, mostly within Zalando's Tech department.
+  http://zmon.readthedocs.org/en/latest/intro.html
+
 
 Features / Working:
  * Define checks as data sources executed on self defined entities
@@ -43,13 +43,29 @@ Install a recent Vagrant_ version (at least 1.6) and simply do:
 
 Please note that the provisioning process will take some time as it downloads the docker images (~15min).
 
-The ZMON frontend: http://localhost:38080/ and login with username "admin" and password "admin".
+Frontend
+--------
 
-Integrated Grafana: http://localhost:38080/grafana/ - You will be able to create/save dashboards.
+  http://localhost:38080/
 
-KairosDB frontend, i.e. for manually query of metrics, via http://localhost:38083/
+Login with username "admin" and password "admin".
 
-Issues with the Vagrant box:
+Grafana
+-------
+
+  http://localhost:38080/grafana/
+  
+You will be able to create/save dashboards.
+
+KairosDB
+--------
+
+KairosDB frontend, i.e. for manually query of metrics:
+
+  http://localhost:38083/
+
+Issues
+------
 
 * every LDAP user has admin role (because I could not get the OpenLDAP "memberOf" overlay to work
 
@@ -62,7 +78,7 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 
 .. code-block:: bash
 
-    $ sudo pip3 install --upgrade zmon-cli
+    $ pip3 install --upgrade zmon-cli
 
 Use the zmon cli to push/create/update entities ( e.g. hosts, databases, ...), check definitons and optionally alerts (also possible via UI).
 
