@@ -15,6 +15,9 @@ A introduction on how it started:
 
 https://tech.zalando.com/blog/monitoring-the-zalando-platform/
 
+Documentation:
+http://zmon.readthedocs.org/en/latest/intro.html
+
 Originating in the hackweek end of 2013, ZMON became our replacement of Nagios/Icinga and has been in use to monitor our platform since then. Today our production ZMON features close to 2000 check definitions and about 4500 alert definitions for various teams, mostly within Zalando's Tech department.
 
 Features / Working:
