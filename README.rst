@@ -35,7 +35,7 @@ Features / Working:
 Start Demo using Vagrant
 ========================
 
-Install a recent Vagrant_ version (at least 1.6) and simply do:
+Install a recent Vagrant_ version (at least 1.7.4) and simply do:
 
 .. code-block:: bash
 
