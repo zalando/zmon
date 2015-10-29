@@ -17,7 +17,7 @@ command: |
                'DiskWriteOperations':'Average'}
                
       for metric, stat in stats.items():
-          data[metric] = cloudwatch().query({'AvailabilityZone': 'NOT_SET', 'InstanceId':entity["id"].split("[")[:1]}, metric, stat)[metric]
+          data[metric] = cloudwatch().query({'AvailabilityZone': 'NOT_SET', 'InstanceId':entity["id"].split("[")[:1][0]}, metric, stat)[metric]
       
       results=data
       
