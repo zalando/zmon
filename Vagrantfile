@@ -10,16 +10,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.hostname = "zmon"
 
-    # ZMON Controller
+    # Controller
     config.vm.network :forwarded_port, guest: 8080, host: 38080
+
     # KairosDB
-    config.vm.network :forwarded_port, guest: 8084, host: 38084
+    config.vm.network :forwarded_port, guest: 8083, host: 38083
 
     # Scheduler
     config.vm.network :forwarded_port, guest: 8085, host: 38085
 
-    # KairosDB
-    config.vm.network :forwarded_port, guest: 8083, host: 38083
+    # Redis
+    config.vm.network :forwarded_port, guest: 6379, host: 38086
+
+    # LDAP
+    config.vm.network :forwarded_port, guest: 389, host: 38087
 
     config.vm.provider "virtualbox" do |vb|
         vb.name = "ZMON-DEMO"
