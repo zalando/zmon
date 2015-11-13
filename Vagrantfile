@@ -25,6 +25,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # LDAP
     config.vm.network :forwarded_port, guest: 389, host: 38087
 
+    # PostgreSQ
+    config.vm.network :forwarded_port, guest: 5432, host: 38088
+
     config.vm.provider "virtualbox" do |vb|
         vb.name = "ZMON-DEMO"
         vb.memory = 4072

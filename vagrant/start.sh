@@ -77,3 +77,11 @@ until nc -w 5 -z localhost 8083; do
 done
 
 /vagrant/vagrant/start-services.sh
+
+echo ""
+echo "All services are up, peek into Vagrantfile/Readme for open ports/services"
+echo ""
+echo "ZMON installation is done!"
+echo "Goto: http://localhost:38080/"
+echo "User: admin Password: admin"
+echo ""
