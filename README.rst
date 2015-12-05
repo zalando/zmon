@@ -27,8 +27,8 @@ Features / Working:
  * Check command and Alert condition are arbitrary Python expressions, giving you a lot of power
  * Store all results, incl. flattened dicts in time series in KairosDB
  * Internal charting and integrated Grafana for dash boards
- * Entity service to push entities, e.g. hosts, databases, ... we push ec2, elbs, ... via zmon-aws-agent
- * Define checks via yaml files and push using zmon-cli or via discovery from git sources
+ * Entity service to push entities, e.g. hosts, databases, ... we push EC2, ELBs, ... via zmon-aws-agent
+ * Define checks via YAML files and push using zmon-cli or via discovery from git sources
  * Use trial run in the UI to develop your checks/alerts with quick feedback
  * Trigger instant evaluation from UI for checks on longer intervals to rerun commands
 
@@ -54,7 +54,7 @@ Grafana
 -------
 
   http://localhost:38080/grafana/
-  
+
 You will be able to create/save dashboards.
 
 KairosDB
@@ -94,7 +94,7 @@ Push your first check definition:
 
     $ zmon check-definitions update examples/check-definitions/zmon-scheduler-rates.yaml
 
-Modify the alert defintion to point to the right check id, before doing:
+Modify the alert definition to point to the right check id, before doing:
 
 .. code-block:: bash
 
