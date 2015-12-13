@@ -73,7 +73,7 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 
     $ pip3 install --upgrade zmon-cli
 
-Use the zmon cli to push/create/update entities ( e.g. hosts, databases, ...), check definitons and optionally alerts (also possible via UI).
+Use the ZMON CLI to push/create/update entities (e.g. hosts, databases, ...), check definitions and optionally alerts (also possible via UI).
 
 .. code-block:: bash
 
