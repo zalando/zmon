@@ -1,24 +1,17 @@
 ZMON
 ====
 
-ZMON is Zalando's open source platform monitoring tool. It is in production use since early 2014 and supports our large number of teams in observing their services and metrics on various layers from CPU load to Team KPIs.
+ZMON is Zalando's open-source platform monitoring tool, used in production since early 2014. It supports our many engineering teams in observing their services and metrics on various layers, from CPU load to team KPIs.
 
 .. image:: https://readthedocs.org/projects/zmon/badge/?version=latest
    :target: https://readthedocs.org/projects/zmon/?badge=latest
    :alt: Documentation Status
 
-Take a look at slides from our recent talk at DevOps Ireland Meetup:
+Take a look at the slides from our `recent talk at the DevOps Ireland meetup <https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/>`_ for background information on ZMON.
 
-  https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/
+`Here's an introduction <https://tech.zalando.com/blog/monitoring-the-zalando-platform/>`_ on how we started the project.
 
-A introduction on how it started:
-
-  https://tech.zalando.com/blog/monitoring-the-zalando-platform/
-
-Documentation:
-
-  http://zmon.readthedocs.org/en/latest/intro.html
-
+`Here's more detailed documentation <http://zmon.readthedocs.org/en/latest/intro.html>`_ than you'll find in this README.
 
 Features / Working:
  * Define checks as data sources executed on self defined entities
