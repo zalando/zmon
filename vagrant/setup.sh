@@ -38,13 +38,14 @@ echo -e "redis_host: localhost\nurl: http://localhost:8080/rest/api/v1\nuser: ad
 
 echo -e "export LC_ALL=en_US.utf-8\nexport LANG=en_US.utf-8\n" >> /home/vagrant/.profile
 
+sudo easy_install3 -U pip
 sudo pip3 install --upgrade zmon-cli
 
 chmod 600 /root/.pgpass
 cp /root/.pgpass /home/vagrant/.pgpass
 
 mkdir -p /home/vagrant/zmon-controller
-git clone https://github.com/zalando/zmon-controller.git  /home/vagrant/zmon-controller
+git clone https://github.com/zalando/zmon-controller.git /home/vagrant/zmon-controller || echo 'zmon-controller seems to be cloned already'
 
 mkdir -p /home/vagrant/zmon-eventlog-service
-git clone https://github.com/zalando/zmon-eventlog-service.git  /home/vagrant/zmon-eventlog-service
+git clone https://github.com/zalando/zmon-eventlog-service.git /home/vagrant/zmon-eventlog-service || echo 'zmon-eventlog-service seems to be cloned already'
