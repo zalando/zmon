@@ -6,8 +6,8 @@ export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=0.1.11
-export WORKER_VERSION=cd7
-export CONTROLLER_VERSION=0.1.13
+export WORKER_VERSION=cd8
+export CONTROLLER_VERSION=cd17
 export SCHEDULER_VERSION=cd11
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
@@ -23,9 +23,14 @@ fi
 if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
 
     docker rm zmon-controller
-    docker run --restart "on-failure:10" --name zmon-controller --net host -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
+    docker run --restart "on-failure:10" --name zmon-controller --net host \
+        -e SPRING_PROFILES_ACTIVE=github \
+        -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
+        -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
+        -e REDIS_PORT=6379 \
+        -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
 
-    until curl http://localhost:8080/index.jsp &> /dev/null; do
+    until curl --insecure https://localhost:8443/index.jsp &> /dev/null; do
         echo 'Waiting for ZMON Controller..'
         sleep 3
     done
