@@ -97,6 +97,16 @@ Modify the alert definition to point to the right check id before doing:
 .. _Vagrant: https://www.vagrantup.com/
 .. _PyPI: https://pypi.python.org/pypi/zmon-cli
 
+Build Environment
+=================
+
+If you want to compile everything from source, you can do so with our separate "build-env" Vagrant box:
+
+.. code-block:: bash
+
+    $ cd build-env
+    $ vagrant up
+
 Thanks
 ======
 
