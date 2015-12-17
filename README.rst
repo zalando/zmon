@@ -14,18 +14,18 @@ Take a look at the slides from our `recent talk at the DevOps Ireland meetup <ht
 `Here's more detailed documentation <http://zmon.readthedocs.org/en/latest/intro.html>`_ than you'll find in this README.
 
 Features / Working:
- * Define checks as data sources executed on self defined entities
- * Define alerts on checks and entities as it fits your team with thresholds
- * Define custom dashboards with widgets and alert filters base on teams and tags
- * Check command and Alert condition are arbitrary Python expressions, giving you a lot of power
+ * Define checks as data sources executed on self-defined entities
+ * Define alerts on checks and entities, with thresholds, as it suits your team
+ * Define custom dashboards with widgets and alert filters based on teams and tags
+ * Check commands and Alert conditions are arbitrary Python expressions, giving you a lot of power
  * Store all results, incl. flattened dicts in time series in KairosDB
- * Internal charting and integrated Grafana for dash boards
- * Entity service to push entities, e.g. hosts, databases, ... we push EC2, ELBs, ... via zmon-aws-agent
- * Define checks via YAML files and push using zmon-cli or via discovery from git sources
+ * Offers internal charting and integrated Grafana for dashboards
+ * Entity service to push entities: hosts, databases, et al. We push EC2, ELB, etc. via zmon-aws-agent
+ * Define checks via YAML files and push using zmon-cli
  * Use trial run in the UI to develop your checks/alerts with quick feedback
  * Trigger instant evaluation from UI for checks on longer intervals to rerun commands
 
-Start Demo using Vagrant
+Start Demo Using Vagrant
 ========================
 
 Install a recent Vagrant_ version (at least 1.7.4) and simply do:
@@ -34,7 +34,7 @@ Install a recent Vagrant_ version (at least 1.7.4) and simply do:
 
     $ vagrant up
 
-Please note that the provisioning process will take some time as it downloads the docker images (~15min).
+Please note that the provisioning process will take some time (~15min) while it downloads the Docker images.
 
 Frontend
 --------
@@ -64,7 +64,7 @@ Issues
 
 * If single containers do not start up ssh into the vagrant box and run the start.sh script again manually or use the start-services.sh script to restart single components. Later one takes parameters like controller or worker.
 
-Install the command line interface
+Install the Command Line Interface
 ==================================
 
 Use PIP to install the ``zmon`` executable from PyPI_.
@@ -73,7 +73,7 @@ Use PIP to install the ``zmon`` executable from PyPI_.
 
     $ pip3 install --upgrade zmon-cli
 
-Use the ZMON CLI to push/create/update entities (e.g. hosts, databases, ...), check definitions and optionally alerts (also possible via UI).
+Use the ZMON CLI to push/create/update entities (hosts, databases, etc.), check definitions and create optional alerts (also possible via UI).
 
 .. code-block:: bash
 
@@ -87,7 +87,7 @@ Push your first check definition:
 
     $ zmon check-definitions update examples/check-definitions/zmon-scheduler-rates.yaml
 
-Modify the alert definition to point to the right check id, before doing:
+Modify the alert definition to point to the right check id before doing:
 
 .. code-block:: bash
 
@@ -100,7 +100,7 @@ Modify the alert definition to point to the right check id, before doing:
 Thanks
 ======
 
-Docker images/scripts used in slightly modified version are:
+Docker images/scripts used in slightly modified versions are:
 
 * abh1nav/cassandra:latest
 * wangdrew/kairosdb
