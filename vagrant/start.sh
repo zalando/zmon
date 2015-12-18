@@ -66,9 +66,9 @@ done
 /vagrant/vagrant/start-services.sh
 
 echo ""
-echo "All services are up, peek into Vagrantfile/Readme for open ports/services"
+echo "All services are up, peek into Vagrantfile/README for open ports/services"
 echo ""
 echo "ZMON installation is done!"
-echo "Goto: http://localhost:38080/"
-echo "User: admin Password: admin"
+echo "Point your browser to https://localhost:8443/"
+echo "and login with your GitHub credentials."
 echo ""

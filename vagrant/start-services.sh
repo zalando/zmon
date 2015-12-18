@@ -6,8 +6,8 @@ export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=0.1.11
-export WORKER_VERSION=cd8
-export CONTROLLER_VERSION=cd17
+export WORKER_VERSION=cd19
+export CONTROLLER_VERSION=cd26
 export SCHEDULER_VERSION=cd11
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
@@ -38,7 +38,8 @@ fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bworker" ] ; then
     docker rm zmon-worker
-    docker run --restart "on-failure:10" --name zmon-worker --net host -d registry.opensource.zalan.do/stups/zmon-worker:$WORKER_VERSION
+    docker run --restart "on-failure:10" --name zmon-worker --net host \
+        -d registry.opensource.zalan.do/stups/zmon-worker:$WORKER_VERSION
 fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
