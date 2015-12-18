@@ -27,19 +27,6 @@ find -name '*.sql' | sort | xargs cat | psql
 psql -f /vagrant/vagrant/initial.sql
 psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
-container=$(docker ps | grep openldap)
-if [ -z "$container" ]; then
-    docker rm openldap
-    docker run --restart "on-failure:10" --name openldap --net host -d registry.opensource.zalan.do/stups/zmon-ldap:0.1.4
-fi
-
-until nc -w 5 -z localhost 389; do
-    echo 'Waiting for LDAP port..'
-    sleep 3
-done
-
-ldapadd -c -x -D cn=admin,dc=example,dc=com -w toor -f /vagrant/vagrant/ldap-structure.ldif
-
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
     docker rm redis

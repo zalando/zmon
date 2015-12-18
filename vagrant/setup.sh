@@ -30,7 +30,7 @@ adduser vagrant docker
 
 #echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
 
-apt-get install -y postgresql-client ldap-utils git redis-tools python3-pip
+apt-get install -y postgresql-client git redis-tools python3-pip
 
 echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
 
