@@ -6,9 +6,9 @@ export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=0.1.11
-export WORKER_VERSION=cd19
+export WORKER_VERSION=cd28
 export CONTROLLER_VERSION=cd26
-export SCHEDULER_VERSION=cd11
+export SCHEDULER_VERSION=cd14
 
 if [ "b$1" = "b" ] || [ "b$1" = "beventlog-service" ] ; then
     docker rm zmon-eventlog-service
@@ -47,7 +47,12 @@ fi
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
     docker rm zmon-scheduler
     docker run --restart "on-failure:10" --name zmon-scheduler --net host \
+        -v /home/vagrant/zmon-controller/zmon-controller-app/src/main/resources:/resources \
+        -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
+        -e SCHEDULER_URLS_WITHOUT_REST=true \
         -e SCHEDULER_ENTITY_SERVICE_URL=https://localhost:8443/ \
+        -e SCHEDULER_ENTITY_SERVICE_TOKEN=123 \
         -e SCHEDULER_CONTROLLER_URL=https://localhost:8443/ \
+        -e SCHEDULER_CONTROLLER_TOKEN=123 \
         -d registry.opensource.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
 fi
