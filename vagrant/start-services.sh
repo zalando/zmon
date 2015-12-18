@@ -28,6 +28,8 @@ if [ "b$1" = "b" ] || [ "b$1" = "bcontroller" ] ; then
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
         -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
         -e REDIS_PORT=6379 \
+        -e PRESHARED_TOKENS_123_UID=demotoken \
+        -e PRESHARED_TOKENS_123_EXPIRES_AT=1758021422 \
         -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
 
     until curl --insecure https://localhost:8443/index.jsp &> /dev/null; do
@@ -44,5 +46,8 @@ fi
 
 if [ "b$1" = "b" ] || [ "b$1" = "bscheduler" ] ; then
     docker rm zmon-scheduler
-    docker run --restart "on-failure:10" --name zmon-scheduler --net host -d registry.opensource.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
+    docker run --restart "on-failure:10" --name zmon-scheduler --net host \
+        -e SCHEDULER_ENTITY_SERVICE_URL=https://localhost:8443/ \
+        -e SCHEDULER_CONTROLLER_URL=https://localhost:8443/ \
+        -d registry.opensource.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
 fi
