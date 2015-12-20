@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-rm /etc/update-motd.d/*
+rm -f /etc/update-motd.d/*
 cp /vagrant/vagrant/etc/update-motd.d/* /etc/update-motd.d/
 
 #apt-get remove --purge -y puppet chef
