@@ -18,7 +18,7 @@ done
 
 cd /home/vagrant/zmon-controller/database/zmon
 psql -c "CREATE DATABASE $PGDATABASE;" postgres
-psql -c 'CREATE EXTENSION hstore;'
+psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
 
 # creating demo role here
 psql -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres

@@ -5,15 +5,17 @@ export PGUSER=postgres
 export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
-export EVENTLOG_VERSION=cd3
+export EVENTLOG_VERSION=cd4
 export WORKER_VERSION=cd40
-export CONTROLLER_VERSION=cd27
-export SCHEDULER_VERSION=cd14
+export CONTROLLER_VERSION=cd28
+export SCHEDULER_VERSION=cd15
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     docker kill zmon-eventlog-service
     docker rm -f zmon-eventlog-service
-    docker run --restart "on-failure:10" --name zmon-eventlog-service --net host -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d registry.opensource.zalan.do/stups/zmon-eventlog-service:$EVENTLOG_VERSION
+    docker run --restart "on-failure:10" --name zmon-eventlog-service --net host \
+        -e MEM_JAVA_PERCENT=10 \
+        -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d registry.opensource.zalan.do/stups/zmon-eventlog-service:$EVENTLOG_VERSION
 
     until curl http://localhost:8081/\?key=alertId\&value=3\&types=212993 &> /dev/null; do
         echo 'Waiting for eventlog service'
@@ -25,6 +27,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
     docker kill zmon-controller
     docker rm -f zmon-controller
     docker run --restart "on-failure:10" --name zmon-controller --net host \
+        -e MEM_JAVA_PERCENT=25 \
         -e SPRING_PROFILES_ACTIVE=github \
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
         -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
@@ -51,6 +54,7 @@ if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
     docker kill zmon-scheduler
     docker rm -f zmon-scheduler
     docker run --restart "on-failure:10" --name zmon-scheduler --net host \
+        -e MEM_JAVA_PERCENT=20 \
         -v /home/vagrant/zmon-controller/zmon-controller-app/src/main/resources:/resources \
         -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
         -e SCHEDULER_URLS_WITHOUT_REST=true \
