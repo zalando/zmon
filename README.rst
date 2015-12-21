@@ -39,9 +39,9 @@ Please note that the provisioning process will take some time (~15min) while it 
 Frontend
 --------
 
-  http://localhost:38080/
+  https://localhost:8443/
 
-Login with username "admin" and password "admin".
+Login with your own GitHub credentials (OAuth redirect).
 
 Grafana
 -------
