@@ -30,7 +30,7 @@ psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.s
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
     docker rm redis
-    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/zmon-redis:0.1.4
+    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/redis:3.0.5
 fi
 
 until nc -w 5 -z localhost 6379; do
@@ -43,7 +43,7 @@ ip=$(ip -o -4 a show eth0|awk '{print $4}' | cut -d/ -f 1)
 container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
-    docker run --restart "on-failure:10" --name cassandra --net host -d abh1nav/cassandra:latest
+    docker run --restart "on-failure:10" --name cassandra --net host -d registry.opensource.zalan.do/stups/cassandra:2.1.5-1
     #docker run --name cassandra --net host -d os-registry.stups.zalan.do/stups/zmon-cassandra:0.1.5
 fi
 

@@ -15,20 +15,11 @@ if [ ! -x "/usr/bin/docker" ]; then
   echo -e "deb https://apt.dockerproject.org/repo ubuntu-vivid main" > /etc/apt/sources.list.d/docker.list
 
   apt-get -y update
-
-  apt-get -y purge lxc-docker*
-
-  apt-cache -y policy docker-engine
-
-  apt-get -y update
-
   apt-get -y install docker-engine
 
 fi
 
 adduser vagrant docker
-
-#echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
 
 apt-get install -y postgresql-client git redis-tools python3-pip
 
