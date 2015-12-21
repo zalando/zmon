@@ -6,8 +6,8 @@ export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=cd3
-export WORKER_VERSION=cd39
-export CONTROLLER_VERSION=cd26
+export WORKER_VERSION=cd40
+export CONTROLLER_VERSION=cd27
 export SCHEDULER_VERSION=cd14
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
@@ -29,6 +29,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
         -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
         -e REDIS_PORT=6379 \
+        -e ZMON_KAIROSDB_PORT=8083 \
         -e PRESHARED_TOKENS_123_UID=demotoken \
         -e PRESHARED_TOKENS_123_EXPIRES_AT=1758021422 \
         -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
