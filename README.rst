@@ -46,7 +46,7 @@ Login with your own GitHub credentials (OAuth redirect).
 Grafana
 -------
 
-  http://localhost:38080/grafana/
+  https://localhost:8443/grafana/
 
 You will be able to create/save dashboards.
 
