@@ -6,7 +6,7 @@ export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
 export EVENTLOG_VERSION=cd3
-export WORKER_VERSION=cd31
+export WORKER_VERSION=cd39
 export CONTROLLER_VERSION=cd26
 export SCHEDULER_VERSION=cd14
 
