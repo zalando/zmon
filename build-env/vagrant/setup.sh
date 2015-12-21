@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 rm /etc/update-motd.d/*
 cp /vagrant/vagrant/etc/update-motd.d/* /etc/update-motd.d/
 
@@ -8,35 +10,25 @@ apt-get autoremove -y
 
 if [ ! -x "/usr/bin/docker" ]; then
 
-    # add Docker repo
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-    echo 'deb https://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list
+  apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
-    set +e
-    until apt-get update; do
-        # TODO: this should not even be necessary
-        echo 'apt-get update failed, retrying..'
-        rm -fr /var/lib/apt/lists/partial
-        sleep 1
-    done
-    set -e
+  echo -e "deb https://apt.dockerproject.org/repo ubuntu-vivid main" > /etc/apt/sources.list.d/docker.list
 
-    # Docker
-    apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-confold" apparmor lxc-docker
+  apt-get -y update
+
+  apt-get -y install docker-engine
 fi
 
 adduser vagrant docker
 
 #echo "DOCKER_OPTS=\"--storage-driver=aufs\"" > /etc/default/docker
 
-add-apt-repository ppa:webupd8team/java
 apt-get -y update
 
-echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+apt-get install -y openjdk-8-jdk
 
-apt-get install -y oracle-java8-installer
-
-apt-get install -y postgresql-client ldap-utils maven git redis-tools
+# NOTE: maven is installed by the Maven Wrapper (mvnw), we do not need to install it here
+apt-get install -y postgresql-client git redis-tools
 
 # install dependencies for acceptance and unit testing
 apt-get install -y x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xserver-xorg-core dbus-x11

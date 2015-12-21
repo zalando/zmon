@@ -1,0 +1,19 @@
+#!/bin/bash
+
+[ -r /etc/lsb-release ] && . /etc/lsb-release
+
+BBlue='\e[1;34m'  # Blue
+Color_Off='\e[0m' # Text Reset
+
+echo -e "$BBlue"
+echo "  ________  __  ____  _   _ "
+echo " |___  /  \/  |/ __ \| \ | |"
+echo "    / /| \  / | |  | |  \| |"
+echo "   / / | |\/| | |  | | . \` |"
+echo "  / /__| |  | | |__| | |\  |"
+echo " /_____|_|  |_|\____/|_| \_|"
+echo -e "$Color_Off"
+
+printf "ZMON cluster running on %s (%s)\n" "$DISTRIB_DESCRIPTION" "$(uname -r)"
+echo -e "Check ${BBlue}https://zmon.readthedocs.org/${Color_Off} for more information."
+

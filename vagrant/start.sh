@@ -18,7 +18,7 @@ done
 
 cd /home/vagrant/zmon-controller/database/zmon
 psql -c "CREATE DATABASE $PGDATABASE;" postgres
-psql -c 'CREATE EXTENSION hstore;'
+psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
 
 # creating demo role here
 psql -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
@@ -27,23 +27,10 @@ find -name '*.sql' | sort | xargs cat | psql
 psql -f /vagrant/vagrant/initial.sql
 psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
-container=$(docker ps | grep openldap)
-if [ -z "$container" ]; then
-    docker rm openldap
-    docker run --restart "on-failure:10" --name openldap --net host -d registry.opensource.zalan.do/stups/zmon-ldap:0.1.4
-fi
-
-until nc -w 5 -z localhost 389; do
-    echo 'Waiting for LDAP port..'
-    sleep 3
-done
-
-ldapadd -c -x -D cn=admin,dc=example,dc=com -w toor -f /vagrant/vagrant/ldap-structure.ldif
-
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
     docker rm redis
-    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/zmon-redis:0.1.4
+    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/redis:3.0.5
 fi
 
 until nc -w 5 -z localhost 6379; do
@@ -56,7 +43,7 @@ ip=$(ip -o -4 a show eth0|awk '{print $4}' | cut -d/ -f 1)
 container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
-    docker run --restart "on-failure:10" --name cassandra --net host -d abh1nav/cassandra:latest
+    docker run --restart "on-failure:10" --name cassandra --net host -d registry.opensource.zalan.do/stups/cassandra:2.1.5-1
     #docker run --name cassandra --net host -d os-registry.stups.zalan.do/stups/zmon-cassandra:0.1.5
 fi
 
@@ -79,9 +66,9 @@ done
 /vagrant/vagrant/start-services.sh
 
 echo ""
-echo "All services are up, peek into Vagrantfile/Readme for open ports/services"
+echo "All services are up, peek into Vagrantfile/README for open ports/services"
 echo ""
 echo "ZMON installation is done!"
-echo "Goto: http://localhost:38080/"
-echo "User: admin Password: admin"
+echo "Point your browser to https://localhost:8443/"
+echo "and login with your GitHub credentials."
 echo ""
