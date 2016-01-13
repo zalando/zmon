@@ -29,6 +29,8 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
     docker run --restart "on-failure:10" --name zmon-controller --net host \
         -e MEM_JAVA_PERCENT=25 \
         -e SPRING_PROFILES_ACTIVE=github \
+        -e ZMON_OAUTH2_SSO_CLIENT_ID=344c9a90fc697fe6662a \
+        -e ZMON_OAUTH2_SSO_CLIENT_SECRET=a2bbb03a29f6737af04c77f2d88e8f8199ff179b \
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
         -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
         -e REDIS_PORT=6379 \
