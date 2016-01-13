@@ -5,10 +5,16 @@ export PGUSER=postgres
 export PGPASSWORD=postgres
 export PGDATABASE=local_zmon_db
 
+# How to get the latest Docker image versions:
+#
+# for i in controller worker scheduler-ng; do
+#    echo $i
+#    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
+# done
 export EVENTLOG_VERSION=cd4
-export WORKER_VERSION=cd40
-export CONTROLLER_VERSION=cd28
-export SCHEDULER_VERSION=cd15
+export WORKER_VERSION=cd50
+export CONTROLLER_VERSION=cd29
+export SCHEDULER_VERSION=cd16
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     docker kill zmon-eventlog-service
