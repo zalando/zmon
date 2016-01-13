@@ -44,7 +44,6 @@ container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
     docker run --restart "on-failure:10" --name cassandra --net host -d registry.opensource.zalan.do/stups/cassandra:2.1.5-1
-    #docker run --name cassandra --net host -d os-registry.stups.zalan.do/stups/zmon-cassandra:0.1.5
 fi
 
 until nc -w 5 -z $ip 9160; do
