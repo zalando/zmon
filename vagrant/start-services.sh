@@ -7,14 +7,14 @@ export PGDATABASE=local_zmon_db
 
 # How to get the latest Docker image versions:
 #
-# for i in controller worker scheduler-ng; do
+# for i in controller worker scheduler; do
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
 export EVENTLOG_VERSION=cd4
 export WORKER_VERSION=cd50
-export CONTROLLER_VERSION=cd29
-export SCHEDULER_VERSION=cd16
+export CONTROLLER_VERSION=cd30
+export SCHEDULER_VERSION=cd17
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     docker kill zmon-eventlog-service
@@ -70,5 +70,5 @@ if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
         -e SCHEDULER_ENTITY_SERVICE_TOKEN=123 \
         -e SCHEDULER_CONTROLLER_URL=https://localhost:8443/ \
         -e SCHEDULER_CONTROLLER_TOKEN=123 \
-        -d registry.opensource.zalan.do/stups/zmon-scheduler-ng:$SCHEDULER_VERSION
+        -d registry.opensource.zalan.do/stups/zmon-scheduler:$SCHEDULER_VERSION
 fi
