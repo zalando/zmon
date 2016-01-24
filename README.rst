@@ -60,7 +60,7 @@ KairosDB frontend, i.e. for manually query of metrics:
 Issues
 ------
 
-* If single containers do not start up ssh into the vagrant box and run the `start.sh` script again manually or use the `start-services.sh` script to restart single components. Later one takes parameters like `controller` or `worker`.
+* If single containers do not start up ssh into the vagrant box and run the ``start.sh`` script again manually or use the ``start-services.sh`` script to restart single components. Later one takes parameters like ``controller`` or ``worker``.
 
 Install the Command Line Interface
 ==================================
