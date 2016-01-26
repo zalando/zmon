@@ -11,9 +11,9 @@ export PGDATABASE=local_zmon_db
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
-export EVENTLOG_VERSION=cd4
-export WORKER_VERSION=cd50
-export CONTROLLER_VERSION=cd30
+export EVENTLOG_VERSION=cd5
+export WORKER_VERSION=cd51
+export CONTROLLER_VERSION=cd35
 export SCHEDULER_VERSION=cd11
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
