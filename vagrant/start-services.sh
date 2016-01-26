@@ -14,7 +14,7 @@ export PGDATABASE=local_zmon_db
 export EVENTLOG_VERSION=cd4
 export WORKER_VERSION=cd50
 export CONTROLLER_VERSION=cd30
-export SCHEDULER_VERSION=cd17
+export SCHEDULER_VERSION=cd11
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     docker kill zmon-eventlog-service
@@ -67,8 +67,7 @@ if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
         -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
         -e SCHEDULER_URLS_WITHOUT_REST=true \
         -e SCHEDULER_ENTITY_SERVICE_URL=https://localhost:8443/ \
-        -e SCHEDULER_ENTITY_SERVICE_TOKEN=123 \
+        -e SCHEDULER_OAUTH2_STATIC_TOKEN=123 \
         -e SCHEDULER_CONTROLLER_URL=https://localhost:8443/ \
-        -e SCHEDULER_CONTROLLER_TOKEN=123 \
         -d registry.opensource.zalan.do/stups/zmon-scheduler:$SCHEDULER_VERSION
 fi
