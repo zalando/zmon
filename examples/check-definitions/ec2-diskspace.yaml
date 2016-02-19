@@ -1,0 +1,28 @@
+name: Instance Disk Usage
+owning_team: ZMON
+description: |-
+  How much disk space and inodes are used on the root filesystem.
+command: |-
+  def check():
+      p = http(':9100/metrics').prometheus()
+      data = {}
+
+      # disk space
+      pfree = p['node_filesystem_free']
+      psize = p['node_filesystem_size']
+      pfree_sum = sum([x[1] for x in pfree if x[0]["device"] == "rootfs"])
+      psize_sum = sum([x[1] for x in psize if x[0]["device"] == "rootfs"])
+      data['usage_percentage'] = round(100 - (pfree_sum / psize_sum * 100), 2)
+
+      # inodes
+      ifree = p['node_filesystem_files_free']
+      icount = p['node_filesystem_files']
+      ifree_sum = sum([x[1] for x in ifree if x[0]["device"] == "rootfs"])
+      icount_sum = sum([x[1] for x in icount if x[0]["device"] == "rootfs"])
+      data['inodes_percentage'] = round(100 - (ifree_sum / icount_sum * 100), 2)
+
+      return data
+interval: 60
+entities:
+- type: instance
+status: ACTIVE
