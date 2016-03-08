@@ -11,10 +11,10 @@ export PGDATABASE=local_zmon_db
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
-export EVENTLOG_VERSION=cd5
-export WORKER_VERSION=cd51
-export CONTROLLER_VERSION=cd35
-export SCHEDULER_VERSION=cd11
+export EVENTLOG_VERSION=cd8
+export WORKER_VERSION=cd108
+export CONTROLLER_VERSION=cd186
+export SCHEDULER_VERSION=cd28
 
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     docker kill zmon-eventlog-service
