@@ -16,10 +16,18 @@ export WORKER_VERSION=cd108
 export CONTROLLER_VERSION=cd189
 export SCHEDULER_VERSION=cd28
 
+function run_docker () {
+    name=$1
+    shift 1
+    echo "Starting Docker container ${name}.."
+    # ignore non-existing containers
+    docker kill $name &> /dev/null || true
+    docker rm -f $name &> /dev/null || true
+    docker run --restart "on-failure:10" -d --name $name --net host "$@"
+}
+
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
-    docker kill zmon-eventlog-service
-    docker rm -f zmon-eventlog-service
-    docker run --restart "on-failure:10" --name zmon-eventlog-service --net host \
+    run_docker zmon-eventlog-service  \
         -e MEM_JAVA_PERCENT=10 \
         -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d registry.opensource.zalan.do/stups/zmon-eventlog-service:$EVENTLOG_VERSION
 
@@ -30,9 +38,7 @@ if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
 fi
 
 if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
-    docker kill zmon-controller
-    docker rm -f zmon-controller
-    docker run --restart "on-failure:10" --name zmon-controller --net host \
+    run_docker zmon-controller \
         -e MEM_JAVA_PERCENT=25 \
         -e SPRING_PROFILES_ACTIVE=github \
         -e ZMON_OAUTH2_SSO_CLIENT_ID=344c9a90fc697fe6662a \
@@ -52,16 +58,12 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
 fi
 
 if [ -z "$1" ] || [ "b$1" = "bworker" ] ; then
-    docker kill zmon-worker
-    docker rm -f zmon-worker
-    docker run --restart "on-failure:10" --name zmon-worker --net host \
+    run_docker zmon-worker \
         -d registry.opensource.zalan.do/stups/zmon-worker:$WORKER_VERSION
 fi
 
 if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
-    docker kill zmon-scheduler
-    docker rm -f zmon-scheduler
-    docker run --restart "on-failure:10" --name zmon-scheduler --net host \
+    run_docker zmon-scheduler \
         -e MEM_JAVA_PERCENT=20 \
         -v /home/vagrant/zmon-controller/zmon-controller-app/src/main/resources:/resources \
         -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
