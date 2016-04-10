@@ -29,9 +29,11 @@ Features
 * Trial run in the UI to develop your checks/alerts with quick feedback
 * Auto discovery of AWS services using ZMON's aws agent and entity service, great for AWS deployments
 * Authentication via Oauth 2 e.g. GitHub
-* Frontend incl. Grafana2 requires full authentication, no need for VPN. incl. onetime tokens for e.g. displays
+* Frontend incl. Grafana2 requires full authentication, no need for VPN. incl. onetime tokens for office displays
 * Command line client for easy automation and interaction with the REST API
 * ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
+* Supports SQL for PostgreSQL incl. sharded deployments, MySQL, Redis, Scalyr, ...
+* More on connectivity here: `Check commands <https://docs.zmon.io/en/latest/user/check-commands.html>`_
 
 Deployment
 ==========
