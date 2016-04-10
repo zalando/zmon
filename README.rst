@@ -10,7 +10,7 @@ ZMON is Zalando's open-source platform monitoring tool, used in production since
 
 Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including Grafana2.
 
-To get familiar with the ideas behind ZMON and how things work, you can take a quick dive in: `Intro <http://zmon.readthedocs.org/en/latest/intro.html>`_
+To get familiar with the ideas behind ZMON and how things work, you can take a quick dive in: `Intro Docs <http://zmon.readthedocs.org/en/latest/intro.html>`_
 
 Take a look at the slides from our `recent talk at the DevOps Ireland meetup <https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/>`_ for background information on ZMON.
 
@@ -18,20 +18,20 @@ Take a look at the slides from our `recent talk at the DevOps Ireland meetup <ht
 Features
 --------
 
- * Define checks as data sources executed on self-defined entities
- * Define alerts on checks and entities, with thresholds, as it suits your and your teams needs
- * Define custom dashboards with widgets and alert filters based on teams and tags
- * Check commands and alert conditions are arbitrary Python expressions, giving you a lot of power
- * All metric/check data is stored as time series in KairosDB for later use
- * Grafana2 is included, enabling you to build rich data driven dashboards
- * Powerful REST API to integrate nicely into other tools: e.g. cmdb/deploy tools
- * Entity service to store entities of any kind describing your environment
- * Trial run in the UI to develop your checks/alerts with quick feedback
- * Auto discovery of AWS services using ZMON's aws agent and entity service, great for AWS deployments
- * Authentication via Oauth 2 e.g. GitHub
- * Frontend incl. Grafana2 requires full authentication, no need for VPN. incl. onetime tokens for e.g. displays
- * Command line client for easy automation and interaction with the REST API
- * ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
+* Define checks as data sources executed on self-defined entities
+* Define alerts on checks and entities, with thresholds, as it suits your and your teams needs
+* Define custom dashboards with widgets and alert filters based on teams and tags
+* Check commands and alert conditions are arbitrary Python expressions, giving you a lot of power
+* All metric/check data is stored as time series in KairosDB for later use
+* Grafana2 is included, enabling you to build rich data driven dashboards
+* Powerful REST API to integrate nicely into other tools: e.g. cmdb/deploy tools
+* Entity service to store entities of any kind describing your environment
+* Trial run in the UI to develop your checks/alerts with quick feedback
+* Auto discovery of AWS services using ZMON's aws agent and entity service, great for AWS deployments
+* Authentication via Oauth 2 e.g. GitHub
+* Frontend incl. Grafana2 requires full authentication, no need for VPN. incl. onetime tokens for e.g. displays
+* Command line client for easy automation and interaction with the REST API
+* ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
 
 Deployment
 ==========
@@ -43,16 +43,18 @@ Requirements
 
 ZMON reliese on a few great open source products to run, which you will need to operate.
 
- * Redis
- * PostgreSQL
- * Cassandra + KairosDB
+* Redis
+* PostgreSQL
+* Cassandra + KairosDB
 
-This seems to be a lot, but we provide both a Vagrant box and the deployment scripts for our `demo host <https://github.com/zalando/zmon-demo`_, lowering the bar to get started :)
+This seems to be a lot, but we provide both a Vagrant box and the deployment scripts for our `demo host <https://github.com/zalando/zmon-demo>`_, lowering the bar to get started :)
 
 Components:
 
 `Controller/Frontend <https://github.com/zalando/zmon-controller>`_
+
 `Scheduler <https://github.com/zalando/zmon-scheduler>`_
+
 `Worker <https://github.com/zalando/zmon-worker>`_
 
 Start Demo Using Vagrant
