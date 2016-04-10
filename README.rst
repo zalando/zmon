@@ -8,12 +8,21 @@ ZMON
 
 ZMON is Zalando's open-source platform monitoring tool, used in production since early 2014. It supports our many engineering teams in observing their services and metrics on various layers, from low level system metrics to team's business KPIs.
 
+Demo
+----
 Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including Grafana2.
 
-To get familiar with the ideas behind ZMON and how things work, you can take a quick dive in: `Intro Docs <http://zmon.readthedocs.org/en/latest/intro.html>`_
+Introduction
+------------
 
-Take a look at the slides from our `recent talk at the DevOps Ireland meetup <https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/>`_ for background information on ZMON.
+To get familiar with the ideas behind ZMON and how things work, you can take a quick dive in: `Intro <http://zmon.readthedocs.org/en/latest/intro.html>`_
 
+Talks / Blog
+------------
+
+Take a look at the slides from our `talk at the DevOps Ireland meetup <https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/>`_ for background information on ZMON.
+
+First post about ZMON: `Monitoring the platform <https://tech.zalando.com/blog/monitoring-the-zalando-platform/>`_
 
 Features
 --------
