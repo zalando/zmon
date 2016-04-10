@@ -10,7 +10,7 @@ ZMON is Zalando's open-source platform monitoring tool, used in production since
 
 Demo
 ----
-Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including Grafana2.
+Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including `Grafana2 <https://demo.zmon.io/grafana2/dashboard/db/response-times>`_.
 
 Introduction
 ------------
