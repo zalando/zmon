@@ -47,15 +47,23 @@ ZMON reliese on a few great open source products to run, which you will need to 
 * PostgreSQL
 * Cassandra + KairosDB
 
-This seems to be a lot, but we provide both a Vagrant box and the deployment scripts for our `demo host <https://github.com/zalando/zmon-demo>`_, lowering the bar to get started :)
+This seems to be a lot, but we provide both a Vagrant box and the deployment scripts for our `demo host <https://github.com/zalando/zmon-demo/blob/master/bootstrap/bootstrap.sh>`_, lowering the bar to get started :)
 
-Components:
+Components
+----------
 
-`Controller/Frontend <https://github.com/zalando/zmon-controller>`_
+`Frontend / Controller <https://github.com/zalando/zmon-controller>`_ UI and REST API
 
-`Scheduler <https://github.com/zalando/zmon-scheduler>`_
+`Scheduler <https://github.com/zalando/zmon-scheduler>`_ Schedules check/alert execution
 
-`Worker <https://github.com/zalando/zmon-worker>`_
+`Worker <https://github.com/zalando/zmon-worker>`_ Executes check/alert commands and data acquisition
+
+Optional components
+-------------------
+
+`Data service <https://github.com/zalando/zmon-data-service>`_ Used for distributed monitoring where sites don't share network connectivity other than the Internet.
+
+`Metric cache <https://github.com/zalando/zmon-metric-cache>`_ Fast special purpose cache for REST API metric data for ZMON's REST metrics/cloud UI
 
 Start Demo Using Vagrant
 ========================
