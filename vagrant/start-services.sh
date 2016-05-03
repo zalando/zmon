@@ -13,7 +13,7 @@ export PGDATABASE=local_zmon_db
 # done
 export EVENTLOG_VERSION=cd8
 export WORKER_VERSION=cd120
-export CONTROLLER_VERSION=cd240
+export CONTROLLER_VERSION=cd247
 export SCHEDULER_VERSION=cd29
 
 function run_docker () {
