@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provider "virtualbox" do |vb|
         vb.name = "ZMON-DEMO"
-        vb.memory = 4072
+        vb.memory = 3600
         vb.cpus = 3
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     end
