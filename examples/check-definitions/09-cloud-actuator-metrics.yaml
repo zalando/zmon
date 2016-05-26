@@ -1,0 +1,18 @@
+name: Metrics for ZMON Cloud entities
+owning_team: ZMON
+description: |-
+  Get Application API metrics from the different services
+command: |-
+    def check():
+      p = entity['ports'].values()[-1]
+      if entity['application_id'] == 'zmon-controller':
+          p = 8079
+
+      p = str(p)
+      r = http('http://'+ entity['host'] +':'+ p +'/metrics', timeout=2).actuator_metrics()
+      r["metrics"]={"GET":{"200":{"mRate":0,"count":0,"75th":0,"99th":0,"median":0,"min":0,"max":0}}}
+      return r
+entities:
+  - type: instance
+interval: 60
+status: ACTIVE

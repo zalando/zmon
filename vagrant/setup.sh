@@ -26,7 +26,9 @@ apt-get install -y postgresql-client git redis-tools python3-pip
 echo 'localhost:5432:*:postgres:postgres' > /root/.pgpass
 
 # we use a preshared token for authentication (configured when starting ZMON Controller)
-echo -e "redis_host: localhost\nurl: https://localhost:8443/api/v1\ntoken: 123\nverify: false" > /home/vagrant/.zmon-cli.yaml
+echo -e "url: https://localhost:8443/api/v1\ntoken: 123\nverify: false" > /home/vagrant/.zmon-cli.yaml
+# configure for root user too (setup is running as root)
+cp /home/vagrant/.zmon-cli.yaml /root/.zmon-cli.yaml
 
 echo -e "export LC_ALL=en_US.utf-8\nexport LANG=en_US.utf-8\n" >> /home/vagrant/.profile
 

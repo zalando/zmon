@@ -1,0 +1,20 @@
+check_definition_id: 5
+name: Redis Memory Usage {usage_mb} > {limit_mb} MB
+team: ZMON
+responsible_team: ZMON
+description: |-
+  Redis memory usage is above the configured threshold ("limit_mb" capture).
+
+  This example alert also shows how [alert captures](https://zmon.readthedocs.org/en/latest/user/alert-definitions.html#captures) can be used to customize the dashboard alert title.
+condition: |-
+  capture(usage_mb=value['used_memory']/(1024*1024)) > capture(limit_mb=10)
+entities: []
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454182424487
+notifications: []
+period: ''
+priority: 2
+template: false
+

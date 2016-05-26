@@ -24,7 +24,6 @@ psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
 psql -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
 
 find -name '*.sql' | sort | xargs cat | psql
-psql -f /vagrant/vagrant/initial.sql
 psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
 container=$(docker ps | grep redis)
@@ -63,6 +62,7 @@ until nc -w 5 -z localhost 8083; do
 done
 
 /vagrant/vagrant/start-services.sh
+/vagrant/vagrant/inject-examples.sh
 
 echo ""
 echo "All services are up, peek into Vagrantfile/README for open ports/services"

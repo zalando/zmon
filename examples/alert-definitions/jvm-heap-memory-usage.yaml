@@ -1,0 +1,20 @@
+check_definition_id: 8
+name: 'JVM Heap Memory Usage: {heap_usage_mb} MB'
+team: ZMON
+responsible_team: ZMON
+description: |-
+  JVM uses too much heap memory.
+condition: |-
+  capture(heap_usage_mb=value['heap.used']/1024) > 1000
+entities:
+- id: zmon-controller
+- id: zmon-scheduler
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454181955273
+notifications: []
+period: ''
+priority: 3
+template: false
+

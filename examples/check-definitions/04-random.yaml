@@ -1,0 +1,10 @@
+name: Random
+owning_team: ZMON
+description: |-
+  Example check returning a random value.
+command: |-
+  normalvariate(50, 20)
+interval: 10
+entities:
+- type: GLOBAL
+status: ACTIVE

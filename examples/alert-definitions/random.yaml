@@ -1,0 +1,18 @@
+check_definition_id: 4
+name: Random Example Alert
+team: ZMON
+responsible_team: ZMON
+description: |-
+  Triggers alert if random value is larger than 10.
+condition: |-
+  >10
+entities: []
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454166442716
+notifications: []
+period: ''
+priority: 1
+template: false
+

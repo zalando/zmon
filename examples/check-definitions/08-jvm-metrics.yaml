@@ -1,0 +1,16 @@
+name: JVM Metrics
+owning_team: ZMON
+description: |-
+  Get Spring Boot metrics. Please note that heap information values are in KB (reference: http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html)
+command: |-
+  def check():
+    response = http(entity['management_url'] + '/metrics', verify=False, timeout=2).json()
+    data = {}
+    for key, val in response.items():
+        if key in ('heap', 'threads') or key.startswith('heap.') or key.startswith('gc.'):
+            data[key] = val
+    return data
+interval: 15
+entities:
+- type: demowebapp
+status: ACTIVE

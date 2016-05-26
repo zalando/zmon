@@ -1,0 +1,18 @@
+check_definition_id: 7
+name: Webapp Unavailable
+team: ZMON
+responsible_team: ZMON
+description: |-
+  One of the ZMON Demo web applications is not available
+condition: |-
+  value not in [200, 400, 404]
+entities: []
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454177920240
+notifications: []
+period: ''
+priority: 1
+template: false
+

@@ -1,0 +1,14 @@
+name: HTTP Response Time
+owning_team: ZMON
+description: |-
+  Example ZMON check definition which returns the HTTP response time (latency).
+  The check performs a GET request on each website's URL and returns the elapsed time in seconds.
+command: |-
+  # see https://zmon.readthedocs.org/en/latest/user/check-commands.html#http
+  http(entity['url'], timeout=5).time()
+# run every minute (60 seconds)
+interval: 60
+entities:
+# run all entities with type "website"
+- type: website
+status: ACTIVE

@@ -1,0 +1,15 @@
+check_definition_id: 9
+name: Gather API metric data
+team: ZMON
+responsible_team: ZMON
+description: |-
+  Dummy alert to collect data.
+condition: |-
+  False
+entities: []
+entities_exclude: []
+status: ACTIVE
+notifications: []
+period: ''
+priority: 3
+template: false

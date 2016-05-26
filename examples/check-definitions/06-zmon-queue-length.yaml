@@ -1,0 +1,12 @@
+name: ZMON Queue Length
+owning_team: ZMON
+description: |-
+  Get ZMON Queue length from Redis
+command: |-
+  # see https://zmon.readthedocs.org/en/latest/user/check-commands.html#redis
+  redis().llen('zmon:queue:default')
+interval: 10
+entities:
+- id: zmon-redis
+  type: redis
+status: ACTIVE

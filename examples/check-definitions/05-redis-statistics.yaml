@@ -1,0 +1,11 @@
+name: Redis Statistics
+owning_team: ZMON
+description: |-
+  Get Redis statisticts ("info" command)
+command: |-
+  # see https://zmon.readthedocs.org/en/latest/user/check-commands.html#redis
+  redis().statistics()
+interval: 60
+entities:
+- type: redis
+status: ACTIVE

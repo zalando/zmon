@@ -1,0 +1,26 @@
+name: Zalando Catwatch Statistics
+owning_team: ZMON
+description: |-
+  Example ZMON check definition which returns statistics about Zalando Open Source projects.
+command: |
+  def check():
+    # see https://zmon.readthedocs.org/en/latest/user/check-commands.html#http
+    response = http('https://catwatch.opensource.zalan.do/statistics', timeout=10).json()
+    # Catwatch returns list with single item (?)
+    data = response[0]
+    # map keys to more friendly names..
+    statistics = {
+        'contributors': data['allContributorsCount'],
+        'stars': data['allStarsCount'],
+        'members': data['membersCount'],
+        'languages': data['programLanguagesCount'],
+        'projects': data['publicProjectCount'],
+        'forks': data['allForksCount']
+    }
+    return statistics
+# run every 5 minutes
+interval: 300
+entities:
+# run only once
+- type: GLOBAL
+status: ACTIVE

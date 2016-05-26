@@ -1,0 +1,18 @@
+check_definition_id: 1
+name: Website too slow
+team: ZMON
+responsible_team: ZMON
+description: |-
+  test
+condition: |-
+  >1
+entities: []
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454160835787
+notifications: []
+period: ''
+priority: 2
+template: false
+

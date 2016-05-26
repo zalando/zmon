@@ -1,0 +1,29 @@
+name: Default Demo Dashboard
+last_modified_by: hjacobs
+alert_teams:
+- '*'
+created_by: demotoken
+edit_option: PRIVATE
+last_modified: 1464281591564
+shared_teams: []
+tags: null
+view_mode: FULL
+widget_configuration:
+- type: chart
+  checkDefinitionId: 4
+  entityId: GLOBAL
+  options:
+    cache_time: 0
+    legend:
+      backgroundOpacity: 0.1
+      position: ne
+      show: true
+    lines:
+      fill: true
+    series:
+      stack: false
+    start_relative:
+      unit: minutes
+      value: '30'
+  title: Random
+

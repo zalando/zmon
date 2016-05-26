@@ -1,0 +1,3 @@
+- id: zmon-redis
+  type: redis
+  host: localhost

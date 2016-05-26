@@ -1,0 +1,22 @@
+check_definition_id: 8
+name: 'JVM Threads: {threads}'
+team: ZMON
+responsible_team: ZMON
+description: |-
+  Number of JVM threads is above threshold.
+condition: |-
+  capture(threads=value['threads']) > 40
+entities:
+- id: zmon-controller
+  type: demowebapp
+- id: zmon-scheduler
+  type: demowebapp
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454181744891
+notifications: []
+period: ''
+priority: 3
+template: false
+

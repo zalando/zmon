@@ -1,0 +1,18 @@
+check_definition_id: 6
+name: 'ZMON Queue too long: {length}'
+team: ZMON
+responsible_team: ZMON
+description: |-
+  Default queue length of ZMON is too long.
+condition: |-
+  capture(length=value) > 100
+entities: []
+entities_exclude: []
+status: ACTIVE
+last_modified_by: hjacobs
+last_modified: 1454176622399
+notifications: []
+period: ''
+priority: 1
+template: false
+
