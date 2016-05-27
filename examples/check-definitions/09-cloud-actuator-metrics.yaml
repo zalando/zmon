@@ -4,13 +4,9 @@ description: |-
   Get Application API metrics from the different services
 command: |-
     def check():
-      p = entity['ports'].values()[-1]
-      if entity['application_id'] == 'zmon-controller':
-          p = 8079
-
-      p = str(p)
-      r = http('http://'+ entity['host'] +':'+ p +'/metrics', timeout=2).actuator_metrics()
-      r["metrics"]={"GET":{"200":{"mRate":0,"count":0,"75th":0,"99th":0,"median":0,"min":0,"max":0}}}
+      p = sorted(entity['ports'].values())[0]
+      r = http('{}://{}:{}/metrics'.format(entity['proto'], entity['host'], p), verify=False, timeout=2).actuator_metrics()
+      r["metrics"] = {"GET": {"200": {"mRate": 0, "count": 0, "75th": 0, "99th": 0, "median": 0, "min": 0, "max": 0}}}
       return r
 entities:
   - type: instance

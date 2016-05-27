@@ -12,7 +12,7 @@
 - id: zmon-controller
   url: https://localhost:8443
   type: demowebapp
-  management_url: https://localhost:8443
+  management_url: https://localhost:7979
 - id: zmon-worker
   url: http://localhost:8080
   type: demowebapp

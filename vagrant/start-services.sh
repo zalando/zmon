@@ -40,6 +40,8 @@ fi
 if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
     run_docker zmon-controller \
         -e MEM_JAVA_PERCENT=25 \
+        -e MANAGEMENT_PORT=7979 \
+        -e MANAGEMENT_SECURITY_ENABLED=false \
         -e SPRING_PROFILES_ACTIVE=github \
         -e ZMON_OAUTH2_SSO_CLIENT_ID=344c9a90fc697fe6662a \
         -e ZMON_OAUTH2_SSO_CLIENT_SECRET=a2bbb03a29f6737af04c77f2d88e8f8199ff179b \

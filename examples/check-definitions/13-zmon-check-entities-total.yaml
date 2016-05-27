@@ -5,4 +5,5 @@ entities:
     - type: GLOBAL
 interval: 600
 command: "zmon().check_entities_total()"
+owning_team: ZMON
 status: ACTIVE
