@@ -12,9 +12,9 @@ export PGDATABASE=local_zmon_db
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
 export EVENTLOG_VERSION=cd8
-export WORKER_VERSION=cd129
-export CONTROLLER_VERSION=cd297
-export SCHEDULER_VERSION=cd43
+export WORKER_VERSION=cd130
+export CONTROLLER_VERSION=cd304
+export SCHEDULER_VERSION=cd44
 
 function run_docker () {
     name=$1
@@ -48,7 +48,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
         -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
         -e REDIS_PORT=6379 \
-        -e ZMON_KAIROSDB_PORT=8083 \
+        -e ZMON_KAIROSDB_URL=http://localhost:8083/ \
         -e ZMON_SCHEDULER_URL=http://localhost:8085/ \
         -e PRESHARED_TOKENS_123_UID=demotoken \
         -e PRESHARED_TOKENS_123_EXPIRES_AT=1758021422 \
