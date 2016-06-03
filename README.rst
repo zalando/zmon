@@ -10,7 +10,7 @@ ZMON is Zalando's open-source platform monitoring tool, used in production since
 
 Demo
 ----
-Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including `Grafana2 <https://demo.zmon.io/grafana2/dashboard/db/response-times>`_ (login first).
+Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including `Grafana3 <https://demo.zmon.io/grafana/dashboard/db/response-times>`_ (login first).
 
 Introduction
 ------------
@@ -37,8 +37,8 @@ Features
 * Entity service to store entities of any kind describing your environment
 * Trial run in the UI to develop your checks/alerts with quick feedback
 * Auto discovery of AWS services using ZMON's aws agent and entity service, great for AWS deployments
-* Authentication via Oauth 2 e.g. GitHub
-* Frontend incl. Grafana2 requires full authentication, no need for VPN. incl. onetime tokens for office displays
+* Authentication via OAuth 2 e.g. GitHub
+* Frontend incl. Grafana 3 requires full authentication, no need for VPN. incl. onetime tokens for office displays
 * Command line client for easy automation and interaction with the REST API
 * ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
 * Supports SQL for PostgreSQL incl. sharded deployments, MySQL, Redis, Scalyr, ...
