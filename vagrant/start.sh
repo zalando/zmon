@@ -53,7 +53,10 @@ done
 container=$(docker ps | grep kairosdb)
 if [ -z "$container" ]; then
     docker rm kairosdb
-    docker run --restart "on-failure:10"  --name kairosdb --net host -d -e "CASSANDRA_HOST_LIST=$ip:9160" registry.opensource.zalan.do/stups/zmon-kairosdb:0.1.6
+    docker run --restart "on-failure:10"  --name kairosdb --net host -d \
+        -e "KAIROSDB_JETTY_PORT=8083"\
+        -e "KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST=$ip"\
+        registry.opensource.zalan.do/stups/kairosdb:cd12
 fi
 
 until nc -w 5 -z localhost 8083; do
