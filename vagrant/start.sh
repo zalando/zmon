@@ -29,7 +29,7 @@ psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.s
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
     docker rm redis
-    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/redis:3.0.5
+    docker run --restart "on-failure:10" --name redis --net host -d registry.opensource.zalan.do/stups/redis:3.2.0-alpine
 fi
 
 until nc -w 5 -z localhost 6379; do
@@ -56,7 +56,7 @@ if [ -z "$container" ]; then
     docker run --restart "on-failure:10"  --name kairosdb --net host -d \
         -e "KAIROSDB_JETTY_PORT=8083"\
         -e "KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST=$ip"\
-        registry.opensource.zalan.do/stups/kairosdb:cd12
+        registry.opensource.zalan.do/stups/kairosdb:cd20
 fi
 
 until nc -w 5 -z localhost 8083; do
