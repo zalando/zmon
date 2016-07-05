@@ -11,10 +11,10 @@ export PGDATABASE=local_zmon_db
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
-export EVENTLOG_VERSION=cd14
-export WORKER_VERSION=cd163
-export CONTROLLER_VERSION=cd353
-export SCHEDULER_VERSION=cd98
+export EVENTLOG_VERSION=cd16
+export WORKER_VERSION=cd164
+export CONTROLLER_VERSION=cd357
+export SCHEDULER_VERSION=cd99
 
 function run_docker () {
     name=$1
@@ -29,9 +29,11 @@ function run_docker () {
 if [ -z "$1" ] || [ "b$1" = "beventlog-service" ] ; then
     run_docker zmon-eventlog-service  \
         -e MEM_JAVA_PERCENT=10 \
-        -e POSTGRESQL_USER=$PGUSER -e POSTGRESQL_PASSWORD=$PGPASSWORD -d registry.opensource.zalan.do/stups/zmon-eventlog-service:$EVENTLOG_VERSION
+        -e POSTGRESQL_DATABASE=$PGDATABASE \
+        -e POSTGRESQL_USER=$PGUSER \
+        -e POSTGRESQL_PASSWORD=$PGPASSWORD -d registry.opensource.zalan.do/stups/zmon-eventlog-service:$EVENTLOG_VERSION
 
-    until curl http://localhost:8081/\?key=alertId\&value=3\&types=212993 &> /dev/null; do
+    until curl http://localhost:8081/events\?key=alertId\&value=3\&types=212993 &> /dev/null; do
         echo 'Waiting for eventlog service'
         sleep 3
     done
@@ -46,7 +48,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
         -e ZMON_OAUTH2_SSO_CLIENT_ID=344c9a90fc697fe6662a \
         -e ZMON_OAUTH2_SSO_CLIENT_SECRET=a2bbb03a29f6737af04c77f2d88e8f8199ff179b \
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \
-        -e POSTGRES_URL=jdbc:postgresql://localhost:5432/local_zmon_db \
+        -e POSTGRES_URL=jdbc:postgresql://localhost:5432/$PGDATABASE \
         -e REDIS_PORT=6379 \
         -e ZMON_KAIROSDB_URL=http://localhost:8083/ \
         -e ZMON_SCHEDULER_URL=http://localhost:8085/ \

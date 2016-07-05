@@ -8,7 +8,7 @@ export PGDATABASE=local_zmon_db
 container=$(docker ps | grep postgres)
 if [ -z "$container" ]; then
     docker rm postgres
-    docker run --restart "on-failure:10" --name postgres --net host -e POSTGRES_PASSWORD=postgres -d registry.opensource.zalan.do/stups/postgres:9.4.5-1
+    docker run --restart "on-failure:10" --name postgres --net host -e POSTGRES_PASSWORD=postgres -d registry.opensource.zalan.do/stups/postgres:9.5.3-1
 fi
 
 until nc -w 5 -z localhost 5432; do
