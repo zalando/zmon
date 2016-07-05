@@ -14,6 +14,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :forwarded_port, guest: 8080, host: 38080
     config.vm.network :forwarded_port, guest: 8443, host: 8443
 
+    # EventLog Service
+    config.vm.network :forwarded_port, guest: 8081, host: 38081
+
     # KairosDB
     config.vm.network :forwarded_port, guest: 8083, host: 38083
 
@@ -22,9 +25,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Redis
     config.vm.network :forwarded_port, guest: 6379, host: 38086
-
-    # LDAP
-    config.vm.network :forwarded_port, guest: 389, host: 38087
 
     # PostgreSQL
     config.vm.network :forwarded_port, guest: 5432, host: 38088
