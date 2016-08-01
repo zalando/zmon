@@ -39,7 +39,7 @@ chmod 600 /root/.pgpass
 cp /root/.pgpass /home/vagrant/.pgpass
 
 mkdir -p /home/vagrant/zmon-controller
-git clone https://github.com/zalando/zmon-controller.git /home/vagrant/zmon-controller || echo 'zmon-controller seems to be cloned already'
+git clone https://github.com/zalando/zmon-controller.git /home/vagrant/zmon-controller || (cd /home/vagrant/zmon-controller && git pull)
 
 mkdir -p /home/vagrant/zmon-eventlog-service
-git clone https://github.com/zalando/zmon-eventlog-service.git /home/vagrant/zmon-eventlog-service || echo 'zmon-eventlog-service seems to be cloned already'
+git clone https://github.com/zalando/zmon-eventlog-service.git /home/vagrant/zmon-eventlog-service || (cd /home/vagrant/zmon-eventlog-service && git pull)

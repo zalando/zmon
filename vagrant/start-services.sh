@@ -12,9 +12,9 @@ export PGDATABASE=local_zmon_db
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
 export EVENTLOG_VERSION=cd16
-export WORKER_VERSION=cd164
-export CONTROLLER_VERSION=cd357
-export SCHEDULER_VERSION=cd99
+export WORKER_VERSION=cd178
+export CONTROLLER_VERSION=cd388
+export SCHEDULER_VERSION=cd105
 
 function run_docker () {
     name=$1
