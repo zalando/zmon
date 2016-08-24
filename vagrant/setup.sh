@@ -15,7 +15,7 @@ if [ ! -x "/usr/bin/docker" ]; then
   echo -e "deb https://apt.dockerproject.org/repo ubuntu-wily main" > /etc/apt/sources.list.d/docker.list
 
   apt-get -y update
-  apt-get -y install docker-engine
+  apt-get -y install docker-engine libffi-dev libssl-dev
 
 fi
 
