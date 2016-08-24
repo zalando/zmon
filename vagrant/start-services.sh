@@ -12,9 +12,9 @@ export PGDATABASE=local_zmon_db
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
 export EVENTLOG_VERSION=cd16
-export WORKER_VERSION=cd178
-export CONTROLLER_VERSION=cd388
-export SCHEDULER_VERSION=cd105
+export WORKER_VERSION=cd181
+export CONTROLLER_VERSION=cd404
+export SCHEDULER_VERSION=cd109
 
 function run_docker () {
     name=$1
@@ -45,6 +45,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
         -e MANAGEMENT_PORT=7979 \
         -e MANAGEMENT_SECURITY_ENABLED=false \
         -e SPRING_PROFILES_ACTIVE=github \
+        -e ZMON_TEAMS_SIMPLE_DEFAULT_TEAM=ZMON \
         -e ZMON_OAUTH2_SSO_CLIENT_ID=344c9a90fc697fe6662a \
         -e ZMON_OAUTH2_SSO_CLIENT_SECRET=a2bbb03a29f6737af04c77f2d88e8f8199ff179b \
         -e ZMON_AUTHORITIES_SIMPLE_ADMINS=* \

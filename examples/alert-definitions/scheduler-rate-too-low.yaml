@@ -7,10 +7,8 @@ team: "Devops"
 responsible_team: "Devops"
 condition: |
   capture(rate=value['zmon:queue:default-oneMinuteRate']) < 5
-entities:
-entities_exclude:
+entities: []
+entities_exclude: []
 status: ACTIVE
 priority: 2
-tags:
-parent_id:
-parameters:
+template: false
