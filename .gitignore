@@ -1,3 +1,4 @@
+.vagrant
 .DS_STORE
 js/**
 !js/zmon.js
