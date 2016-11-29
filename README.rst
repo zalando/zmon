@@ -32,16 +32,17 @@ Features
 * Define custom dashboards with widgets and alert filters based on teams and tags
 * Check commands and alert conditions are arbitrary Python expressions, giving you a lot of power
 * All metric/check data is stored as time series in KairosDB for later use
-* Grafana2 is included, enabling you to build rich data driven dashboards
+* Grafana3 is included, enabling you to build rich data driven dashboards
 * Powerful REST API to integrate nicely into other tools: e.g. cmdb/deploy tools
 * Entity service to store entities of any kind describing your environment
 * Trial run in the UI to develop your checks/alerts with quick feedback
 * Auto discovery of AWS services using ZMON's aws agent and entity service, great for AWS deployments
 * Authentication via OAuth 2 e.g. GitHub
-* Frontend incl. Grafana 3 requires full authentication, no need for VPN. incl. onetime tokens for office displays
+* Frontend incl. Grafana 3 requires full authentication, no need for VPN. incl. onetime tokens for office TV displays
 * Command line client for easy automation and interaction with the REST API
 * ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
 * Supports SQL for PostgreSQL incl. sharded deployments, MySQL, Redis, Scalyr, ...
+* Supports desktop and mobile notifications via Firebase Cloud Messaging
 * More on connectivity here: `Check commands <https://docs.zmon.io/en/latest/user/check-commands.html>`_
 
 Deployment
@@ -170,7 +171,7 @@ Thanks to the original authors!
 License
 =======
 
-Copyright 2013-2015 Zalando SE
+Copyright 2013-2016 Zalando SE
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
