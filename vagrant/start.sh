@@ -37,12 +37,12 @@ until nc -w 5 -z localhost 6379; do
     sleep 3
 done
 
-ip=$(ip -o -4 a show enp0s3|awk '{print $4}' | cut -d/ -f 1)
+ip=$(ip -o -4 a show enp0s3 | awk '{print $4}' | cut -d/ -f 1)
 
 container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
-    docker run --restart "on-failure:10" -e JAVA_OPTS="-Xmx1G" --name cassandra --net host -d cassandra:3.9
+    docker run --restart "on-failure:10" -e CASSANDRA_LISTEN_ADDRESS=$ip -e JAVA_OPTS="-Xmx1G" --name cassandra --net host -d cassandra:3.9
 fi
 
 until nc -w 5 -z $ip 9042; do
@@ -56,7 +56,7 @@ if [ -z "$container" ]; then
     docker run --restart "on-failure:10"  --name kairosdb --net host -d \
         -e "KAIROSDB_JETTY_PORT=8083"\
         -e "KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST=$ip"\
-        registry.opensource.zalan.do/stups/kairosdb:cd88
+        registry.opensource.zalan.do/stups/kairosdb:cd102
 fi
 
 until nc -w 5 -z localhost 8083; do

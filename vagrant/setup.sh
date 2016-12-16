@@ -17,22 +17,26 @@ echo -e "export LC_ALL=en_US.utf-8\nexport LANG=en_US.utf-8\n" >> /home/ubuntu/.
 #apt-get remove --purge -y puppet chef
 #apt-get autoremove -y
 
+apt-get -y update
+
 if [ ! -x "/usr/bin/docker" ]; then
 
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
   echo -e "deb https://apt.dockerproject.org/repo ubuntu-yakkety main" > /etc/apt/sources.list.d/docker.list
-
-  apt-get -y update
-  apt-get -y install docker-engine libffi-dev libssl-dev
+  
+  apt-get -y install libssl-dev libffi-dev
+  apt-get -y install docker.io
 
 fi
 
 adduser ubuntu docker
 
-apt-get install -y libssl-dev postgresql-client git redis-tools python3-pip
+apt-get install -y libssl-dev postgresql-client git redis-tools
+apt-get install -y python3-pip
 
-sudo easy_install3 -U pipgra
+sudo pip3 install -U pip
+
 sudo pip3 install -U --force-reinstall cryptography
 sudo pip3 install --upgrade zmon-cli
 

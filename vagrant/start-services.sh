@@ -74,7 +74,7 @@ fi
 if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
     run_docker zmon-scheduler \
         -e MEM_JAVA_PERCENT=20 \
-        -v /home/vagrant/zmon-controller/zmon-controller-app/src/main/resources:/resources \
+        -v /home/ubuntu/zmon-controller/zmon-controller-app/src/main/resources:/resources \
         -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
         -e SCHEDULER_URLS_WITHOUT_REST=true \
         -e SCHEDULER_ENTITY_SERVICE_URL=https://localhost:8443/ \
