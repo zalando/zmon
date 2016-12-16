@@ -16,7 +16,7 @@ until nc -w 5 -z localhost 5432; do
     sleep 3
 done
 
-cd /home/vagrant/zmon-controller/database/zmon
+cd /home/ubuntu/zmon-controller/database/zmon
 psql -c "CREATE DATABASE $PGDATABASE;" postgres
 psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
 
@@ -24,7 +24,7 @@ psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'
 psql -c "CREATE ROLE zmon WITH LOGIN PASSWORD '--secret--';" postgres
 
 find -name '*.sql' | sort | xargs cat | psql
-psql -f /home/vagrant/zmon-eventlog-service/database/eventlog/00_create_schema.sql
+psql -f /home/ubuntu/zmon-eventlog-service/database/eventlog/00_create_schema.sql
 
 container=$(docker ps | grep redis)
 if [ -z "$container" ]; then
@@ -37,12 +37,12 @@ until nc -w 5 -z localhost 6379; do
     sleep 3
 done
 
-ip=$(ip -o -4 a show eth0|awk '{print $4}' | cut -d/ -f 1)
+ip=$(ip -o -4 a show enp0s3 | awk '{print $4}' | cut -d/ -f 1)
 
 container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
-    docker run --restart "on-failure:10" --name cassandra --net host -d cassandra:3.9
+    docker run --restart "on-failure:10" -e CASSANDRA_LISTEN_ADDRESS=$ip -e JAVA_OPTS="-Xmx1G" --name cassandra --net host -d cassandra:3.9
 fi
 
 until nc -w 5 -z $ip 9042; do
@@ -56,7 +56,7 @@ if [ -z "$container" ]; then
     docker run --restart "on-failure:10"  --name kairosdb --net host -d \
         -e "KAIROSDB_JETTY_PORT=8083"\
         -e "KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST=$ip"\
-        registry.opensource.zalan.do/stups/kairosdb:cd88
+        registry.opensource.zalan.do/stups/kairosdb:cd102
 fi
 
 until nc -w 5 -z localhost 8083; do

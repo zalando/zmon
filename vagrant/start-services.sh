@@ -11,10 +11,10 @@ export PGDATABASE=local_zmon_db
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
-export EVENTLOG_VERSION=cd16
-export WORKER_VERSION=cd185
-export CONTROLLER_VERSION=cd453
-export SCHEDULER_VERSION=cd109
+export EVENTLOG_VERSION=cd17
+export WORKER_VERSION=cd220
+export CONTROLLER_VERSION=cd462
+export SCHEDULER_VERSION=cd114
 
 function run_docker () {
     name=$1
@@ -74,7 +74,7 @@ fi
 if [ -z "$1" ] || [ "b$1" = "bscheduler" ] ; then
     run_docker zmon-scheduler \
         -e MEM_JAVA_PERCENT=20 \
-        -v /home/vagrant/zmon-controller/zmon-controller-app/src/main/resources:/resources \
+        -v /home/ubuntu/zmon-controller/zmon-controller-app/src/main/resources:/resources \
         -e JAVA_OPTS="-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
         -e SCHEDULER_URLS_WITHOUT_REST=true \
         -e SCHEDULER_ENTITY_SERVICE_URL=https://localhost:8443/ \
