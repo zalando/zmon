@@ -42,7 +42,7 @@ ip=$(ip -o -4 a show enp0s3|awk '{print $4}' | cut -d/ -f 1)
 container=$(docker ps | grep cassandra)
 if [ -z "$container" ]; then
     docker rm cassandra
-    docker run --restart "on-failure:10" --name cassandra --net host -d cassandra:3.9
+    docker run --restart "on-failure:10" -e JAVA_OPTS="-Xmx1G" --name cassandra --net host -d cassandra:3.9
 fi
 
 until nc -w 5 -z $ip 9042; do

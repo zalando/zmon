@@ -19,7 +19,7 @@ echo -e "export LC_ALL=en_US.utf-8\nexport LANG=en_US.utf-8\n" >> /home/ubuntu/.
 
 if [ ! -x "/usr/bin/docker" ]; then
 
-  apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
   echo -e "deb https://apt.dockerproject.org/repo ubuntu-wily main" > /etc/apt/sources.list.d/docker.list
 
@@ -30,7 +30,7 @@ fi
 
 adduser ubuntu docker
 
-apt-get install -y postgresql-client git redis-tools python3-pip libssl-dev
+apt-get install -y libssl-dev postgresql-client git redis-tools python3-pip
 
 sudo easy_install3 -U pipgra
 sudo pip3 install -U --force-reinstall cryptography

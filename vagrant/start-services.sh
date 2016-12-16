@@ -12,9 +12,9 @@ export PGDATABASE=local_zmon_db
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
 export EVENTLOG_VERSION=cd16
-export WORKER_VERSION=cd185
+export WORKER_VERSION=cd220
 export CONTROLLER_VERSION=cd462
-export SCHEDULER_VERSION=cd109
+export SCHEDULER_VERSION=cd114
 
 function run_docker () {
     name=$1
@@ -58,7 +58,7 @@ if [ -z "$1" ] || [ "b$1" = "bcontroller" ] ; then
         -e ZMON_JWT_SECRET=DEMO-ONLY-CHANGE-ME-Bgzogya43C3bvV0o \
         -e PRESHARED_TOKENS_123_UID=demotoken \
         -e PRESHARED_TOKENS_123_EXPIRES_AT=1758021422 \
-        -e JAVA_OPTS="-Djava.security.egd=file:/dev/urandom" \
+        -e JAVA_OPTS="-Djava.security.egd=file:/dev/urandom -Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12" \
         -d registry.opensource.zalan.do/stups/zmon-controller:$CONTROLLER_VERSION
 
     until curl --insecure https://localhost:8443/index.jsp &> /dev/null; do

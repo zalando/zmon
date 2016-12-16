@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = "ubuntu/zesty64"
+    config.vm.box = "ubuntu/yakkety64"
 
     config.vm.hostname = "zmon"
 
@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provider "virtualbox" do |vb|
         vb.name = "ZMON-DEMO"
-        vb.memory = 3600
+        vb.memory = 4600
         vb.cpus = 3
         vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
     end
