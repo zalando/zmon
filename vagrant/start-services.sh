@@ -11,7 +11,7 @@ export PGDATABASE=local_zmon_db
 #    echo $i
 #    curl https://registry.opensource.zalan.do/teams/stups/artifacts/zmon-$i/tags  | jq .[].name -r | tail -n 1
 # done
-export EVENTLOG_VERSION=cd16
+export EVENTLOG_VERSION=cd17
 export WORKER_VERSION=cd220
 export CONTROLLER_VERSION=cd462
 export SCHEDULER_VERSION=cd114
