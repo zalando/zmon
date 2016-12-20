@@ -2,6 +2,7 @@
 *.pyc
 *.pre-cvfix
 *.un~
+*.log
 _build
 *.swp
 eventlog.log
