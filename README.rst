@@ -48,7 +48,7 @@ Features
 Local demo using Docker Compose
 ===============================
 
-Inside the `compose<https://github.com/zalando/zmon/tree/master/compose>`_ folder you will find a description to run ZMON locally.
+Inside the `compose <https://github.com/zalando/zmon/tree/master/compose>`_ folder you will find a description to run ZMON locally.
 
 Deployment
 ==========

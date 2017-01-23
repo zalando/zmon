@@ -16,7 +16,7 @@ Once things are up run once:
 
 This will insert some example entities, alerts and checks.
 
-Now open: `ZMON(localhost) <https://localhost:8443>`_
+Now open: [ZMON(localhost)](https://localhost:8443)
 
 Issues
 ======
