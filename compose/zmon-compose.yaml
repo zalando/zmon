@@ -55,7 +55,7 @@ services:
         depends_on:
             - "postgresql"
     controller:
-        image: registry.opensource.zalan.do/stups/zmon-controller:cd462
+        image: registry.opensource.zalan.do/stups/zmon-controller:v269
         environment:
           MEM_JAVA_PERCENT: 25
           MANAGEMENT_PORT: 7979
@@ -77,6 +77,7 @@ services:
           ZMON_JWT_SECRET: DEMO-ONLY-CHANGE-ME-Bgzogya43C3bvV0o
           PRESHARED_TOKENS_123_UID: demotoken
           PRESHARED_TOKENS_123_EXPIRES_AT: 1758021422
+          SPRING_APPLICATION_JSON: '{"server":{"ssl":{"key-store-type":"jks","key-store":"classpath:host-controller.jks","key-alias":"controller"}}}'
         ports:
          - "38080:8080"
          - "8443:8443"
@@ -87,7 +88,7 @@ services:
         image: registry.opensource.zalan.do/stups/zmon-scheduler:v35
         environment:
           MEM_JAVA_PERCENT: 20
-          JAVA_OPTS: "-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12"
+          JAVA_OPTS: "-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/host-controller.jks"
           SCHEDULER_URLS_WITHOUT_REST: "true"
           SCHEDULER_ENTITY_SERVICE_URL: https://controller:8443/
           SCHEDULER_OAUTH2_STATIC_TOKEN: "123"
@@ -99,6 +100,6 @@ services:
         image: registry.opensource.zalan.do/stups/zmon-worker:cd220
         environment:
           WORKER_REDIS_SERVERS: redis:6379
-          WORKER_KAIROSDB_HOST: kairosdb:8083
+          WORKER_KAIROSDB_HOST: kairosdb
           WORKER_EVENTLOG_HOST: eventlog
-          WORKER_EVENTLOG_PORT:
+          WORKER_EVENTLOG_PORT: 8081
