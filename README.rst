@@ -45,6 +45,11 @@ Features
 * Supports desktop and mobile notifications via Firebase Cloud Messaging
 * More on connectivity here: `Check commands <https://docs.zmon.io/en/latest/user/check-commands.html>`_
 
+Local demo using Docker Compose
+===============================
+
+Inside the `compose<https://github.com/zalando/zmon/tree/master/compose>`_ folder you will find a description to run ZMON locally.
+
 Deployment
 ==========
 
@@ -77,7 +82,8 @@ Optional components
 
 `Metric cache <https://github.com/zalando/zmon-metric-cache>`_ Fast special purpose cache for REST API metric data for ZMON's REST metrics/cloud UI
 
-Start Demo Using Vagrant
+
+Vagrant Box (deprecated)
 ========================
 
 Install a recent Vagrant_ version (at least 1.7.4) and simply do:
