@@ -1,0 +1,94 @@
+version: "3"
+services:
+    postgresql:
+        image: registry.opensource.zalan.do/stups/postgres:9.5.3-1
+        environment:
+            POSTGRES_PASSWORD: Uhaf5AekUhaf5Aek
+        ports:
+         - "38088:5432"
+        volumes:
+         - "./postgres-data:/var/lib/postgresql/data"
+        healthcheck:
+            test: ["nc","-z","cassandra","5432"]
+            interval: 10s
+            retries: 99
+            timeout: 10s
+    cassandra:
+        image: cassandra:3.9
+        environment:
+            JAVA_OPTS: "-Xmx1G"
+        volumes:
+         - "./cassandra-data:/var/lib/cassandra"
+        healthcheck:
+            test: ["nc","-z","cassandra","9042"]
+            interval: 10s
+            retries: 99
+            timeout: 10s
+    redis:
+        image: registry.opensource.zalan.do/stups/redis:3.2.0-alpine
+        ports:
+         - "38086:6379"
+    kairosdb:
+        image: registry.opensource.zalan.do/stups/kairosdb:cd102
+        environment:
+            KAIROSDB_JETTY_PORT: 8083
+            KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST: cassandra
+        depends_on:
+            - cassandra
+        ports:
+         - "38083:8083"
+    eventlog:
+        image: registry.opensource.zalan.do/stups/zmon-eventlog-service:cd17
+        environment:
+            MEM_JAVA_PERCENT: 10
+            POSTGRESQL_HOST: postgresql
+            POSTGRESQL_DATABASE: local_eventlog_db
+            POSTGRESQL_USER: postgres
+            POSTGRESQL_PASSWORD: Uhaf5AekUhaf5Aek
+        depends_on:
+            - "postgresql"
+    controller:
+        image: registry.opensource.zalan.do/stups/zmon-controller:cd462
+        environment:
+          MEM_JAVA_PERCENT: 25
+          MANAGEMENT_PORT: 7979
+          MANAGEMENT_SECURITY_ENABLED: "false"
+          SPRING_PROFILES_ACTIVE: github
+          ZMON_TEAMS_SIMPLE_DEFAULT_TEAM: ZMON
+          ZMON_SIGNUP_GITHUB_ALLOWED_USERS: "*"
+          ZMON_SIGNUP_GITHUB_ALLOWED_ORGAS: "*"
+          ZMON_OAUTH2_SSO_CLIENT_ID: 344c9a90fc697fe6662a
+          ZMON_OAUTH2_SSO_CLIENT_SECRET: a2bbb03a29f6737af04c77f2d88e8f8199ff179b
+          ZMON_AUTHORITIES_SIMPLE_ADMINS: "*"
+          POSTGRES_URL: jdbc:postgresql://postgresql:5432/local_zmon_db
+          REDIS_PORT: 6379
+          ZMON_KAIROSDB_URL: http://kairosdb:8083/
+          ZMON_SCHEDULER_URL: http://scheduler:8085/
+          ZMON_JWT_SECRET: DEMO-ONLY-CHANGE-ME-Bgzogya43C3bvV0o
+          PRESHARED_TOKENS_123_UID: demotoken
+          PRESHARED_TOKENS_123_EXPIRES_AT: 1758021422
+        ports:
+         - "38080:8080"
+         - "8443:8443"
+        depends_on:
+            - "redis"
+            - "postgresql"
+    scheduler:
+        image: registry.opensource.zalan.do/stups/zmon-scheduler:v35
+        environment:
+          MEM_JAVA_PERCENT: 20
+          JAVA_OPTS: "-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/keystore.p12"
+          SCHEDULER_URLS_WITHOUT_REST: "true"
+          SCHEDULER_ENTITY_SERVICE_URL: https://controller:8443/
+          SCHEDULER_OAUTH2_STATIC_TOKEN: "123"
+          SCHEDULER_CONTROLLER_URL: https://controller:8443/
+          SCHEDULER_REDIS_HOST: redis
+        volumes:
+            - "./resources:/resources"
+    worker:
+        image: registry.opensource.zalan.do/stups/zmon-worker:cd220
+        environment:
+          WORKER_REDIS_SERVERS: redis:6379
+          WORKER_KAIROSDB_HOST: kairosdb:8083
+          WORKER_EVENTLOG_HOST: eventlog
+          WORKER_EVENTLOG_PORT:
