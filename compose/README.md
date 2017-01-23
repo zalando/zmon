@@ -30,7 +30,5 @@ KairosDB may need a restart if it does not come up - health seems to only work t
 Requirements
 ============
 
- * docker-compose version 1.10+
+ * docker-compose version 1.10+ [Docker Compose](https://github.com/docker/compose/releases)
  * docker 1.13
-
- Install from: https://docs.docker.com/compose/install/
