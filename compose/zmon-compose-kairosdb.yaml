@@ -1,0 +1,23 @@
+version: "2.1"
+services:
+    cassandra:
+        image: cassandra:3.9
+        environment:
+            JAVA_OPTS: "-Xmx1G"
+        volumes:
+         - "./cassandra-data:/var/lib/cassandra"
+        healthcheck:
+            test: "bash -c 'nodetool status | grep UN'"
+            interval: 15s
+            retries: 99
+            timeout: 15s
+    kairosdb:
+        image: registry.opensource.zalan.do/stups/kairosdb:cd102
+        environment:
+            KAIROSDB_JETTY_PORT: 8083
+            KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST: cassandra
+        depends_on:
+          cassandra:
+            condition: "service_healthy"
+        ports:
+         - "38083:8083"

@@ -1,18 +1,24 @@
-version: "3"
+version: "2.1"
 services:
     postgresql:
-        image: registry.opensource.zalan.do/stups/postgres:9.5.3-1
+        image: postgres:9.6.1
         environment:
             POSTGRES_PASSWORD: Uhaf5AekUhaf5Aek
         ports:
          - "38088:5432"
         volumes:
-         - "./postgres-data:/var/lib/postgresql/data"
+         - "./postgresql-data:/var/lib/postgresql/data"
         healthcheck:
             test: ["nc","-z","cassandra","5432"]
             interval: 10s
             retries: 99
             timeout: 10s
+    postgresql-schemas:
+        build: "postgresql-inject/"
+        environment:
+          POSTGRESQL_PASSWORD: Uhaf5AekUhaf5Aek
+        depends_on:
+         - "postgresql"
     cassandra:
         image: cassandra:3.9
         environment:
@@ -20,10 +26,10 @@ services:
         volumes:
          - "./cassandra-data:/var/lib/cassandra"
         healthcheck:
-            test: ["nc","-z","cassandra","9042"]
-            interval: 10s
+            test: "bash -c 'nodetool status | grep UN'"
+            interval: 15s
             retries: 99
-            timeout: 10s
+            timeout: 15s
     redis:
         image: registry.opensource.zalan.do/stups/redis:3.2.0-alpine
         ports:
@@ -34,7 +40,8 @@ services:
             KAIROSDB_JETTY_PORT: 8083
             KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST: cassandra
         depends_on:
-            - cassandra
+          cassandra:
+            condition: "service_healthy"
         ports:
          - "38083:8083"
     eventlog:
@@ -42,7 +49,7 @@ services:
         environment:
             MEM_JAVA_PERCENT: 10
             POSTGRESQL_HOST: postgresql
-            POSTGRESQL_DATABASE: local_eventlog_db
+            POSTGRESQL_DATABASE: local_zmon_db
             POSTGRESQL_USER: postgres
             POSTGRESQL_PASSWORD: Uhaf5AekUhaf5Aek
         depends_on:
@@ -61,6 +68,9 @@ services:
           ZMON_OAUTH2_SSO_CLIENT_SECRET: a2bbb03a29f6737af04c77f2d88e8f8199ff179b
           ZMON_AUTHORITIES_SIMPLE_ADMINS: "*"
           POSTGRES_URL: jdbc:postgresql://postgresql:5432/local_zmon_db
+          POSTGRES_USERNAME: postgres
+          POSTGRES_PASSWORD: Uhaf5AekUhaf5Aek
+          REDIS_HOST: redis
           REDIS_PORT: 6379
           ZMON_KAIROSDB_URL: http://kairosdb:8083/
           ZMON_SCHEDULER_URL: http://scheduler:8085/
