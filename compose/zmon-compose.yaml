@@ -74,7 +74,7 @@ services:
           REDIS_PORT: 6379
           ZMON_KAIROSDB_URL: http://kairosdb:8083/
           ZMON_SCHEDULER_URL: http://scheduler:8085/
-          ZMON_EVENTLOG_URL: http://eventlog:8080/
+          ZMON_EVENTLOG_URL: http://eventlog:8081/
           ZMON_JWT_SECRET: DEMO-ONLY-CHANGE-ME-Bgzogya43C3bvV0o
           PRESHARED_TOKENS_123_UID: demotoken
           PRESHARED_TOKENS_123_EXPIRES_AT: 1758021422
