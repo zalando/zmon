@@ -55,7 +55,7 @@ services:
         depends_on:
             - "postgresql"
     controller:
-        image: registry.opensource.zalan.do/stups/zmon-controller:v269
+        image: registry.opensource.zalan.do/stups/zmon-controller:v275
         environment:
           MEM_JAVA_PERCENT: 25
           MANAGEMENT_PORT: 7979
@@ -86,7 +86,7 @@ services:
             - "redis"
             - "postgresql"
     scheduler:
-        image: registry.opensource.zalan.do/stups/zmon-scheduler:v35
+        image: registry.opensource.zalan.do/stups/zmon-scheduler:v38
         environment:
           MEM_JAVA_PERCENT: 20
           JAVA_OPTS: "-Djavax.net.ssl.trustStorePassword=mypassword -Djavax.net.ssl.trustStore=/resources/host-controller.jks"
@@ -98,7 +98,7 @@ services:
         volumes:
             - "./resources:/resources"
     worker:
-        image: registry.opensource.zalan.do/stups/zmon-worker:cd220
+        image: registry.opensource.zalan.do/stups/zmon-worker:v130
         environment:
           WORKER_REDIS_SERVERS: redis:6379
           WORKER_KAIROSDB_HOST: kairosdb
