@@ -55,7 +55,7 @@ services:
         depends_on:
             - "postgresql"
     controller:
-        image: registry.opensource.zalan.do/stups/zmon-controller:v275
+        image: registry.opensource.zalan.do/stups/zmon-controller:v285
         environment:
           MEM_JAVA_PERCENT: 25
           MANAGEMENT_PORT: 7979
