@@ -9,7 +9,7 @@ services:
         volumes:
          - "./postgresql-data:/var/lib/postgresql/data"
         healthcheck:
-            test: ["nc","-z","cassandra","5432"]
+            test: ["nc","-z","postgres","5432"]
             interval: 10s
             retries: 99
             timeout: 10s
@@ -55,7 +55,7 @@ services:
         depends_on:
             - "postgresql"
     controller:
-        image: registry.opensource.zalan.do/stups/zmon-controller:v285
+        image: registry.opensource.zalan.do/stups/zmon-controller:v288
         environment:
           MEM_JAVA_PERCENT: 25
           MANAGEMENT_PORT: 7979
