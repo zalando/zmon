@@ -9,7 +9,7 @@ services:
         volumes:
          - "./postgresql-data:/var/lib/postgresql/data"
         healthcheck:
-            test: ["nc","-z","postgres","5432"]
+            test: "psql -c 'SELECT 1' -U postgres"
             interval: 10s
             retries: 99
             timeout: 10s
@@ -18,7 +18,8 @@ services:
         environment:
           POSTGRESQL_PASSWORD: Uhaf5AekUhaf5Aek
         depends_on:
-         - "postgresql"
+          postgresql:
+              condition: "service_healthy"
     cassandra:
         image: cassandra:3.9
         environment:
