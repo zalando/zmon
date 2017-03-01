@@ -4,7 +4,7 @@ Starting ZMON using Docker Compose
 This will run all the components locally:
 
 ```
-    docker-compose -f zmon-compose.yaml up
+    docker-compose -f zmon-compose.yaml up --build
 ```
 
 Once things are up run once:
@@ -17,6 +17,24 @@ Once things are up run once:
 This will insert some example entities, alerts and checks.
 
 Now open: [ZMON(localhost)](https://localhost:8443)
+
+Recreate containers
+===================
+
+```
+    docker-compose -f zmon-compose.yaml up --build --force-recreate
+```
+
+Logs
+====
+
+To look at individual container logs use:
+
+```
+   docker ps
+
+   docker logs compose_controller_1
+```
 
 Issues
 ======
