@@ -45,13 +45,19 @@ Features
 * Supports desktop and mobile notifications via Firebase Cloud Messaging
 * More on connectivity here: `Check commands <https://docs.zmon.io/en/latest/user/check-commands.html>`_
 
-Local demo using Docker Compose
-===============================
+Local demo and single host deployment
+=====================================
 
-Inside the `compose <https://github.com/zalando/zmon/tree/master/compose>`_ folder you will find a description to run ZMON locally.
+We suggest to use docker compose for deploying zmon locally or on a single host:
 
-Deployment
-==========
+More here: `compose <https://github.com/zalando/zmon/tree/master/compose>`_ 
+
+The docker compose is also the most convient way to setup a development environment.
+
+In cases where docker compose is not an options continue on (or fall back to obsolete vagrant box).
+
+Manual Deployment
+=================
 
 You best head for the documentation now: `Component overview <https://docs.zmon.io/en/latest/installation/components.html>`_
 
