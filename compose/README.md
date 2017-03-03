@@ -18,6 +18,8 @@ This will insert some example entities, alerts and checks.
 
 Now open: [ZMON(localhost)](https://localhost:8443)
 
+Data by default goes into `postgresql-data` and `cassandra-data` mounted as volumes.
+
 Recreate containers
 ===================
 
