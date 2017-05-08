@@ -64,7 +64,7 @@ You best head for the documentation now: `Component overview <https://docs.zmon.
 Requirements
 ------------
 
-ZMON reliese on a few great open source products to run, which you will need to operate.
+ZMON relies on a few great open source products to run, which you will need to operate.
 
 * Redis
 * PostgreSQL
