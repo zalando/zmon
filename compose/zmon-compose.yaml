@@ -36,7 +36,7 @@ services:
         ports:
          - "38086:6379"
     kairosdb:
-        image: registry.opensource.zalan.do/zmon/kairosdb:pr-44-1
+        image: registry.opensource.zalan.do/zmon/kairosdb:v1.1.1-294-g9c4346b
         environment:
             KAIROSDB_JETTY_PORT: 8083
             KAIROSDB_DATASTORE_CASSANDRA_HOST_LIST: cassandra
