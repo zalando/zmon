@@ -6,8 +6,6 @@ services:
             POSTGRES_PASSWORD: Uhaf5AekUhaf5Aek
         ports:
          - "38088:5432"
-        volumes:
-         - "./postgresql-data:/var/lib/postgresql/data"
         healthcheck:
             test: "psql -c 'SELECT 1' -U postgres"
             interval: 10s
@@ -24,8 +22,6 @@ services:
         image: cassandra:3.9
         environment:
             JAVA_OPTS: "-Xmx1G"
-        volumes:
-         - "./cassandra-data:/var/lib/cassandra"
         healthcheck:
             test: "bash -c 'nodetool status | grep UN'"
             interval: 15s
