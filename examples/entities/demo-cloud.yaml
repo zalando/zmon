@@ -32,7 +32,7 @@
   infrastructure_account: dc:1
   application_id: zmon-scheduler
   application_version: 1
-  host: localhost
+  host: scheduler
   proto: http
   ports:
       "8085": 8085
@@ -42,7 +42,7 @@
   infrastructure_account: dc:1
   application_id: zmon-metric-cache
   application_version: 1
-  host: localhost
+  host: metric-cache 
   proto: http
   ports:
       "8086" : 8086
@@ -52,7 +52,7 @@
   infrastructure_account: dc:1
   application_id: zmon-controller
   application_version: 1
-  host: localhost
+  host: controller
   proto: https
   ports:
       "8443": 8443
@@ -63,7 +63,7 @@
   infrastructure_account: dc:1
   application_id: zmon-eventlog-service
   application_version: 1
-  host: localhost
+  host: eventlog
   proto: http
   ports:
       "8081": 8081

@@ -3,7 +3,7 @@ owning_team: ZMON
 description: |-
   Get Spring Boot Actuator metrics from local ZMON Controller.
 command: |-
-  http('https://localhost:7979/metrics', verify=False, timeout=2).actuator_metrics()
+  http('https://controller:7979/metrics', verify=False, timeout=2).actuator_metrics()
 interval: 15
 entities:
 - type: GLOBAL
