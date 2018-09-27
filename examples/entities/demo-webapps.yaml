@@ -1,18 +1,18 @@
 - id: zmon-kairosdb
-  url: http://localhost:8083
+  url: http://kairosdb:8083
   type: demowebapp
 - id: zmon-eventlog-service
-  url: http://localhost:8081
+  url: http://eventlog:8081
   type: demowebapp
-  management_url: http://localhost:8081
+  management_url: http://eventlog:8081
 - id: zmon-scheduler
-  url: http://localhost:8085
+  url: http://scheduler:8085
   type: demowebapp
-  management_url: http://localhost:8085
+  management_url: http://scheduler:8085
 - id: zmon-controller
-  url: https://localhost:8443
+  url: https://controller:8443
   type: demowebapp
-  management_url: https://localhost:7979
+  management_url: https://controller:7979
 - id: zmon-worker
   url: http://localhost:8080
   type: demowebapp
