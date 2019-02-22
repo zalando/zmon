@@ -4,7 +4,7 @@ Starting ZMON using Docker Compose
 This will run all the components locally:
 
 ```
-    docker-compose -f zmon-compose.yaml up --build
+    docker-compose up --build --detach
 ```
 
 Once things are up run once:
@@ -24,7 +24,7 @@ Recreate containers
 ===================
 
 ```
-    docker-compose -f zmon-compose.yaml up --build --force-recreate
+    docker-compose up --build --force-recreate --detach
 ```
 
 Logs
@@ -33,18 +33,20 @@ Logs
 To look at individual container logs use:
 
 ```
-   docker ps
+   docker-compose ps
 
-   docker logs compose_controller_1
+   docker-compose logs controller
 ```
 
 Issues
 ======
 
+Cassandra might not start if there is not enough memory allocated to container. You will see "Killed" in logs or "Exit 137" in container list. To fix this on Docker Desktop for Mac, under Docker menu go to Preferences->Advanced, and increase Memory.
+
 KairosDB may need a restart if it does not come up - health seems to only work the first time.
 
 ```
-  docker restart compose_kairosdb_1
+  docker-compose restart kairosdb
 ```
 
 Requirements
