@@ -1,4 +1,4 @@
-ZMON source code on GitHub is no longer in active development. Zalando will no longer actively review issues or merge pull-requests.
+**ZMON source code on GitHub is no longer in active development. Zalando will no longer actively review issues or merge pull-requests.**
 
 ZMON is still being used at Zalando and serves us well for many purposes. We are now deeper into our observability journey and understand better that we need other telemetry sources and tools to elevate our understanding of the systems we operate. We support the `OpenTelemetry <https://opentelemetry.io/>`_ initiative and recommended others starting their journey to begin there.
 
@@ -14,21 +14,10 @@ ZMON
 
 ZMON is Zalando's open-source platform monitoring tool, used in production since early 2014. It supports our many engineering teams in observing their services and metrics on various layers, from low level system metrics to team's business KPIs.
 
-Demo
-----
-Head over to `demo.zmon.io <https://demo.zmon.io>`_ to take a quick peek into the UI including `Grafana3 <https://demo.zmon.io/grafana/dashboard/db/response-times>`_ (login first).
-
 Introduction
 ------------
 
 To get familiar with the ideas behind ZMON and how things work, you can take a quick dive in: `Intro <http://zmon.readthedocs.org/en/latest/intro.html>`_
-
-Talks / Blog
-------------
-
-Take a look at the slides from our `talk at the DevOps Ireland meetup <https://tech.zalando.com/blog/zmon-zalandos-open-source-monitoring-tool-slides/>`_ for background information on ZMON.
-
-First post about ZMON: `Monitoring the platform <https://tech.zalando.com/blog/monitoring-the-zalando-platform/>`_
 
 Features
 --------
@@ -49,7 +38,7 @@ Features
 * ZMON data service allows you to connect DCs/Regions via HTTP for federated monitoring
 * Supports SQL for PostgreSQL incl. sharded deployments, MySQL, Redis, Scalyr, ...
 * Supports desktop and mobile notifications via Firebase Cloud Messaging
-* More on connectivity here: `Check commands <https://docs.zmon.io/en/latest/user/check-commands.html>`_
+* More on connectivity here: `Check commands <https://zmon.readthedocs.io/en/latest/user/check-commands.html>`_
 
 Local demo and single host deployment
 =====================================
@@ -65,7 +54,7 @@ In cases where docker compose is not an options continue on (or fall back to obs
 Manual Deployment
 =================
 
-You best head for the documentation now: `Component overview <https://docs.zmon.io/en/latest/installation/components.html>`_
+You best head for the documentation now: `Component overview <https://zmon.readthedocs.io/en/latest/installation/configuration.html>`_
 
 Requirements
 ------------
